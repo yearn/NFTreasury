@@ -1,2 +1,146 @@
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
-@import '@yearn/web-lib/dist/style.css';
+@import '@yearn-finance/web-lib/dist/style.css';
+
+input::placeholder {@apply not-italic}
+* {
+	@apply font-mono;
+}
+
+
+/* 🔵 - Yearn Finance ******************************************************
+** Styling the web-lib components in order to fit the theme for this
+** specific project.
+**************************************************************************/
+.component--switchCard-wrapper {
+	@apply flex flex-row justify-between p-2 space-x-2 w-full cursor-pointer md:p-0 md:space-x-6 md:w-max
+}
+.image-align-middle > img {
+	object-position: 0 70%;
+}
+
+:root [data-theme="system-prefs"],
+:root [data-theme="light"],
+:root [data-theme="dark"],
+:root {
+	--color-grey-1: 246 246 246; /* Base on Figma color */
+	--color-background: 246 246 246; /* web-lib compatibility */
+	
+	--color-grey-2: 221 221 221; /* Base on Figma color */
+	--color-background-variant: 221 221 221; /* web-lib compatibility */
+
+	--color-white: 255 255 255; /* Base on Figma color */
+	--color-surface: 255 255 255; /* web-lib compatibility */
+	--color-surface-variant: 255 255 255; /* web-lib compatibility */
+	--color-secondary: 2255 255 255; /* web-lib compatibility */
+	--color-secondary-variant: 2255 255 255; /* web-lib compatibility */
+
+	--color-black: 0 0 0; /* Base on Figma color */
+	--color-primary: 0 0 0; /* web-lib compatibility */
+	--color-typo-primary: 0 0 0; /* web-lib compatibility */
+
+	--color-black-1: 44 44 44; /* Base on Figma color */
+
+	--color-grey-3: 136 136 136; /* Base on Figma color */
+	--color-typo-secondary: 136 136 136; /* web-lib compatibility */
+
+
+	--color-button-filled-primary: 0 0 0;
+	--color-button-filled-variant: 0 0 0;
+	--color-button-filled-text: 255 255 255;
+
+	--color-button-outlined-primary: 255 255 255;
+	--color-button-outlined-variant: 255 255 255;
+	--color-button-outlined-text: 0 0 0;
+
+	--color-icons-primary: 255 255 255;
+	--color-icons-variant: 28 40 77;
+
+	--color-button-disabled-primary: 46 70 140;
+	--color-button-disabled-text: 206 213 227;
+
+	@apply bg-background;
+}
+
+.yearn--button {
+	@apply rounded-none h-10 !font-mono relative -top-2 -left-2 transition-all border-primary;
+
+	&[data-variant="outlined"] {
+		@apply bg-secondary border-2;
+	}
+	&[data-variant="light"] {
+		@apply border-2;
+		&:disabled {@apply bg-button-disabled-primary text-button-disabled-text opacity-40;}
+		&:not(:disabled):not(&[aria-busy="true"]):hover {@apply bg-button-outlined-variant;}
+	}
+	&[data-variant="filled"] {
+		@apply border-2;
+		&:disabled {@apply opacity-40;}
+	}
+}
+
+.yearn--card {
+	@apply border-2 border-primary !shadow-none rounded-none;
+}
+.yearn--card-tab-item {
+	--card-tab-color-active: rgb(var(--color-white));
+	--card-tab-color: rgb(var(--color-disabled) / 0.4);
+	--card-bg-color: rgb(var(--color-background));
+}
+
+.yearn--searchBox-wrapper {
+	--searchBox-text-color: rgb(var(--color-typo-secondary));
+	--searchBox-border-color: rgb(var(--color-background-variant));
+	--searchBox-bg-color: rgb(var(--color-surface));
+	--searchBox-border-width: 1px;
+}
+.yearn--searchBox {
+	@apply focus-within:border-background-variant;
+}
+
+.yearn--banner {
+	--banner-bg-color: rgb(var(--color-secondary));
+	--banner-text-color: rgb(var(--color-typo-primary));
+	--banner-border-color: rgb(var(--color-primary));
+	--banner-border-width: 2px;
+	@apply rounded-none;
+}
+
+.yearn--switch {
+	--switch-bg-color: rgb(var(--color-surface-variant));
+	--switch-border-color: rgb(var(--color-primary));
+	--switch-border-width: 1px;
+	--switch-knob-color: rgb(var(--color-primary));
+}
+
+.yearn--dropdown-menu {
+	--dropdown-text-color: rgb(var(--color-typo-primary));
+	--dropdown-bg-color: rgb(var(--color-button-outlined-primary));
+	--dropdown-bg-color-active: rgb(var(--color-button-outlined-variant));
+	--dropdown-border-width: 0px;
+	--dropdown-border-color: transparent;
+}
+
+.yearn--elementWithActions {
+	--elementWithActions-text-color: rgb(var(--color-typo-primary));
+	--elementWithActions-action-color: rgb(var(--color-primary));
+	--elementWithActions-action-color-hover: rgb(var(--color-primary-variant));
+}
+
+.yearn--input-max {
+	--input-max-text-color: rgb(var(--color-typo-secondary));
+	--input-max-border-color: rgb(var(--color-typo-secondary));
+	--input-max-bg-color-hover: rgb(var(--color-typo-primary)/0.1);
+}
+
+/* 🔵 - Yearn Finance ******************************************************
+** Adding some custom scss classes
+**************************************************************************/
+.nftreasury--withShadow {
+	@apply relative mt-2 w-fit h-fit bg-repeat;
+	& > * {@apply -top-2 -left-2 transition-all relative;}
+	background-image: url('/shadowPattern.svg');
+
+	&[role="button"] {@apply cursor-pointer;}
+	&[role="button"] > *:hover {@apply -top-1 -left-1;}
+	&[role="button"] > *:active {@apply top-0 -left-0;}
+}

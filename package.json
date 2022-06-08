@@ -12,12 +12,11 @@
 		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
 	},
 	"dependencies": {
-		"@linear/sdk": "^1.22.0",
-		"@yearn/web-lib": "^0.6.16",
+		"@yearn-finance/web-lib": "^0.7.2",
 		"autoprefixer": "^10.4.7",
 		"axios": "^0.27.2",
 		"babel-loader": "^8.2.5",
-		"ethcall": "^4.7.0",
+		"ethcall": "^4.7.1",
 		"ethers": "^5.6.8",
 		"next": "^12.1.6",
 		"next-seo": "^5.4.0",
@@ -29,11 +28,11 @@
 		"tailwindcss": "^3.0.24"
 	},
 	"devDependencies": {
-		"@types/node": "^17.0.40",
+		"@types/node": "^17.0.41",
 		"@types/react": "^18.0.12",
 		"@types/react-dom": "^18.0.5",
-		"@typescript-eslint/eslint-plugin": "^5.27.0",
-		"@typescript-eslint/parser": "^5.27.0",
+		"@typescript-eslint/eslint-plugin": "^5.27.1",
+		"@typescript-eslint/parser": "^5.27.1",
 		"dotenv-webpack": "^7.1.0",
 		"eslint": "^8.17.0",
 		"eslint-config-next": "^12.1.6",

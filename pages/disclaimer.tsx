@@ -1,7 +1,7 @@
 import	React, {ReactElement}	from	'react';
 import	Link					from	'next/link';
-import	{Card}					from	'@yearn/web-lib/components';
-import	{Cross}					from	'@yearn/web-lib/icons';
+import	{Card}					from	'@yearn-finance/web-lib/components';
+import	{Cross}					from	'@yearn-finance/web-lib/icons';
 
 function	DisclaimerPage(): ReactElement {
 	return (

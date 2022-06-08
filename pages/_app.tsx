@@ -1,14 +1,10 @@
 import	React, {ReactElement}				from	'react';
 import	Head								from	'next/head';
-import	Link								from	'next/link';
 import	{AppProps}							from	'next/app';
 import	{DefaultSeo}						from	'next-seo';
-import	{Header, Navbar}					from	'@yearn/web-lib/layouts';
-import	{WithYearn, usePrices, useBalances}	from	'@yearn/web-lib/contexts';
-import	{format}							from	'@yearn/web-lib/utils';
-import	{Home, AlertError}					from	'@yearn/web-lib/icons';
-import	Footer								from	'components/StandardFooter';
-import	IconYearn							from	'components/icons/IconYearn';
+import	{WithYearn}							from	'@yearn-finance/web-lib/contexts';
+import	Header								from	'components/Header';
+import	Footer								from	'components/Footer';
 
 import	'../style.css';
 
@@ -68,81 +64,15 @@ function	AppHead(): ReactElement {
 	);
 }
 
-function	AppHeader(): ReactElement {
-	const	[shouldDisplayPrice, set_shouldDisplayPrice] = React.useState(true);
-	const	[tokenPrice, set_tokenPrice] = React.useState('0');
-	const	{prices} = usePrices();
-	const	{balancesOf} = useBalances();
-
-	React.useEffect((): void => {
-		set_tokenPrice(format.amount(Number(prices?.['yearn-finance']?.usd || 0), 2));
-	}, [prices]);
-
-	return (
-		<Header
-			shouldUseWallets={process.env.USE_WALLET as unknown as boolean || false}
-			shouldUseNetworks={process.env.USE_NETWORKS as unknown as boolean || false}>
-			<div className={'justify-between pr-4 w-full flex-row-center'}>
-				<h1>{process.env.WEBSITE_TITLE}</h1>
-				<div className={'hidden flex-row items-center space-x-6 md:flex'}>
-					<div
-						className={'cursor-pointer'}
-						onClick={(): void => set_shouldDisplayPrice(!shouldDisplayPrice)}>
-						{shouldDisplayPrice ? (
-							<p className={'text-typo-primary-variant'}>
-								{`YFI $ ${tokenPrice}`}
-							</p>
-						) : (
-							<p className={'text-typo-primary-variant'}>
-								{`Balance: ${format.toNormalizedAmount(balancesOf?.['0x0bc529c00C6401aEF6D220BE8C6Ea1667F6Ad93e'])} YFI`}
-							</p>
-						)}
-					</div>
-				</div>
-			</div>
-		</Header>
-	);
-}
-
 function	AppWrapper(props: AppProps): ReactElement {
 	const	{Component, pageProps, router} = props;
-
-	const	navbarMenuOptions = [
-		{
-			route: '/',
-			values: ['/'],
-			label: 'Home',
-			icon: <Home  />
-		},
-		{
-			route: '/disclaimer',
-			values: ['/disclaimer'],
-			label: 'Disclaimer',
-			icon: <AlertError />
-		}
-	];
-
-	function	onChangeRoute(selected: string): void {
-		router.push(selected);
-	}
 
 	return (
 		<>
 			<AppHead />
 			<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-6xl md:flex-row'}>
-				<div className={'sticky top-0 z-50 col-span-12 h-auto md:relative md:col-span-2'}>
-					<div className={'flex flex-col justify-between h-full'}>
-						<Navbar
-							selected={router.pathname}
-							set_selected={onChangeRoute}
-							logo={<IconYearn className={'w-full h-12 text-primary'} />}
-							title={'yWeb'}
-							options={navbarMenuOptions}
-							wrapper={<Link passHref href={''} />} />
-					</div>
-				</div>
-				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh] md:col-span-10'}>
-					<AppHeader />
+				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh]'}>
+					<Header />
 					<Component
 						key={router.route}
 						router={props.router}
@@ -161,11 +91,10 @@ function	MyApp(props: AppProps): ReactElement {
 		<WithYearn
 			options={{
 				ui: {
-					shouldUseDefaultToaster: true,
-					shouldUseTheme: true
+					shouldUseDefaultToaster: false,
+					shouldUseTheme: false
 				},
 				web3: {
-					shouldUseStrictChainMode: false,
 					defaultChainID: 1,
 					supportedChainID: [1, 1337]
 				}
