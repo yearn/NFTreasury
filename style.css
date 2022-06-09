@@ -62,7 +62,7 @@ input::placeholder {@apply not-italic}
 }
 
 .yearn--button {
-	@apply rounded-none h-10 !font-mono relative -top-2 -left-2 transition-all border-primary;
+	@apply rounded-none h-10 !font-mono relative -top-2 -left-2 transition-all border-primary flex justify-start;
 
 	&[data-variant="outlined"] {
 		@apply bg-secondary border-2;
@@ -143,4 +143,16 @@ input::placeholder {@apply not-italic}
 	&[role="button"] {@apply cursor-pointer;}
 	&[role="button"] > *:hover {@apply -top-1 -left-1;}
 	&[role="button"] > *:active {@apply top-0 -left-0;}
+}
+
+h1 {
+	@apply text-6xl;
+}
+
+h2 {
+	@apply text-4xl;
+}
+
+h3 {
+	@apply text-xl;
 }
