@@ -9,7 +9,7 @@ function	Header(): ReactElement {
 				<LogoNFTreasury />
 			</div>
 			<div className={'flex flex-row items-center space-x-6'}>
-				<Link href={'/about'}>
+				<Link href={'/'}>
 					<p className={'cursor-pointer text-typo-primary'}>{'about'}</p>
 				</Link>
 				<Link href={'/create-treasury'}>

@@ -1,40 +1,42 @@
 import	React, {ReactElement}	from	'react';
-import	{Card, Button}			from	'@yearn-finance/web-lib/components';
+import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
+import { useRouter } 			from 	'next/router'
+
 
 function	Index(): ReactElement {
+	const router = useRouter()
 	return (
-		<section aria-label={'some default section'}>
-			<div className={'mb-4'}>
-				<WithShadow>
-					<Card>
-						<div>
-							<h4>{'NFTReasury draft'}</h4>
-							<p className={'text-primary'}>{'With this color system, we are trying to mimic some material standard conventions, with the use of `primary`, `secondary`, `variant`, `background`, `surface`, etc. Naming if far from perfect yet, but it\'s a Work In Progress'}</p>
-							<p className={'block mt-4 text-primary'}>{'The colors are set using css variables and can be overrited in your style.css file.'}</p>
-						</div>
-					</Card>
-				</WithShadow>
-			</div>
-			<Card>
-				<div className={'grid grid-cols-4 gap-6 mb-8'}>
+		<section className={'flex h-full items-center'}>
+			<div className={'w-8/12'}>
+				<div>
+					<h1>{'NFTreasury.'}</h1>
+					<h3 className={'mt-6'}>{'A treasury management tool for NFT projects.'}</h3>
+					<h3>{'Powered by Yearn.'}</h3>
+				</div>
+				<div className={'flex justify-start mt-8'}>
 					<div>
-						<WithShadow role={'button'}>
-							<Button className={'w-[116px]'}>
-								{'Hello ser'}
+						<WithShadow role={'button'} >
+							<Button className={'w-[176px]'} onClick={(e) => { e.preventDefault(); router.push('/create-treasury') }}>
+								{'Lets Start'}
 							</Button>
 						</WithShadow>
 					</div>
 
-					<div>
+					<div className={'ml-8'}>
 						<WithShadow role={'button'}>
-							<Button variant={'outlined'} className={'w-[116px]'}>
-								{'Hello ser'}
+							<Button variant={'outlined'} className={'w-[176px]'} onClick={(e) => { e.preventDefault(); router.push('/about2') }}>
+								{'Learn More'}
 							</Button>
 						</WithShadow>
 					</div>
 				</div>
-			</Card>
+			</div>
+			<WithShadow role={'large'}>
+				<div>
+					<img className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></img>
+				</div>
+			</WithShadow>
 		</section>
 	);
 }
