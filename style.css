@@ -143,6 +143,10 @@ input::placeholder {@apply not-italic}
 	&[role="button"] {@apply cursor-pointer;}
 	&[role="button"] > *:hover {@apply -top-1 -left-1;}
 	&[role="button"] > *:active {@apply top-0 -left-0;}
+
+	&[role="large"] {
+		& > * {@apply -top-4 -left-4;}
+	}
 }
 
 h1 {
@@ -150,7 +154,7 @@ h1 {
 }
 
 h2 {
-	@apply text-4xl;
+	@apply text-4xl font-bold;
 }
 
 h3 {
