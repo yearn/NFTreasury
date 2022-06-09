@@ -1,11 +1,10 @@
 import	React, {ReactElement}	from	'react';
 import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
-import {useRouter} 			from 	'next/router';
+import	Link					from	'next/link';
 
 
 function	Index(): ReactElement {
-	const router = useRouter();
 	return (
 		<section className={'flex items-center h-full'}>
 			<div className={''}>
@@ -24,11 +23,11 @@ function	Index(): ReactElement {
 				<div className={'flex justify-start mt-20'}>
 					<div>
 						<WithShadow role={'button'}>
-							<Button className={'w-[176px]'} onClick={(e: React.MouseEvent): void => {
-								e.preventDefault(); router.push('/create-treasury'); 
-							}}>
-								{'Create Treasury'}
-							</Button>
+							<Link href={'/create-treasury'}>
+								<Button className={'w-[176px]'}>
+									{'Create Treasury'}
+								</Button>
+							</Link>
 						</WithShadow>
 					</div>
 				</div>

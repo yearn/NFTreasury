@@ -9,24 +9,25 @@ function	DisclaimerPage(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
 					<div>
-						<div className={'flex flex-row justify-between pb-6 w-full'}>
-							<h2 className={'font-bold'}>{'Connect project'}</h2>
+						<div className={'pb-6 w-full'}>
+							<h2 className={'font-bold'}>{'You have'}</h2>
+							<h2 className={'font-bold'}>{'123.12345678 ETH'}</h2>
 						</div>
 						<div className={'space-y-6 w-10/12 text-justify'}>
 							<p>
-								{'Connect your NFT project wallet that has money you want to invest.'}
+								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
 							</p>
 							<p>
-								{'We know you like clicking buttons.'}
+								{'Next step we’ll swap some ETH to USDC.'}
 							</p>
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
 						<div>
 							<WithShadow role={'button'}>
-								<Link href={'/keep-eth'}>
+								<Link href={'/swap-eth'}>
 									<Button className={'w-[176px]'}>
-										{'Click'}
+										{'Click-click'}
 									</Button>
 								</Link>
 							</WithShadow>

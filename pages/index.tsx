@@ -1,11 +1,11 @@
 import	React, {ReactElement}	from	'react';
 import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
-import {useRouter} 			from 	'next/router';
+import	Link					from	'next/link';
+import	Image					from	'next/image';
 
 
 function	Index(): ReactElement {
-	const router = useRouter();
 	return (
 		<section className={'flex items-center h-full'}>
 			<div className={'w-8/12'}>
@@ -17,28 +17,28 @@ function	Index(): ReactElement {
 				<div className={'flex justify-start mt-8'}>
 					<div>
 						<WithShadow role={'button'} >
-							<Button className={'w-[176px]'} onClick={(e: React.MouseEvent): void => {
-								e.preventDefault(); router.push('/create-treasury'); 
-							}}>
-								{'Lets Start'}
-							</Button>
+							<Link href={'/create-treasury'}>
+								<Button className={'w-[176px]'}>
+									{'Lets Start'}
+								</Button>
+							</Link>
 						</WithShadow>
 					</div>
 
 					<div className={'ml-8'}>
 						<WithShadow role={'button'}>
-							<Button variant={'outlined'} className={'w-[176px]'} onClick={(e: React.MouseEvent): void => {
-								e.preventDefault(); router.push('/about2'); 
-							}}>
-								{'Learn More'}
-							</Button>
+							<Link href={'/learn-more'}>
+								<Button variant={'outlined'} className={'w-[176px]'}>
+									{'Learn More'}
+								</Button>
+							</Link>
 						</WithShadow>
 					</div>
 				</div>
 			</div>
 			<WithShadow role={'large'}>
 				<div>
-					<img className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></img>
+					<Image className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></Image>
 				</div>
 			</WithShadow>
 		</section>
