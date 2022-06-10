@@ -38,7 +38,7 @@ function	Index(): ReactElement {
 			</div>
 			<WithShadow role={'large'}>
 				<div>
-					<Image className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></Image>
+					<img className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></img>
 				</div>
 			</WithShadow>
 		</section>
