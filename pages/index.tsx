@@ -3,9 +3,7 @@ import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
 
-
 function	Index(): ReactElement {
-	const router = useRouter()
 	return (
 		<section className={'flex items-center h-full'}>
 			<div className={'w-8/12'}>
