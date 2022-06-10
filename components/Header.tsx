@@ -14,8 +14,13 @@ function	Header(): ReactElement {
 				<Link href={'/'}>
 					<p className={'cursor-pointer text-neutral-700'}>{'about'}</p>
 				</Link>
+<<<<<<< HEAD
 				<Link href={'/create-treasury'}>
 					<p className={'cursor-pointer text-neutral-500'}>{'create treasury'}</p>
+=======
+				<Link href={'/connect-wallet'}>
+					<p className={'cursor-pointer text-typo-secondary'}>{'create treasury'}</p>
+>>>>>>> c24d089 (fix: rename create-treasury to connect-wallet)
 				</Link>
 			</div>
 			<div>
