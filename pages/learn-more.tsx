@@ -6,18 +6,22 @@ import	Link					from	'next/link';
 function	Index(): ReactElement {
 	return (
 		<section className={'flex items-center h-full'}>
-			<div className={'w-8/12'}>
+			<div>
 				<div>
-					<h1>{'NFTreasury.'}</h1>
-					<h3 className={'mt-6'}>{'A treasury management tool for NFT projects.'}</h3>
-					<h3>{'Powered by Yearn.'}</h3>
+					<h2>{'We don’t have a discord'}</h2>
+					<h2>{'with 10,000 KRAZY koalas in.'}</h2>
+					<h2 className={'mt-8 text-right'}>{'Just The world’s best defi developers.'}</h2>
+					<h2 className={'text-right'}>{'Wanna TEAM UP?'}</h2>
 				</div>
-				<div className={'flex justify-start mt-8'}>
+				<p className={'mt-8 w-7/12'}>
+					{'NFTreasury is a simple yet powerful treasury management tool, powered by Yearn. We’ll give you a mix of stables and Eth for your short term project needs, and put your long term assets in a vault to earn yield until you need them. Ready to roll?'}
+				</p>
+				<div className={'flex justify-start mt-10'}>
 					<div>
-						<WithShadow role={'button'} >
+						<WithShadow role={'button'}>
 							<Link href={'/create-treasury'}>
 								<Button className={'w-[176px]'}>
-									{'Lets Start'}
+									{'Create Treasury'}
 								</Button>
 							</Link>
 						</WithShadow>
@@ -25,7 +29,7 @@ function	Index(): ReactElement {
 
 					<div className={'ml-8'}>
 						<WithShadow role={'button'}>
-							<Link href={'/learn-more'}>
+							<Link href={'/how-it-works'}>
 								<Button variant={'outlined'} className={'w-[176px]'}>
 									{'Learn More'}
 								</Button>
@@ -34,11 +38,6 @@ function	Index(): ReactElement {
 					</div>
 				</div>
 			</div>
-			<WithShadow role={'large'}>
-				<div>
-					<img className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></img>
-				</div>
-			</WithShadow>
 		</section>
 	);
 }
