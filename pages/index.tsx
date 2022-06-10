@@ -3,6 +3,7 @@ import	{motion}				from	'framer-motion';
 import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
+import	Image					from	'next/image';
 
 function	Index(): ReactElement {
 	return (
@@ -40,7 +41,12 @@ function	Index(): ReactElement {
 				animate={{scale: 1, opacity: 1, transition: {duration: 0.4, type: 'spring', bounce: 0.5, damping: 6, restSpeed: 0.5}}}
 				exit={{scale: 0, opacity: 0, transition: {duration: 0.3, ease: [0.17, 0.67, 0.83, 0.67]}}}>
 				<WithShadow role={'large'}>
-					<img className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></img>
+					<Image
+						width={480}
+						height={480}
+						className={'w-[480px] h-[480px]'}
+						src={'/placeholder.gif'}
+					/>
 				</WithShadow>
 			</motion.div>
 		</section>
