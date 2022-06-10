@@ -2,6 +2,7 @@ import	React, {ReactElement}	from	'react';
 import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
+import	Image					from	'next/image';
 
 function	Index(): ReactElement {
 	return (
@@ -36,7 +37,11 @@ function	Index(): ReactElement {
 			</div>
 			<WithShadow role={'large'}>
 				<div>
-					<img className={'w-[480px] h-[480px]'} src={'./placeholder.gif'}></img>
+					<Image
+						width={480}
+						height={480}
+						className={'w-[480px] h-[480px]'}
+						src={'/placeholder.gif'} />
 				</div>
 			</WithShadow>
 		</section>
