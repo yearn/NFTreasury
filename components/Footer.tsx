@@ -5,7 +5,7 @@ function	Footer(): ReactElement {
 	return (
 		<footer className={'hidden flex-row items-center py-8 mx-auto mt-auto w-full max-w-6xl md:flex'}>
 			<Link href={'/what-are-yearn-vaults'}>
-				<p className={'text-base hover:underline transition-colors cursor-pointer text-typo-secondary hover:text-primary'}>{'Disclaimer'}</p>
+				<p className={'text-base hover:underline transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'}>{'Disclaimer'}</p>
 			</Link>
 
 			<div className={'px-2 ml-auto'}>

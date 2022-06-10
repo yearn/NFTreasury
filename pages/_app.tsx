@@ -30,10 +30,6 @@ function	AppHead(): ReactElement {
 				<meta name={'robots'} content={'index,nofollow'} />
 				<meta name={'googlebot'} content={'index,nofollow'} />
 				<meta charSet={'utf-8'} />
-
-				<script src={'/feedback.source.js'} defer />
-				<script src={'/feedback.js'} defer />
-				<script src={'/prism.js'} />
 			</Head>
 			<DefaultSeo
 				title={process.env.WEBSITE_NAME}
