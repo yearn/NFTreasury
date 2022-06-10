@@ -15,11 +15,11 @@ module.exports = ({
 		** Stuff used for the SEO or some related elements, like the title, the
 		** github url etc.
 		**********************************************************************/
-		WEBSITE_URI: 'https://web.ycorpo.com/',
-		WEBSITE_NAME: 'yWeb',
-		WEBSITE_TITLE: 'yWeb',
-		WEBSITE_DESCRIPTION: 'Template used for Yearn\'s projects',
-		PROJECT_GITHUB_URL: 'https://github.com/yearn/yearn-template',
+		WEBSITE_URI: 'https://nft.ycorpo.com/',
+		WEBSITE_NAME: 'NFTreasury',
+		WEBSITE_TITLE: 'NFTreasury',
+		WEBSITE_DESCRIPTION: 'A treasury management tool for NFT projects. Powered by Yearn.',
+		PROJECT_GITHUB_URL: 'https://github.com/Majorfi/NFTreasury/tree/main',
 
 		/* 🔵 - Yearn Finance **************************************************
 		** Some config used to control the behaviour of the web library. By
