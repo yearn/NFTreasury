@@ -5,9 +5,9 @@ import	WithShadow				from	'components/WithShadow';
 
 function	DisclaimerPage(): ReactElement {
 	return (
-		<div className={'flex items-center w-6/12 h-full'}>
+		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
+				<Card className={'flex flex-col justify-between w-[600px] h-[500px]'}>
 					<div>
 						<div className={'flex flex-row justify-between pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Connect project'}</h2>
