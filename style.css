@@ -64,16 +64,34 @@ input::placeholder {@apply not-italic}
 ** Adding some custom scss classes
 **************************************************************************/
 .nftreasury--withShadow {
-	@apply relative mt-2 w-fit h-fit bg-repeat ;
+	@apply relative mt-2 w-fit h-fit bg-repeat -mr-2;
 	& > * {@apply -top-2 -left-2 transition-all relative;}
 	background-image: url('/shadowPattern.svg');
 
-	&[role="button"] {@apply cursor-pointer -top-2 -left-2 ml-4;}
+	&[role="button"] {@apply cursor-pointer -left-2 ml-4;}
 	&[role="button"] > *:hover {@apply -top-1 -left-1;}
 	&[role="button"] > *:active {@apply top-0 -left-0;}
-
 	&[role="large"] {
-		& > * {@apply -top-4 -left-4;}
+		& > * {
+			@apply -top-4 -left-4 align-middle; 
+		}
+	}
+}
+.nftreasury--withShadow-wrapper {
+	@apply pt-[1px] -mt-2 cursor-pointer;
+
+	& .nftreasury--withShadow[role="button"] {
+		@apply cursor-pointer -left-2 ml-4;
+	}
+	&:hover {
+		& > .nftreasury--withShadow[role="button"] > * {
+			@apply -top-1 -left-1;
+		}
+	}
+	&:active {
+		& > .nftreasury--withShadow[role="button"] > * {
+			@apply top-0 left-0;
+		}
 	}
 }
 

@@ -23,24 +23,24 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-between'}>
-						<div>
-							<WithShadow role={'button'}>
-								<Link href={'/what-are-yearn-vaults'}>
+						<Link href={'/what-are-yearn-vaults'}>
+							<div>
+								<WithShadow role={'button'}>
 									<Button className={'w-[176px]'}>
 										{'Previous'}
 									</Button>
-								</Link>
-							</WithShadow>
-						</div>
-						<div>
-							<WithShadow role={'button'}>
-								<Link href={'/what-is-mev'}>
+								</WithShadow>
+							</div>
+						</Link>
+						<Link href={'/what-is-mev'}>
+							<div>
+								<WithShadow role={'button'}>
 									<Button className={'w-[176px]'}>
 										{'Next'}
 									</Button>
-								</Link>
-							</WithShadow>
-						</div>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 				</Card>
 			</WithShadow>
