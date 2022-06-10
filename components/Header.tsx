@@ -5,9 +5,11 @@ import	LogoNFTreasury				from	'components/icons/LogoNFTreasury';
 function	Header(): ReactElement {
 	return (
 		<header className={'flex flex-row justify-between items-center py-10'}>
-			<div>
-				<LogoNFTreasury />
-			</div>
+			<Link href={'/'}>
+				<div className={'cursor-pointer'}>
+					<LogoNFTreasury />
+				</div>
+			</Link>
 			<div className={'flex flex-row items-center space-x-6'}>
 				<Link href={'/'}>
 					<p className={'cursor-pointer text-neutral-700'}>{'about'}</p>
