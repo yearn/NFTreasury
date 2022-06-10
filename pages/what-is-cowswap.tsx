@@ -13,7 +13,7 @@ function	DisclaimerPage(): ReactElement {
 						<div className={'flex flex-row justify-between pb-6 w-full'}>
 							<h3 className={'font-bold'}>{'Why Cowswap?'}</h3>
 							<Link href={'/'}>
-								<Cross className={'w-6 h-6 transition-colors cursor-pointer text-typo-primary hover:text-typo-primary-variant'} />
+								<Cross className={'w-6 h-6 transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'} />
 							</Link>
 						</div>
 						<div className={'mb-24 space-y-6 text-justify'}>

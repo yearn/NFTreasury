@@ -10,10 +10,10 @@ function	Header(): ReactElement {
 			</div>
 			<div className={'flex flex-row items-center space-x-6'}>
 				<Link href={'/'}>
-					<p className={'cursor-pointer text-typo-primary'}>{'about'}</p>
+					<p className={'cursor-pointer text-neutral-700'}>{'about'}</p>
 				</Link>
 				<Link href={'/create-treasury'}>
-					<p className={'cursor-pointer text-typo-secondary'}>{'create treasury'}</p>
+					<p className={'cursor-pointer text-neutral-500'}>{'create treasury'}</p>
 				</Link>
 			</div>
 			<div>
