@@ -62,7 +62,7 @@ input::placeholder {@apply not-italic}
 }
 
 .yearn--button {
-	@apply rounded-none h-10 !font-mono relative -top-2 -left-2 transition-all border-primary flex justify-start;
+	@apply rounded-none h-10 !font-mono relative transition-all border-primary flex justify-start;
 
 	&[data-variant="outlined"] {
 		@apply bg-secondary border-2;
@@ -136,11 +136,11 @@ input::placeholder {@apply not-italic}
 ** Adding some custom scss classes
 **************************************************************************/
 .nftreasury--withShadow {
-	@apply relative mt-2 w-fit h-fit bg-repeat;
+	@apply relative mt-2 w-fit h-fit bg-repeat ;
 	& > * {@apply -top-2 -left-2 transition-all relative;}
 	background-image: url('/shadowPattern.svg');
 
-	&[role="button"] {@apply cursor-pointer;}
+	&[role="button"] {@apply cursor-pointer -top-2 -left-2 ml-4;}
 	&[role="button"] > *:hover {@apply -top-1 -left-1;}
 	&[role="button"] > *:active {@apply top-0 -left-0;}
 
