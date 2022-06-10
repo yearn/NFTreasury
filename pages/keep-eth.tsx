@@ -20,16 +20,16 @@ function	DisclaimerPage(): ReactElement {
 							<div className={'flex items-center'}>
 								<input className={'h-9'}>
 								</input>
-								<Button variant={'outlined'} className={'w-14 p-1'}>
+								<Button variant={'outlined'} className={'p-1 w-14'}>
 									{'20 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1'}>
+								<Button variant={'outlined'} className={'p-1 w-14'}>
 									{'40 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1'}>
+								<Button variant={'outlined'} className={'p-1 w-14'}>
 									{'60 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1'}>
+								<Button variant={'outlined'} className={'p-1 w-14'}>
 									{'80 %'}
 								</Button>
 							</div>
