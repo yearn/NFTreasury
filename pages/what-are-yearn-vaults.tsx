@@ -26,15 +26,15 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-end'}>
-						<div>
-							<WithShadow role={'button'}>
-								<Link href={'/what-is-cowswap'}>
+						<Link href={'/what-is-cowswap'}>
+							<div>
+								<WithShadow role={'button'}>
 									<Button className={'w-[176px]'}>
 										{'Next'}
 									</Button>
-								</Link>
-							</WithShadow>
-						</div>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 				</Card>
 			</WithShadow>

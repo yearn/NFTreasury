@@ -16,23 +16,27 @@ function	Index(): ReactElement {
 				</div>
 				<div className={'flex justify-start mt-8'}>
 					<div>
-						<WithShadow role={'button'} >
-							<Link href={'/create-treasury'}>
-								<Button className={'w-[176px]'}>
-									{'Lets Start'}
-								</Button>
-							</Link>
-						</WithShadow>
+						<Link href={'/create-treasury'}>
+							<div>
+								<WithShadow role={'button'} >
+									<Button className={'w-[176px]'}>
+										{'Lets Start'}
+									</Button>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 
 					<div className={'ml-8'}>
-						<WithShadow role={'button'}>
-							<Link href={'/learn-more'}>
-								<Button variant={'outlined'} className={'w-[176px]'}>
-									{'Learn More'}
-								</Button>
-							</Link>
-						</WithShadow>
+						<Link href={'/learn-more'}>
+							<div>
+								<WithShadow role={'button'}>
+									<Button variant={'outlined'} className={'w-[176px]'}>
+										{'Learn More'}
+									</Button>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 				</div>
 			</div>
@@ -44,7 +48,7 @@ function	Index(): ReactElement {
 					<Image
 						width={480}
 						height={480}
-						className={'w-[480px] h-[480px]'}
+						className={'w-[480px] h-[480px] align-middle'}
 						src={'/placeholder.gif'}
 					/>
 				</WithShadow>
