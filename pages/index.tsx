@@ -2,7 +2,6 @@ import	React, {ReactElement}	from	'react';
 import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
-import	Image					from	'next/image';
 
 
 function	Index(): ReactElement {

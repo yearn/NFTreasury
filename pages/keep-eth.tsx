@@ -8,15 +8,31 @@ function	DisclaimerPage(): ReactElement {
 		<div className={'flex items-center w-6/12 h-full'}>
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
-					<div>
+					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You have'}</h2>
 							<h2 className={'font-bold'}>{'123.12345678 ETH'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
-							<p>
+						<div className={'space-y-6 w-full text-justify'}>
+							<p  className={'w-10/12'}>
 								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
 							</p>
+							<div className={'flex items-center'}>
+								<input className={'h-9'}>
+								</input>
+								<Button variant={'outlined'} className={'w-14 p-1'}>
+									{'20 %'}
+								</Button>
+								<Button variant={'outlined'} className={'w-14 p-1'}>
+									{'40 %'}
+								</Button>
+								<Button variant={'outlined'} className={'w-14 p-1'}>
+									{'60 %'}
+								</Button>
+								<Button variant={'outlined'} className={'w-14 p-1'}>
+									{'80 %'}
+								</Button>
+							</div>
 							<p>
 								{'Next step we’ll swap some ETH to USDC.'}
 							</p>
