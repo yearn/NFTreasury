@@ -36,7 +36,7 @@ function	Index(): ReactElement {
 				</div>
 			</div>
 			<motion.div
-				initial={{scale: 0, opacity: 0, transition: {duration: 0.4, type: 'spring', bounce: 0.5, damping: 6, restSpeed: 0.5}}}
+				initial={{scale: 0, opacity: 0}}
 				animate={{scale: 1, opacity: 1, transition: {duration: 0.4, type: 'spring', bounce: 0.5, damping: 6, restSpeed: 0.5}}}
 				exit={{scale: 0, opacity: 0, transition: {duration: 0.3, ease: [0.17, 0.67, 0.83, 0.67]}}}>
 				<WithShadow role={'large'}>
