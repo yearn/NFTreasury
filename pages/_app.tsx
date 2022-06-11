@@ -26,8 +26,8 @@ function	WithLayout(props: AppProps): ReactElement {
 	}
 
 	return (
-		<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-6xl md:flex-row'}>
-			<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh]'}>
+		<div id={'app'} className={'flex mx-auto mb-0 max-w-6xl'}>
+			<div className={'flex flex-col w-full min-h-[100vh]'}>
 				<Header />
 				<AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
 					<motion.div
