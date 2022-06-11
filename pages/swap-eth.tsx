@@ -48,7 +48,10 @@ function	DisclaimerPage(): ReactElement {
 							<span className={'font-bold'}>{'4,9382716 ETH'}</span>
 						</p>
 						<p className={'flex justify-between'}>
-							<span>{'Est. gas cost for all steps (wrap, approve, sign)'}</span>
+							<span>
+								<p>{'Est. gas cost for all steps'}</p>
+								<p>{'(wrap, approve, sign)'}</p>
+							</span>
 							<span className={'font-bold'}>{'00,0323445 ETH'}</span>
 						</p>
 					</div>
