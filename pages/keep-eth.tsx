@@ -18,18 +18,18 @@ function	DisclaimerPage(): ReactElement {
 								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
 							</p>
 							<div className={'flex items-center'}>
-								<input className={'h-9'}>
+								<input className={' w-6/12 h-10 border-2 border-primary'}>
 								</input>
-								<Button variant={'outlined'} className={'p-1 w-14'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
 									{'20 %'}
 								</Button>
-								<Button variant={'outlined'} className={'p-1 w-14'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
 									{'40 %'}
 								</Button>
-								<Button variant={'outlined'} className={'p-1 w-14'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
 									{'60 %'}
 								</Button>
-								<Button variant={'outlined'} className={'p-1 w-14'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
 									{'80 %'}
 								</Button>
 							</div>

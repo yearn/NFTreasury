@@ -1,6 +1,13 @@
 import	React, {ReactElement}		from	'react';
 import	Link						from	'next/link';
 
+const disclaimerPathnames: string[] = [
+	'/what-are-the-risks',
+	'/what-are-yearn-vaults',
+	'/what-is-cowswap',
+	'/what-is-mev',
+]
+
 function	Footer(): ReactElement {
 	return (
 		<footer className={'hidden flex-row items-center py-8 mx-auto mt-auto w-full max-w-6xl md:flex'}>

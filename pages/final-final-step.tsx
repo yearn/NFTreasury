@@ -10,9 +10,12 @@ function	DisclaimerPage(): ReactElement {
 				<Card className={'flex flex-col justify-between w-[600px] h-[500px]'}>
 					<div>
 						<div className={'pb-6 w-full'}>
-							<h2 className={'font-bold'}>{'Final step'}</h2>
+							<h2 className={'font-bold'}>{'Final final step'}</h2>
 						</div>
 						<div className={'space-y-6 w-10/12 text-justify'}>
+							<p>
+								{'Final final step!!'}
+							</p>
 							<p>
 								{'For real this time. Let’s just swap your ETH (WETH) to USDC and then you’re done.'}
 							</p>
@@ -22,15 +25,15 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						<Link href={'/final-final-step'}>
-							<div>
-								<WithShadow role={'button'}>
+						<div>
+							<WithShadow role={'button'}>
+								<Link href={'/woohoo'}>
 									<Button className={'w-[176px]'}>
-										{'Slam'}
+										{'Crush'}
 									</Button>
-								</WithShadow>
-							</div>
-						</Link>
+								</Link>
+							</WithShadow>
+						</div>
 					</div>
 				</Card>
 			</WithShadow>

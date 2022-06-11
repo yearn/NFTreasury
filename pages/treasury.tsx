@@ -10,27 +10,29 @@ function	DisclaimerPage(): ReactElement {
 				<Card className={'flex flex-col justify-between w-[600px] h-[500px]'}>
 					<div>
 						<div className={'pb-6 w-full'}>
-							<h2 className={'font-bold'}>{'Final step'}</h2>
+							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
 						</div>
 						<div className={'space-y-6 w-10/12 text-justify'}>
 							<p>
-								{'For real this time. Let’s just swap your ETH (WETH) to USDC and then you’re done.'}
-							</p>
-							<p>
-								{'Promise'}
+								{'Holdings, ETH'}
 							</p>
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						<Link href={'/final-final-step'}>
-							<div>
-								<WithShadow role={'button'}>
-									<Button className={'w-[176px]'}>
-										{'Slam'}
-									</Button>
-								</WithShadow>
-							</div>
-						</Link>
+						<WithShadow role={'button'}>
+							<Link href={'/keep-eth'}>
+								<Button className={'w-[176px]'}>
+									{'Deposit'}
+								</Button>
+							</Link>
+						</WithShadow>
+						<WithShadow role={'button'}>
+							<Link href={'/withdraw'}>
+								<Button className={'w-[176px]'}>
+									{'Withdraw'}
+								</Button>
+							</Link>
+						</WithShadow>
 					</div>
 				</Card>
 			</WithShadow>
