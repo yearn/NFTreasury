@@ -30,32 +30,17 @@ function	Header(): ReactElement {
 	const isPortfolioPage = portfolioPathnames.includes(router.pathname)
 	return (
 		<header className={'flex flex-row justify-between items-center py-10'}>
-			<Link href={'/'}>
-				<div className={'cursor-pointer'}>
-					<LogoNFTreasury />
-				</div>
-			</Link>
+			<div>
+				<LogoNFTreasury />
+			</div>
 			<div className={'flex flex-row items-center space-x-6'}>
 				<Link href={'/'}>
-<<<<<<< HEAD
-					<p className={'cursor-pointer text-neutral-700'}>{'about'}</p>
-=======
-					<p className={`cursor-pointer ${isAboutPage ? 'text-typo-primary' : 'text-typo-secondary' }`}>{'about'}</p>
->>>>>>> ae4221e (add new pages)
+					<p className={`cursor-pointer ${isAboutPage ? 'text-typo-primary dot-below' : 'text-typo-secondary' }`}>{'about'}</p>
 				</Link>
-<<<<<<< HEAD
-				<Link href={'/create-treasury'}>
-					<p className={'cursor-pointer text-neutral-500'}>{'create treasury'}</p>
-=======
 				<Link href={'/connect-wallet'}>
-<<<<<<< HEAD
-					<p className={'cursor-pointer text-typo-secondary'}>{'create treasury'}</p>
->>>>>>> c24d089 (fix: rename create-treasury to connect-wallet)
-=======
-					<p className={`cursor-pointer  ${isCreateTreasuryPage || isPortfolioPage ? 'text-typo-primary' : 'text-typo-secondary' }`}>
+					<p className={`cursor-pointer  ${isCreateTreasuryPage || isPortfolioPage ? 'text-typo-primary dot-below' : 'text-typo-secondary' }`}>
 						{isPortfolioPage ? 'portfolio' : 'create treasury'}
 					</p>
->>>>>>> ae4221e (add new pages)
 				</Link>
 			</div>
 			<div>

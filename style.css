@@ -106,3 +106,18 @@ h2 {
 h3 {
 	@apply text-xl;
 }
+
+.dot-below {
+	position: relative;
+}
+.dot-below::before {
+	transform: translateX(-50%);
+	border-radius: 100%;
+	position: absolute;
+	background: black;
+	bottom: -4px;
+	height: 3px;
+	content: '';
+	width: 3px;
+	left: 50%;
+  }
