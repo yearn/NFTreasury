@@ -19,20 +19,24 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						<WithShadow role={'button'}>
-							<Link href={'/keep-eth'}>
-								<Button className={'w-[176px]'}>
-									{'Deposit'}
-								</Button>
-							</Link>
-						</WithShadow>
-						<WithShadow role={'button'}>
-							<Link href={'/withdraw'}>
-								<Button className={'w-[176px]'}>
-									{'Withdraw'}
-								</Button>
-							</Link>
-						</WithShadow>
+						<Link href={'/keep-eth'}>
+							<div>
+								<WithShadow role={'button'}>
+										<Button className={'w-[176px]'}>
+											{'Deposit'}
+										</Button>
+								</WithShadow>
+							</div>
+						</Link>
+						<Link href={'/withdraw'}>
+							<div>
+								<WithShadow role={'button'}>
+										<Button className={'w-[176px]'}>
+											{'Withdraw'}
+										</Button>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 				</Card>
 			</WithShadow>
@@ -50,13 +54,15 @@ function	DisclaimerPage(): ReactElement {
 							</div>
 						</div>
 						<div className={'flex justify-start'}>
-							<WithShadow role={'button'}>
-								<Link href={'/keep-eth'}>
-									<Button className={'w-[176px]'}>
-										{'Swap'}
-									</Button>
-								</Link>
-							</WithShadow>
+							<Link href={'/keep-eth'}>
+								<div>
+									<WithShadow role={'button'}>
+											<Button className={'w-[176px]'}>
+												{'Swap'}
+											</Button>
+									</WithShadow>
+								</div>
+							</Link>
 						</div>
 					</Card>
 				</WithShadow>

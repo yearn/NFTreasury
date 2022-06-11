@@ -38,7 +38,7 @@ function	DisclaimerPage(): ReactElement {
 							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start w-full'}>
+					<div className={'flex justify-start w-full space-x-6'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>
