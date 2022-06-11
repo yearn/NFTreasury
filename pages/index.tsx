@@ -43,7 +43,7 @@ function	Index(): ReactElement {
 				</div>
 				<div className={'flex justify-center mt-8 space-x-4 md:justify-start md:space-x-8'}>
 					<div className={'w-full md:w-fit'}>
-						<Link href={'/create-treasury'}>
+						<Link href={'/connect-wallet'}>
 							<div>
 								<WithShadow role={'button'}>
 									<Button className={'w-full'}>
