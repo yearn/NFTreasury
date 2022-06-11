@@ -16,7 +16,7 @@ function	Index(): ReactElement {
 				</div>
 				<div className={'flex justify-start mt-8'}>
 					<div>
-						<Link href={'/create-treasury'}>
+						<Link href={'/connect-wallet'}>
 							<div>
 								<WithShadow role={'button'} >
 									<Button className={'w-[176px]'}>

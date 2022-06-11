@@ -3,27 +3,30 @@ import	Link					from	'next/link';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
-function	Page(): ReactElement {
+function	DisclaimerPage(): ReactElement {
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
 					<div>
-						<div className={'pb-6 w-full'}>
-							<h2 className={'font-bold'}>{'Wrap ETH'}</h2>
+						<div className={'flex flex-row justify-between pb-6 w-full'}>
+							<h2 className={'font-bold'}>{'Connect project'}</h2>
 						</div>
 						<div className={'space-y-6 w-10/12 text-justify'}>
 							<p>
-								{'You have to sign one more transaction. That’s just how it works. Don’t ask...'}
+								{'Connect your NFT project wallet that has money you want to invest.'}
+							</p>
+							<p>
+								{'We know you like clicking buttons.'}
 							</p>
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						<Link href={'/execute-swap'}>
+						<Link href={'/keep-eth'}>
 							<div>
 								<WithShadow role={'button'}>
 									<Button className={'w-[176px]'}>
-										{'Hit'}
+										{'Click'}
 									</Button>
 								</WithShadow>
 							</div>
@@ -35,4 +38,4 @@ function	Page(): ReactElement {
 	);
 }
 
-export default Page;
+export default DisclaimerPage;

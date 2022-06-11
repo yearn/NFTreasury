@@ -106,3 +106,37 @@ h2 {
 h3 {
 	@apply text-xl;
 }
+
+.link-no-dot {
+	@apply relative cursor-pointer transition-colors text-neutral-400 hover:text-primary-100/60;
+	&.active {
+		@apply text-primary-100 hover:text-primary-100;
+	}
+}
+.link-with-dot {
+	@apply relative cursor-pointer transition-colors text-neutral-400 hover:text-primary-100/60;
+	
+	&:hover::before {
+		@apply -bottom-1 bg-primary-100/60;
+	}
+
+	&.active {
+		@apply text-primary-100 hover:text-primary-100;
+		&::before {
+			@apply -bottom-1 bg-primary-100;
+		}
+	}
+
+	&::before {
+		height: 3px;
+		width: 3px;
+		transform: translateX(-50%);
+		content: '';
+		@apply transition-all absolute bg-primary-100/0 -bottom-2 rounded-full left-1/2;
+	}
+}
+
+.grey-box {
+	border: solid 2px #DDDDDD;
+	background-color: #F6F6F6;
+}
