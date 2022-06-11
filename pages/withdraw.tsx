@@ -10,12 +10,12 @@ function	DisclaimerPage(): ReactElement {
 				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
-							<h2 className={'font-bold'}>{'You are keeping'}</h2>
-							<h2 className={'font-bold'}>{'24.6913578 ETH'}</h2>
+							<h2 className={'font-bold'}>{'You have 24.6913578 ETH'}</h2>
+							<h2 className={'font-bold'}>{'in vault'}</h2>
 						</div>
 						<div className={'space-y-6 w-full text-justify'}>
 							<p  className={'w-10/12'}>
-								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
+								{'How much ETH do you want to withdraw?'}
 							</p>
 							<div className={'flex items-center'}>
 								<input className={' w-6/12 h-10 border-2 border-primary'}>
@@ -33,35 +33,26 @@ function	DisclaimerPage(): ReactElement {
 									{'80 %'}
 								</Button>
 							</div>
+							<p>
+								{'How much of it do you wanna swap to USDC?'}
+							</p>
 						</div>
 					</div>
-					<p>
-						{'How much of it do you wanna swap to USDC?'}
-					</p>
-					<div className={'grey-box p-4'}>
-						<p className={'flex justify-between mb-4'}>
-							<span>{'You’ll get'}</span>
-							<span className={'font-bold'}>{'2.534,53 USDC'}</span>
-						</p>
-						<p className={'flex justify-between mb-4'}>
-							<span>{'You’ll keep'}</span>
-							<span className={'font-bold'}>{'4,9382716 ETH'}</span>
-						</p>
-						<p className={'flex justify-between'}>
-							<span>{'Est. gas cost for all steps (wrap, approve, sign)'}</span>
-							<span className={'font-bold'}>{'00,0323445 ETH'}</span>
-						</p>
-					</div>
-					<div className={'flex justify-start'}>
-						<Link href={'/wrap-eth'}>
-							<div>
-								<WithShadow role={'button'}>
-									<Button className={'w-[176px]'}>
-										{'Tap'}
-									</Button>
-								</WithShadow>
-							</div>
-						</Link>
+					<div className={'flex justify-start w-full'}>
+						<WithShadow role={'button'}>
+							<Link href={'/treasury'}>
+								<Button className={'w-[176px]'}>
+									{'Click-click'}
+								</Button>
+							</Link>
+						</WithShadow>
+						<WithShadow role={'button'}>
+							<Link href={'/treasury'}>
+								<Button variant={'outlined'} className={'w-[176px]'}>
+									{'Back'}
+								</Button>
+							</Link>
+						</WithShadow>
 					</div>
 				</Card>
 			</WithShadow>

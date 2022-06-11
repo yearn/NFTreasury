@@ -7,7 +7,7 @@ function	DisclaimerPage(): ReactElement {
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[600px] h-[500px]'}>
+				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You have'}</h2>
@@ -20,23 +20,37 @@ function	DisclaimerPage(): ReactElement {
 							<div className={'flex items-center'}>
 								<input className={' w-6/12 h-10 border-2 border-primary'}>
 								</input>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
 									{'20 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
 									{'40 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
 									{'60 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold'}>
+								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
 									{'80 %'}
 								</Button>
 							</div>
-							<p>
-								{'Next step we’ll swap some ETH to USDC.'}
-							</p>
 						</div>
+					</div>
+					<p>
+						{'Next step we’ll swap some ETH to USDC.'}
+					</p>
+					<div className={'grey-box p-4'}>
+						<p className={'flex justify-between mb-4'}>
+							<span>{'Deposit into Vault'}</span>
+							<span className={'font-bold'}>{'98,4320982 ETH'}</span>
+						</p>
+						<p className={'flex justify-between mb-4'}>
+							<span>{'APR'}</span>
+							<span className={'font-bold'}>{'69,69 %'}</span>
+						</p>
+						<p className={'flex justify-between'}>
+							<span>{'Est. gas cost for deposit'}</span>
+							<span className={'font-bold'}>{'00,03 ETH'}</span>
+						</p>
 					</div>
 					<div className={'flex justify-start'}>
 						<Link href={'/swap-eth'}>

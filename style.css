@@ -121,3 +121,8 @@ h3 {
 	width: 3px;
 	left: 50%;
   }
+
+  .grey-box {
+	  border: solid 2px #DDDDDD;
+	  background-color: #F6F6F6;
+  }
