@@ -30,9 +30,11 @@ function	Header(): ReactElement {
 	const isPortfolioPage = portfolioPathnames.includes(router.pathname);
 	return (
 		<header className={'flex flex-row justify-between items-center py-10'}>
-			<div>
-				<LogoNFTreasury />
-			</div>
+			<Link href={'/'}>
+				<div className={'cursor-pointer'}>
+					<LogoNFTreasury />
+				</div>
+			</Link>
 			<div className={'flex flex-row items-center space-x-6'}>
 				<Link href={'/'}>
 					<p className={`cursor-pointer ${isAboutPage ? 'text-primary-100 dot-below' : 'text-neutral-400' }`}>{'about'}</p>
