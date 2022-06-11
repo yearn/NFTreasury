@@ -22,18 +22,18 @@ function	DisclaimerPage(): ReactElement {
 						<Link href={'/keep-eth'}>
 							<div>
 								<WithShadow role={'button'}>
-										<Button className={'w-[176px]'}>
-											{'Deposit'}
-										</Button>
+									<Button className={'w-[176px]'}>
+										{'Deposit'}
+									</Button>
 								</WithShadow>
 							</div>
 						</Link>
 						<Link href={'/withdraw'}>
 							<div>
 								<WithShadow role={'button'}>
-										<Button className={'w-[176px]'}>
-											{'Withdraw'}
-										</Button>
+									<Button className={'w-[176px]'}>
+										{'Withdraw'}
+									</Button>
 								</WithShadow>
 							</div>
 						</Link>
@@ -57,9 +57,9 @@ function	DisclaimerPage(): ReactElement {
 							<Link href={'/keep-eth'}>
 								<div>
 									<WithShadow role={'button'}>
-											<Button className={'w-[176px]'}>
-												{'Swap'}
-											</Button>
+										<Button className={'w-[176px]'}>
+											{'Swap'}
+										</Button>
 									</WithShadow>
 								</div>
 							</Link>

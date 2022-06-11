@@ -22,9 +22,9 @@ function	DisclaimerPage(): ReactElement {
 						<Link href={'/treasury'}>
 							<div>
 								<WithShadow role={'button'}>
-										<Button className={'w-[176px]'}>
-											{'Check It'}
-										</Button>
+									<Button className={'w-[176px]'}>
+										{'Check It'}
+									</Button>
 								</WithShadow>
 							</div>
 						</Link>

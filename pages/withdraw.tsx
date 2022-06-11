@@ -20,16 +20,16 @@ function	DisclaimerPage(): ReactElement {
 							<div className={'flex items-center'}>
 								<input className={' w-6/12 h-10 border-2 border-primary'}>
 								</input>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'20 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'40 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'60 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'80 %'}
 								</Button>
 							</div>
@@ -38,7 +38,7 @@ function	DisclaimerPage(): ReactElement {
 							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start w-full space-x-6'}>
+					<div className={'flex justify-start space-x-6 w-full'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>

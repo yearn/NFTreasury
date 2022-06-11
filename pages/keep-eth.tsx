@@ -20,16 +20,16 @@ function	DisclaimerPage(): ReactElement {
 							<div className={'flex items-center'}>
 								<input className={' w-6/12 h-10 border-2 border-primary'}>
 								</input>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'20 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'40 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'60 %'}
 								</Button>
-								<Button variant={'outlined'} className={'w-14 p-1 font-bold !border-l-0'}>
+								<Button variant={'outlined'} className={'p-1 w-14 font-bold !border-l-0'}>
 									{'80 %'}
 								</Button>
 							</div>
@@ -38,7 +38,7 @@ function	DisclaimerPage(): ReactElement {
 					<p>
 						{'Next step we’ll swap some ETH to USDC.'}
 					</p>
-					<div className={'grey-box p-4'}>
+					<div className={'p-4 grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>{'98,4320982 ETH'}</span>

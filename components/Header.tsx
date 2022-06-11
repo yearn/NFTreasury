@@ -6,8 +6,8 @@ import	LogoNFTreasury				from	'components/icons/LogoNFTreasury';
 const aboutPathnames: string[] = [
 	'/',
 	'/learn-more',
-	'/how-it-works',
-]
+	'/how-it-works'
+];
 
 const createTreasuryPathnames: string[] = [
 	'/connect-wallet',
@@ -16,18 +16,18 @@ const createTreasuryPathnames: string[] = [
 	'/wrap-eth',
 	'/execute-swap',
 	'/final-final-step',
-	'/woohoo',
-]
+	'/woohoo'
+];
 
 const portfolioPathnames: string[] = [
-	'/treasury',
-]
+	'/treasury'
+];
 
 function	Header(): ReactElement {
 	const router = useRouter();
-	const isAboutPage = aboutPathnames.includes(router.pathname)
-	const isCreateTreasuryPage = createTreasuryPathnames.includes(router.pathname)
-	const isPortfolioPage = portfolioPathnames.includes(router.pathname)
+	const isAboutPage = aboutPathnames.includes(router.pathname);
+	const isCreateTreasuryPage = createTreasuryPathnames.includes(router.pathname);
+	const isPortfolioPage = portfolioPathnames.includes(router.pathname);
 	return (
 		<header className={'flex flex-row justify-between items-center py-10'}>
 			<div>

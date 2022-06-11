@@ -28,9 +28,9 @@ function	DisclaimerPage(): ReactElement {
 						<Link href={'/woohoo'}>
 							<div>
 								<WithShadow role={'button'}>
-										<Button className={'w-[176px]'}>
-											{'Crush'}
-										</Button>
+									<Button className={'w-[176px]'}>
+										{'Crush'}
+									</Button>
 								</WithShadow>
 							</div>
 						</Link>

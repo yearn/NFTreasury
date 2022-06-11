@@ -6,12 +6,12 @@ const disclaimerPathnames: string[] = [
 	'/what-are-the-risks',
 	'/what-are-yearn-vaults',
 	'/what-is-cowswap',
-	'/what-is-mev',
-]
+	'/what-is-mev'
+];
 
 function	Footer(): ReactElement {
 	const router = useRouter();
-	const isDisclaimerPage = disclaimerPathnames.includes(router.pathname)
+	const isDisclaimerPage = disclaimerPathnames.includes(router.pathname);
 	return (
 		<footer className={'hidden flex-row items-center py-8 mx-auto mt-auto w-full max-w-6xl md:flex'}>
 			<Link href={'/what-are-yearn-vaults'}>
