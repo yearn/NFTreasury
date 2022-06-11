@@ -15,7 +15,7 @@ function	Footer(): ReactElement {
 	return (
 		<footer className={'hidden flex-row items-center py-8 mx-auto mt-auto w-full max-w-6xl md:flex'}>
 			<Link href={'/what-are-yearn-vaults'}>
-				<p className={`cursor-pointer ${isDisclaimerPage ? 'text-typo-primary dot-below' : 'text-typo-secondary' }`}>{'Disclaimer'}</p>
+				<p className={`cursor-pointer ${isDisclaimerPage ? 'text-primary-100 dot-below' : 'text-neutral-400' }`}>{'Disclaimer'}</p>
 			</Link>
 
 			<div className={'px-2 ml-auto'}>

@@ -35,10 +35,10 @@ function	Header(): ReactElement {
 			</div>
 			<div className={'flex flex-row items-center space-x-6'}>
 				<Link href={'/'}>
-					<p className={`cursor-pointer ${isAboutPage ? 'text-typo-primary dot-below' : 'text-typo-secondary' }`}>{'about'}</p>
+					<p className={`cursor-pointer ${isAboutPage ? 'text-primary-100 dot-below' : 'text-neutral-400' }`}>{'about'}</p>
 				</Link>
 				<Link href={'/connect-wallet'}>
-					<p className={`cursor-pointer  ${isCreateTreasuryPage || isPortfolioPage ? 'text-typo-primary dot-below' : 'text-typo-secondary' }`}>
+					<p className={`cursor-pointer  ${isCreateTreasuryPage || isPortfolioPage ? 'text-primary-100 dot-below' : 'text-neutral-400' }`}>
 						{isPortfolioPage ? 'portfolio' : 'create treasury'}
 					</p>
 				</Link>
