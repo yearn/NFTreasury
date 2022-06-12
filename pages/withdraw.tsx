@@ -18,7 +18,7 @@ function	DisclaimerPage(): ReactElement {
 								{'How much ETH do you want to withdraw?'}
 							</p>
 							<div className={'flex items-center'}>
-								<input className={'w-6/12 h-10 border-2 border-primary p-2'}>
+								<input className={'p-2 w-6/12 h-10 border-2 border-primary'}>
 								</input>
 								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
 									{'20 %'}
