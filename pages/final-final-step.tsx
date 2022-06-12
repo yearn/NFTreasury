@@ -39,7 +39,7 @@ function	DisclaimerPage(): ReactElement {
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[600px] h-[600px]'}>
-				<Image width={518} height={535} layout={'fixed'} src={'/final-step.png'} />
+				<Image width={518} height={535} quality={90} src={'/final-svg.png'} />
 			</div>
 		</div>
 	);

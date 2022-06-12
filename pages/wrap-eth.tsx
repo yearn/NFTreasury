@@ -33,7 +33,7 @@ function	Page(): ReactElement {
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={279} height={322} layout={'fixed'} src={'/wrap-eth.png'} />
+				<Image width={279} height={322} quality={90} src={'/wrap-eth.svg'} />
 			</div>
 		</div>
 	);

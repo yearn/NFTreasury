@@ -70,7 +70,7 @@ function	SwapEthPage(): ReactElement {
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={367} height={271} layout={'fixed'} src={'/swap-eth.png'} />
+				<Image width={367} height={271} quality={90} src={'/swap-eth.svg'} />
 			</div>
 		</div>
 	);

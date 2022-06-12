@@ -36,7 +36,7 @@ function	DisclaimerPage(): ReactElement {
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={254} height={315} layout={'fixed'} src={'/connect-wallet.png'} />
+				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} />
 			</div>
 		</div>
 	);

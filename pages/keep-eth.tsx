@@ -67,7 +67,7 @@ function	DisclaimerPage(): ReactElement {
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={322} height={258} layout={'fixed'} src={'/keep-eth.png'} />
+				<Image width={322} height={258} quality={90} src={'/keep-eth.svg'} />
 			</div>
 		</div>
 	);
