@@ -1,5 +1,6 @@
 import	React, {ReactElement}	from	'react';
 import	Link					from	'next/link';
+import	Image					from	'next/image';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
@@ -18,7 +19,7 @@ function	SwapEthPage(): ReactElement {
 								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
 							</p>
 							<div className={'flex items-center'}>
-								<input className={' w-6/12 h-10 border-2 border-primary'}>
+								<input className={' w-6/12 h-10 border-2 border-primary p-2'}>
 								</input>
 								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
 									{'20 %'}
@@ -68,6 +69,9 @@ function	SwapEthPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
+			<div className={'flex items-start justify-center min-w-[500px] h-[600px]'}>
+				<Image width={367} height={271} layout="fixed" src="/swap-eth.png" />
+			</div>
 		</div>
 	);
 }

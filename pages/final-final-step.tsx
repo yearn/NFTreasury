@@ -1,5 +1,6 @@
 import	React, {ReactElement}	from	'react';
 import	Link					from	'next/link';
+import	Image					from	'next/image';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
@@ -37,6 +38,9 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
+			<div className={'flex items-start justify-center min-w-[600px] h-[600px]'}>
+				<Image width={518} height={535} layout="fixed" src="/final-step.png" />
+			</div>
 		</div>
 	);
 }

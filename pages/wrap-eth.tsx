@@ -1,5 +1,6 @@
 import	React, {ReactElement}	from	'react';
 import	Link					from	'next/link';
+import	Image					from	'next/image';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
@@ -31,6 +32,9 @@ function	Page(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
+			<div className={'flex items-start justify-center min-w-[500px] h-[600px]'}>
+				<Image width={279} height={322} layout="fixed" src="/wrap-eth.png" />
+			</div>
 		</div>
 	);
 }

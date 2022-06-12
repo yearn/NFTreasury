@@ -3,9 +3,9 @@ import	Link					from	'next/link';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
-function	WithdrawPage(): ReactElement {
+function	DisclaimerPage(): ReactElement {
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
 					<div className={'w-full'}>
@@ -18,7 +18,7 @@ function	WithdrawPage(): ReactElement {
 								{'How much ETH do you want to withdraw?'}
 							</p>
 							<div className={'flex items-center'}>
-								<input className={' w-6/12 h-10 border-2 border-primary'}>
+								<input className={'w-6/12 h-10 border-2 border-primary p-2'}>
 								</input>
 								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
 									{'20 %'}
@@ -33,12 +33,9 @@ function	WithdrawPage(): ReactElement {
 									{'80 %'}
 								</button>
 							</div>
-							<p>
-								{'How much of it do you wanna swap to USDC?'}
-							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start space-x-6 w-full'}>
+					<div className={'flex justify-start w-full'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>
@@ -46,6 +43,9 @@ function	WithdrawPage(): ReactElement {
 								</Button>
 							</Link>
 						</WithShadow>
+						<div>
+							
+						</div>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button variant={'outlined'} className={'w-[176px]'}>
@@ -60,4 +60,4 @@ function	WithdrawPage(): ReactElement {
 	);
 }
 
-export default WithdrawPage;
+export default DisclaimerPage;
