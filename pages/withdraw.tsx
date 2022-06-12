@@ -3,9 +3,9 @@ import	Link					from	'next/link';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
-function	DisclaimerPage(): ReactElement {
+function	WithdrawPage(): ReactElement {
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
 					<div className={'w-full'}>
@@ -35,7 +35,7 @@ function	DisclaimerPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'flex justify-start w-full'}>
+					<div className={'flex justify-start space-x-6 w-full'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>
@@ -60,4 +60,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default WithdrawPage;
