@@ -70,7 +70,7 @@ function	Header(): ReactElement {
 				</div>
 				<div className={'flex'} onClick={(): void => {
 					if (isActive)
-						router.push('/treasury')
+						router.push('/treasury');
 					else
 						openLoginModal();
 				}}>
@@ -78,8 +78,8 @@ function	Header(): ReactElement {
 						{isActive ? walletIdentity :  'connect project'}
 					</p>
 					{isActive && <Cross
-						className={'transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700 ml-2'}
-						onClick={(e: React.MouseEvent):void => {
+						className={'ml-2 transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'}
+						onClick={(e: React.MouseEvent): void => {
 							e.stopPropagation();
 							onDesactivate();
 						}}
