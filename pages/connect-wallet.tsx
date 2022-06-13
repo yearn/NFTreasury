@@ -1,12 +1,21 @@
 import	React, {ReactElement, useState}	from	'react';
-import	Link					from	'next/link';
-import	Image					from	'next/image';
-import	{Card, Button}			from	'@yearn-finance/web-lib/components';
-import	WithShadow				from	'components/WithShadow';
+import	Image							from	'next/image';
+import	Router, {useRouter}							from	'next/router';
+import	{Card, Button}					from	'@yearn-finance/web-lib/components';
+import	WithShadow						from	'components/WithShadow';
+import	{useWeb3}						from	'@yearn-finance/web-lib/contexts';
 
 
 function	DisclaimerPage(): ReactElement {
 	const [isShowingArrow, setIsShowingArrow] = useState(false);
+	const {openLoginModal, isActive} = useWeb3();
+	const router = useRouter();
+
+	React.useEffect((): void => {
+		if (isActive)
+			router.push('/keep-eth')
+	}, [isActive]);
+
 	return (
 		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
@@ -25,17 +34,16 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						{/* <Link href={'/keep-eth'}> */}
-							<div onClick={(e: React.MouseEvent): void => {
-								setIsShowingArrow(true)
-							}}>
-								<WithShadow role={'button'}>
-									<Button className={'w-[176px]'}>
-										{'Click'}
-									</Button>
-								</WithShadow>
-							</div>
-						{/* </Link> */}
+						<div onClick={(e: React.MouseEvent): void => {
+							setIsShowingArrow(true)
+							openLoginModal()
+						}}>
+							<WithShadow role={'button'}>
+								<Button className={'w-[176px]'}>
+									{'Click'}
+								</Button>
+							</WithShadow>
+						</div>
 					</div>
 				</Card>
 			</WithShadow>
