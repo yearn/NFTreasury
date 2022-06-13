@@ -1,10 +1,12 @@
-import	React, {ReactElement}	from	'react';
+import	React, {ReactElement, useState}	from	'react';
 import	Link					from	'next/link';
 import	Image					from	'next/image';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
+
 function	DisclaimerPage(): ReactElement {
+	const [isShowingArrow, setIsShowingArrow] = useState(false);
 	return (
 		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
@@ -23,20 +25,22 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						<Link href={'/keep-eth'}>
-							<div>
+						{/* <Link href={'/keep-eth'}> */}
+							<div onClick={(e: React.MouseEvent): void => {
+								setIsShowingArrow(true)
+							}}>
 								<WithShadow role={'button'}>
 									<Button className={'w-[176px]'}>
 										{'Click'}
 									</Button>
 								</WithShadow>
 							</div>
-						</Link>
+						{/* </Link> */}
 					</div>
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} />
+				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>
 	);
