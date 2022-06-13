@@ -34,17 +34,17 @@ function	Header(): ReactElement {
 	const isPortfolioPage = portfolioPathnames.includes(router.pathname);
 
 	const	{isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
-	const	[walletIdentity, set_walletIdentity] = React.useState('Connect wallet');
+	const	[walletIdentity, set_walletIdentity] = React.useState('connect project');
 
 	React.useEffect((): void => {
 		if (!isActive) {
-			set_walletIdentity('Connect wallet');
+			set_walletIdentity('connect project');
 		} else if (ens) {
 			set_walletIdentity(ens);
 		} else if (address) {
 			set_walletIdentity(truncateHex(address, 4));
 		} else {
-			set_walletIdentity('Connect wallet');
+			set_walletIdentity('connect project');
 		}
 	}, [ens, address, isActive]);
 
@@ -75,7 +75,7 @@ function	Header(): ReactElement {
 						openLoginModal();
 				}}>
 					<p className={`link-no-dot ${isActive ? 'active' : '' }`}>
-						{isActive ? walletIdentity :  'connect project'}
+						{walletIdentity}
 					</p>
 					{isActive && <Cross
 						className={'ml-2 transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'}
