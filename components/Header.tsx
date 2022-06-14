@@ -5,7 +5,6 @@ import	LogoNFTreasury				from	'components/icons/LogoNFTreasury';
 import 	LogoNFTreasurySmall 		from 	'./icons/LogoNFTreasurySmall';
 import	{useWeb3}					from	'@yearn-finance/web-lib/contexts';
 import	{truncateHex}				from	'@yearn-finance/web-lib/utils';
-import	{Cross}						from	'@yearn-finance/web-lib/icons';
 
 const aboutPathnames: string[] = [
 	'/',
@@ -62,28 +61,22 @@ function	Header(): ReactElement {
 							{'about'}
 						</p>
 					</Link>
-					<Link href={'/connect-wallet'}>
+					<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
 						<p className={`link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
 							{(isActive && isPortfolioPage) ? 'portfolio' : 'create treasury'}
 						</p>
 					</Link>
 				</div>
 				<div className={'flex'} onClick={(): void => {
-					if (isActive)
-						router.push('/treasury');
-					else
+					if (isActive) {
+						onDesactivate();
+					} else {
 						openLoginModal();
+					}
 				}}>
 					<p className={`link-no-dot ${isActive ? 'active' : '' }`}>
 						{walletIdentity}
 					</p>
-					{isActive && <Cross
-						className={'ml-2 transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'}
-						onClick={(e: React.MouseEvent): void => {
-							e.stopPropagation();
-							onDesactivate();
-						}}
-					/>}
 				</div>
 			</header>
 			<header className={'flex flex-row justify-between items-center py-4 mb-4 border-b-2 md:hidden border-primary-500'}>
