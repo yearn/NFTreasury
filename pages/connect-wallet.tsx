@@ -1,11 +1,21 @@
 import	React, {ReactElement, useState}	from	'react';
-import	Image					from	'next/image';
-import	{Card, Button}			from	'@yearn-finance/web-lib/components';
-import	WithShadow				from	'components/WithShadow';
+import	Image							from	'next/image';
+import	{useRouter}						from	'next/router';
+import	{Card, Button}					from	'@yearn-finance/web-lib/components';
+import	WithShadow						from	'components/WithShadow';
+import	{useWeb3}						from	'@yearn-finance/web-lib/contexts';
 
 
 function	DisclaimerPage(): ReactElement {
 	const [isShowingArrow, set_isShowingArrow] = useState(false);
+	const {openLoginModal, isActive} = useWeb3();
+	const router = useRouter();
+
+	React.useEffect((): void => {
+		if (isActive)
+			router.push('/keep-eth');
+	}, [isActive, router]);
+
 	return (
 		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
@@ -24,9 +34,9 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						{/* <Link href={'/keep-eth'}> */}
 						<div onClick={(): void => {
 							set_isShowingArrow(true);
+							openLoginModal();
 						}}>
 							<WithShadow role={'button'}>
 								<Button className={'w-[176px]'}>
@@ -34,12 +44,11 @@ function	DisclaimerPage(): ReactElement {
 								</Button>
 							</WithShadow>
 						</div>
-						{/* </Link> */}
 					</div>
 				</Card>
 			</WithShadow>
 			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow? 'opacity-100' : 'opacity-0'}`} />
+				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>
 	);
