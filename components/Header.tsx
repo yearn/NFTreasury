@@ -2,7 +2,9 @@ import	React, {ReactElement}		from	'react';
 import	Link						from	'next/link';
 import	{useRouter}					from	'next/router';
 import	LogoNFTreasury				from	'components/icons/LogoNFTreasury';
-import LogoNFTreasurySmall from './icons/LogoNFTreasurySmall';
+import 	LogoNFTreasurySmall 		from 	'./icons/LogoNFTreasurySmall';
+import	{useWeb3}					from	'@yearn-finance/web-lib/contexts';
+import	{truncateHex}				from	'@yearn-finance/web-lib/utils';
 
 const aboutPathnames: string[] = [
 	'/',
@@ -29,7 +31,21 @@ function	Header(): ReactElement {
 	const isAboutPage = aboutPathnames.includes(router.pathname);
 	const isCreateTreasuryPage = createTreasuryPathnames.includes(router.pathname);
 	const isPortfolioPage = portfolioPathnames.includes(router.pathname);
-	const isActive = false;
+
+	const	{isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
+	const	[walletIdentity, set_walletIdentity] = React.useState('connect project');
+
+	React.useEffect((): void => {
+		if (!isActive) {
+			set_walletIdentity('connect project');
+		} else if (ens) {
+			set_walletIdentity(ens);
+		} else if (address) {
+			set_walletIdentity(truncateHex(address, 4));
+		} else {
+			set_walletIdentity('connect project');
+		}
+	}, [ens, address, isActive]);
 
 	return (
 		<>
@@ -45,15 +61,21 @@ function	Header(): ReactElement {
 							{'about'}
 						</p>
 					</Link>
-					<Link href={isPortfolioPage ? '/treasury' : '/connect-wallet'}>
+					<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
 						<p className={`link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
-							{'create treasury'}
+							{(isActive && isPortfolioPage) ? 'portfolio' : 'create treasury'}
 						</p>
 					</Link>
 				</div>
-				<div>
+				<div className={'flex'} onClick={(): void => {
+					if (isActive) {
+						onDesactivate();
+					} else {
+						openLoginModal();
+					}
+				}}>
 					<p className={`link-no-dot ${isActive ? 'active' : '' }`}>
-						{'connect project'}
+						{walletIdentity}
 					</p>
 				</div>
 			</header>

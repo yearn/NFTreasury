@@ -1,9 +1,11 @@
-import	React, {ReactElement}	from	'react';
-import	Link					from	'next/link';
-import	{Card, Button}			from	'@yearn-finance/web-lib/components';
-import	WithShadow				from	'components/WithShadow';
+import	React, {ReactElement, useState}	from	'react';
+import	Link							from	'next/link';
+import	Image							from	'next/image';
+import	{Card, Button}					from	'@yearn-finance/web-lib/components';
+import	WithShadow						from	'components/WithShadow';
 
 function	DisclaimerPage(): ReactElement {
+	const [isShowingArrow] = useState(false);
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
@@ -37,6 +39,9 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
+			<div className={'flex justify-center items-start min-w-[600px] h-[600px]'}>
+				<Image width={518} height={535} quality={90} src={'/final-svg.png'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
+			</div>
 		</div>
 	);
 }
