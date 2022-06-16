@@ -3,9 +3,21 @@ import	Link							from	'next/link';
 import	Image							from	'next/image';
 import	{Card, Button}					from	'@yearn-finance/web-lib/components';
 import	WithShadow						from	'components/WithShadow';
+import	{useLocalStorage}				from	'@yearn-finance/web-lib/hooks';
 
 function	SwapEthPage(): ReactElement {
 	const [isShowingArrow] = useState(false);
+	const [inputValue, set_inputValue] = useState('0');
+	const [keptEth, set_keptEth] = useLocalStorage("keptEth", "0");
+	const [ethToSwap, set_ethToSwap] = useLocalStorage("ethToSwap", "0");
+
+	const set_balancePercentage = (percentage: number): void => {
+		const value = String((Number(keptEth) / 100) * percentage)
+		set_inputValue(value);
+		set_ethToSwap(value);
+	};
+	
+
 	return (
 		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
@@ -13,33 +25,36 @@ function	SwapEthPage(): ReactElement {
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You are keeping'}</h2>
-							<h2 className={'font-bold'}>{'24.6913578 ETH'}</h2>
+							<h2 className={'font-bold'}>{`${keptEth} ETH`}</h2>
 						</div>
 						<div className={'space-y-6 w-full text-justify'}>
 							<p  className={'w-10/12'}>
-								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
+								{'How much of it do you wanna swap to USDC?'}
 							</p>
 							<div className={'flex items-center'}>
-								<input className={'p-2 w-6/12 h-10 border-2 border-primary'}>
-								</input>
-								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
+								<input
+									className={'p-2 w-6/12 h-10 border-2 border-primary'}
+									value={inputValue}
+									onChange={(e): void => {
+										set_inputValue(e.target.value);
+										set_ethToSwap(e.target.value);
+									}}
+								></input>
+								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'} onClick={(): void => set_balancePercentage(20)}>
 									{'20 %'}
 								</button>
-								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
+								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'} onClick={(): void => set_balancePercentage(40)}>
 									{'40 %'}
 								</button>
-								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
+								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'} onClick={(): void => set_balancePercentage(60)}>
 									{'60 %'}
 								</button>
-								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'}>
+								<button className={'block px-1 w-14 h-10 font-bold whitespace-nowrap border-2 !border-l-0'} onClick={(): void => set_balancePercentage(80)}>
 									{'80 %'}
 								</button>
 							</div>
 						</div>
 					</div>
-					<p>
-						{'How much of it do you wanna swap to USDC?'}
-					</p>
 					<div className={'p-4 grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'You’ll get'}</span>
@@ -47,7 +62,7 @@ function	SwapEthPage(): ReactElement {
 						</p>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'You’ll keep'}</span>
-							<span className={'font-bold'}>{'4,9382716 ETH'}</span>
+							<span className={'font-bold'}>{`${Number(keptEth) - Number(ethToSwap)} ETH`}</span>
 						</p>
 						<p className={'flex justify-between'}>
 							<span>

@@ -16,7 +16,7 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 						<div className={'space-y-6 w-10/12 text-justify'}>
 							<p>
-								{'For real this time. Let’s just swap your ETH (WETH) to USDC and then you’re done.'}
+								{'For real this time. Let’s just swap your ETH to USDC and then you’re done.'}
 							</p>
 							<p>
 								{'Promise'}
