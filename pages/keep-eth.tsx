@@ -12,7 +12,7 @@ function	DisclaimerPage(): ReactElement {
 	const {provider, address, isActive} = useWeb3();
 	const [balance, set_balance] = useState('0');
 	const [inputValue, set_inputValue] = useState('0');
-	const [keptEth, set_keptEth] = useLocalStorage("keptEth", "0");
+	const [keptEth, set_keptEth] = useLocalStorage('keptEth', '0');
 
 	React.useEffect((): void => {
 		isActive && provider.getBalance(address).then((balance: number): void => {
@@ -22,7 +22,7 @@ function	DisclaimerPage(): ReactElement {
 	}, [isActive, address, provider]);
 
 	const set_balancePercentage = (percentage: number): void => {
-		const value = String((Number(balance) / 100) * percentage)
+		const value = String((Number(balance) / 100) * percentage);
 		set_inputValue(value);
 		set_keptEth(value);
 	};
