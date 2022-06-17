@@ -8,11 +8,11 @@ import	{useLocalStorage}				from	'@yearn-finance/web-lib/hooks';
 function	SwapEthPage(): ReactElement {
 	const [isShowingArrow] = useState(false);
 	const [inputValue, set_inputValue] = useState('0');
-	const [keptEth, set_keptEth] = useLocalStorage("keptEth", "0");
-	const [ethToSwap, set_ethToSwap] = useLocalStorage("ethToSwap", "0");
+	const [keptEth] = useLocalStorage('keptEth', '0');
+	const [ethToSwap, set_ethToSwap] = useLocalStorage('ethToSwap', '0');
 
 	const set_balancePercentage = (percentage: number): void => {
-		const value = String((Number(keptEth) / 100) * percentage)
+		const value = String((Number(keptEth) / 100) * percentage);
 		set_inputValue(value);
 		set_ethToSwap(value);
 	};
