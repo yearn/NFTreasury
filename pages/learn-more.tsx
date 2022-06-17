@@ -18,23 +18,27 @@ function	Index(): ReactElement {
 				</p>
 				<div className={'flex justify-start mt-10'}>
 					<div>
-						<WithShadow role={'button'}>
-							<Link href={'/create-treasury'}>
-								<Button className={'w-[176px]'}>
-									{'Create Treasury'}
-								</Button>
-							</Link>
-						</WithShadow>
+						<Link href={'/connect-wallet'}>
+							<div>
+								<WithShadow role={'button'}>
+									<Button className={'w-[176px]'}>
+										{'Create Treasury'}
+									</Button>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 
 					<div className={'ml-8'}>
-						<WithShadow role={'button'}>
-							<Link href={'/how-it-works'}>
-								<Button variant={'outlined'} className={'w-[176px]'}>
-									{'Learn More'}
-								</Button>
-							</Link>
-						</WithShadow>
+						<Link href={'/how-it-works'}>
+							<div>
+								<WithShadow role={'button'}>
+									<Button variant={'outlined'} className={'w-[176px]'}>
+										{'Learn More'}
+									</Button>
+								</WithShadow>
+							</div>
+						</Link>
 					</div>
 				</div>
 			</div>

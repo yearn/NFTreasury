@@ -2,11 +2,54 @@ import	React, {ReactElement}				from	'react';
 import	Head								from	'next/head';
 import	{AppProps}							from	'next/app';
 import	{DefaultSeo}						from	'next-seo';
+import	{AnimatePresence, motion}			from	'framer-motion';
 import	{WithYearn}							from	'@yearn-finance/web-lib/contexts';
+import	{WalletContextApp}					from	'contexts/useWallet';
+import	{FlowContextApp}					from	'contexts/useFlow';
 import	Header								from	'components/Header';
 import	Footer								from	'components/Footer';
 
 import	'../style.css';
+
+const transition = {duration: 0.3, ease: [0.17, 0.67, 0.83, 0.67]};
+const variants = {
+	initial: {y: 20, opacity: 0},
+	enter: {y: 0, opacity: 1, transition},
+	exit: {y: -20, opacity: 0, transition}
+};
+
+function	WithLayout(props: AppProps): ReactElement {
+	const	{Component, pageProps, router} = props;
+
+	function handleExitComplete(): void {
+		if (typeof window !== 'undefined') {
+			window.scrollTo({top: 0});
+		}
+	}
+
+	return (
+		<div id={'app'} className={'flex mx-auto mb-0 max-w-6xl'}>
+			<div className={'flex flex-col w-full min-h-[100vh]'}>
+				<Header />
+				<AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
+					<motion.div
+						key={router.asPath}
+						initial={'initial'}
+						animate={'enter'}
+						exit={'exit'}
+						className={'h-full'}
+						variants={variants}>
+						<Component
+							router={props.router}
+							{...pageProps} />
+					</motion.div>
+				</AnimatePresence>
+				<Footer />
+			</div>
+		</div>
+	);
+}
+
 
 function	AppHead(): ReactElement {
 	return (
@@ -61,21 +104,10 @@ function	AppHead(): ReactElement {
 }
 
 function	AppWrapper(props: AppProps): ReactElement {
-	const	{Component, pageProps, router} = props;
-
 	return (
 		<>
 			<AppHead />
-			<div id={'app'} className={'grid flex-col grid-cols-12 gap-x-4 mx-auto mb-0 max-w-6xl md:flex-row'}>
-				<div className={'flex flex-col col-span-12 px-4 w-full min-h-[100vh]'}>
-					<Header />
-					<Component
-						key={router.route}
-						router={props.router}
-						{...pageProps} />
-					<Footer />
-				</div>
-			</div>
+			<WithLayout {...props} />
 		</>
 	);
 }
@@ -95,10 +127,14 @@ function	MyApp(props: AppProps): ReactElement {
 					supportedChainID: [1, 1337]
 				}
 			}}>
-			<AppWrapper
-				Component={Component}
-				pageProps={pageProps}
-				router={props.router} />
+			<WalletContextApp>
+				<FlowContextApp>
+					<AppWrapper
+						Component={Component}
+						pageProps={pageProps}
+						router={props.router} />
+				</FlowContextApp>
+			</WalletContextApp>
 		</WithYearn>
 	);
 }
