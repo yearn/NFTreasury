@@ -19,10 +19,7 @@ function	DisclaimerPage(): ReactElement {
 								{'Final final step!!'}
 							</p>
 							<p>
-								{'For real this time. Let’s just swap your ETH (WETH) to USDC and then you’re done.'}
-							</p>
-							<p>
-								{'Promise'}
+								{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let cowswap do the swap. '}
 							</p>
 						</div>
 					</div>
