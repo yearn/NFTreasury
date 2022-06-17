@@ -15,7 +15,6 @@ function	Page(): ReactElement {
 
 	const address = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
 
-	const weth = new ethers.Contract(address, abi, provider.getSigner());
 
 	return (
 		<div className={'flex items-center h-full'}>
@@ -33,6 +32,7 @@ function	Page(): ReactElement {
 					</div>
 					<div className={'flex justify-start'}>
 						<div onClick={(): void => {
+							const weth = new ethers.Contract(address, abi, provider.getSigner());
 							provider.getBalance(address).then((balance: number): void => {
 								const balanceInEth = ethers.utils.formatEther(balance);
 								weth.deposit(Number(balanceInEth) - Number(keptEth));
