@@ -1218,10 +1218,10 @@
     "@web3-react/types" "^8.0.10-beta.0"
     eventemitter3 "^4.0.7"
 
-"@yearn-finance/web-lib@0.8.3":
-  version "0.8.3"
-  resolved "https://registry.yarnpkg.com/@yearn-finance/web-lib/-/web-lib-0.8.3.tgz#f2b0dcc98c38a4a71eb5768a55a9b78f693be684"
-  integrity sha512-sEo6aJNSVziX4B8SQf0FYU66Ltmjey4K6KU31gRXEBaq0YjmIhYFV1frEzLwOkVtSwOr9+B9L/5fGumQfBssrA==
+"@yearn-finance/web-lib@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@yearn-finance/web-lib/-/web-lib-0.9.0.tgz#1cd4b3bdff1239650e58500091e77c69b72f3b53"
+  integrity sha512-I/zDYKl2H8biNGDqw0xYlgbzg84+epZRnlH7kIra0ViIv1YZH2bJVbSnA5QMr0ECcdf2BL8w+wNk+FfUlV4qsw==
   dependencies:
     "@coinbase/wallet-sdk" "^3.1.0"
     "@ethersproject/experimental" "^5.6.2"
@@ -1245,6 +1245,7 @@
     eventemitter3 "^4.0.7"
     framer-motion "^6.3.4"
     nprogress "^0.2.0"
+    postcss "^8.4.14"
     react-flip-move "^3.0.4"
     react-hot-toast "^2.2.0"
     react-virtualized "^9.22.3"
