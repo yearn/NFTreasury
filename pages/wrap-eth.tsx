@@ -3,13 +3,19 @@ import	Image									from	'next/image';
 import	{Card, Button}							from	'@yearn-finance/web-lib/components';
 import	WithShadow								from	'components/WithShadow';
 import	{useWeb3}								from	'@yearn-finance/web-lib/contexts';
-import	{Transaction, defaultTxStatus, format,
+import	{Transaction, defaultTxStatus,
 	toAddress, performBatchedUpdates}			from	'@yearn-finance/web-lib/utils';
 import	useFlow									from	'contexts/useFlow';
 import	useWallet								from	'contexts/useWallet';
 import	{depositWETH}							from	'utils/actions/depositWETH';
+import {BigNumber} from 'ethers';
 
-const wethAddress = '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2';
+function	toInputOrBalance(input: BigNumber, balance: BigNumber): BigNumber {
+	if (input.gt(balance)) {
+		return balance;
+	}
+	return input;
+}
 
 function	Page(): ReactElement {
 	const	{provider, isActive} = useWeb3();
@@ -21,9 +27,10 @@ function	Page(): ReactElement {
 	async function	onDeposit(): Promise<void> {
 		if (!isActive || txStatusDeposit.pending)
 			return;
+		console.log(ethToSwap.toString());
 		const	transaction = (
 			new Transaction(provider, depositWETH, set_txStatusDeposit).populate(
-				format.toSafeAmount(ethToSwap, balances[toAddress(wethAddress)].raw)
+				toInputOrBalance(ethToSwap, balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw)
 			).onSuccess(async (): Promise<void> => {
 				await updateWallet();
 				performBatchedUpdates((): void => {

@@ -1,6 +1,6 @@
 import	React, {ReactElement, useContext, createContext}		from	'react';
 import	{Contract}												from	'ethcall';
-import	{BigNumber}												from	'ethers';
+import	{BigNumber, ethers}										from	'ethers';
 import	{useSettings, useWeb3}									from	'@yearn-finance/web-lib/contexts';
 import	{format, toAddress, providers, performBatchedUpdates}	from	'@yearn-finance/web-lib/utils';
 import	ERC20_ABI												from	'utils/abi/erc20.abi';
@@ -11,6 +11,7 @@ const	defaultProps = {
 	balances: {},
 	allowances: {},
 	prices: {},
+	currentGasPrice: ethers.constants.Zero,
 	useWalletNonce: 0,
 	updateWallet: async (): Promise<void> => undefined
 };
@@ -32,6 +33,7 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 	const	[balances, set_balances] = React.useState<TWalletTypes.TBalances>(defaultProps.balances);
 	const	[allowances, set_allowances] = React.useState<TWalletTypes.TBalances>(defaultProps.allowances);
 	const	[prices, set_prices] = React.useState<TWalletTypes.TPrices>(defaultProps.prices);
+	const	[currentGasPrice, set_currentGasPrice] = React.useState<BigNumber>(ethers.constants.Zero);
 	const	[nonce, set_nonce] = React.useState(0);
 
 	/* 🔵 - Yearn Finance ******************************************************
@@ -55,8 +57,8 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 			return;
 		}
 		const	tokenList: string[] = [
-			toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'), //eth
-			toAddress('0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2') //weth
+			toAddress(process.env.ETH_TOKEN_ADDRESS),
+			toAddress(process.env.WETH_TOKEN_ADDRESS)
 		];
 
 		const	currentProvider = provider || providers.getProvider(chainID || 1);
@@ -65,7 +67,7 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 		const	calls = [];
 
 		for (const token of tokenList) {
-			if (token === toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')) {
+			if (token === toAddress(process.env.ETH_TOKEN_ADDRESS)) {
 				continue;
 			}
 
@@ -77,7 +79,6 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 			]);
 		}
 
-		console.log(calls);
 		const	[balanceOfEth, results] = await Promise.all([
 			currentProvider.getBalance(userAddress),
 			ethcallProvider.tryAll(calls)
@@ -87,8 +88,8 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 		const	_prices: TWalletTypes.TPrices = {};
 		let		rIndex = 0;
 		for (const token of tokenList) {
-			if (token === toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')) {
-				_balances[toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')] = { //eth
+			if (token === toAddress(process.env.ETH_TOKEN_ADDRESS)) {
+				_balances[toAddress(process.env.ETH_TOKEN_ADDRESS)] = { //eth
 					raw: balanceOfEth,
 					normalized: format.toNormalizedValue(balanceOfEth, 18)
 				};
@@ -113,11 +114,35 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 			set_prices(_prices);
 			set_nonce((n: number): number => n + 1);
 		});
-	}, [provider, address, chainID, networks]);
+	}, [provider, address, chainID, networks, isActive]);
 
 	React.useEffect((): void => {
 		getWalletStatus();
 	}, [getWalletStatus]);
+
+	/* 🔵 - Yearn Finance ******************************************************
+	**	As some estimate are computed, fetch the current gasPrice. This
+	**	function should be called in an interval.
+	***************************************************************************/
+	const getGasPrice = React.useCallback(async (): Promise<void> => {
+		if (!provider) {
+			return;
+		}
+		const	currentProvider = provider || providers.getProvider(chainID || 1);
+		const	[gasPrice] = await Promise.all([
+			currentProvider.getGasPrice()
+		]) as [BigNumber];
+		
+		set_currentGasPrice(gasPrice);
+	}, [provider, chainID]);
+
+	React.useEffect((): () => void => {
+		const interval = setInterval(getGasPrice, 5000);
+		return (): void => {
+			clearInterval(interval);
+		};
+	}, [getGasPrice]);
+
 
 	/* 🔵 - Yearn Finance ******************************************************
 	**	Setup and render the Context provider to use in the app.
@@ -128,6 +153,7 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 				balances,
 				allowances,
 				prices,
+				currentGasPrice,
 				updateWallet: getWalletStatus,
 				useWalletNonce: nonce
 			}}>

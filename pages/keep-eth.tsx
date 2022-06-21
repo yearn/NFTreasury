@@ -1,20 +1,39 @@
-import	React, {ReactElement, useState}		from	'react';
-import	Link								from	'next/link';
-import	Image								from	'next/image';
-import	{ethers}								from	'ethers';
-import	{Card, Button}						from	'@yearn-finance/web-lib/components';
+import	React, {ReactElement, useState}				from	'react';
+import	Link										from	'next/link';
+import	Image										from	'next/image';
+import	{ethers}									from	'ethers';
+import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{format, performBatchedUpdates, toAddress}	from	'@yearn-finance/web-lib/utils';
-import	WithShadow							from	'components/WithShadow';
-import	useFlow								from	'contexts/useFlow';
-import	useWallet							from	'contexts/useWallet';
+import	WithShadow									from	'components/WithShadow';
+import	useFlow										from	'contexts/useFlow';
+import	useWallet									from	'contexts/useWallet';
+
+function	EstimateGasRow(): ReactElement {
+	const	{currentGasPrice} = useWallet();
+	const	[currentEstimate, set_currentEstimate] = React.useState(0);
+
+	React.useEffect((): void => {
+		const	gas = Number(format.units(currentGasPrice, 'ether'));
+		set_currentEstimate(gas * 88600);
+	}, [currentGasPrice]);
+
+	return (
+		<p className={'flex justify-between'}>
+			<span>{'Est. gas cost for deposit'}</span>
+			<span className={'font-bold'}>
+				{`${currentEstimate.toFixed(8)} ETH`}
+			</span>
+		</p>
+	);
+}
 
 function	KeepEthPage(): ReactElement {
+	const	{keptEth, set_keptEth} = useFlow();
+	const	{balances, useWalletNonce} = useWallet();
 	const	[isShowingArrow] = useState(false);
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
 	const	[percentage, set_percentage] = useState(0);
 	const	[inputValue, set_inputValue] = useState('0');
-	const	{keptEth, set_keptEth} = useFlow();
-	const	{balances, useWalletNonce} = useWallet();
 
 	//Init the balance once available
 	React.useEffect((): void => {
@@ -71,7 +90,9 @@ function	KeepEthPage(): ReactElement {
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You have'}</h2>
-							<h2 className={'font-bold'}>{`${balance.normalized} ETH`}</h2>
+							<h2 className={'font-bold'}>
+								{`${(balance.normalized).toFixed(8)} ETH`}
+							</h2>
 						</div>
 						<div className={'space-y-6 w-full text-justify'}>
 							<p  className={'w-10/12'}>
@@ -84,8 +105,7 @@ function	KeepEthPage(): ReactElement {
 									min={0}
 									max={Number(balance)}
 									value={inputValue}
-									onChange={(e): void => onInputChange(e.target.value)}
-								></input>
+									onChange={(e): void => onInputChange(e.target.value)} />
 								<button
 									aria-selected={percentage === 20}
 									className={'nftreasury--button-percentage'}
@@ -119,18 +139,15 @@ function	KeepEthPage(): ReactElement {
 					<div className={'p-4 grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'Deposit into Vault'}</span>
-							<span className={'font-bold'}>{
-								format.bigNumberAsAmount((balance.raw).sub(keptEth), 18, 18, 'ETH')
-							}</span>
+							<span className={'font-bold'}>
+								{format.bigNumberAsAmount((balance.raw).sub(keptEth), 18, 8, 'ETH')}
+							</span>
 						</p>
 						<p className={'flex justify-between mb-4'}>
-							<span>{'APR'}</span>
+							<span>{'APY'}</span>
 							<span className={'font-bold'}>{'69,69 %'}</span>
 						</p>
-						<p className={'flex justify-between'}>
-							<span>{'Est. gas cost for deposit'}</span>
-							<span className={'font-bold'}>{'00,03 ETH'}</span>
-						</p>
+						<EstimateGasRow />
 					</div>
 					<div className={'flex justify-start'}>
 						<Link href={'/swap-eth'}>

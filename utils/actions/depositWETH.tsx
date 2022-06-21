@@ -9,7 +9,7 @@ export async function	depositWETH(
 
 	try {
 		const	contract = new ethers.Contract(
-			'0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2', //put in env
+			process.env.WETH_TOKEN_ADDRESS,
 			WETH_ABI as ContractInterface,
 			signer
 		);

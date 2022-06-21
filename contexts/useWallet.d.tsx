@@ -23,6 +23,7 @@ export type	TWalletContext = {
 	balances: TBalances,
 	allowances: TAllowances,
 	prices: TPrices,
+	currentGasPrice: BigNumber,
 	useWalletNonce: number,
 	updateWallet: () => Promise<void>
 }

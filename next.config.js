@@ -59,6 +59,13 @@ module.exports = ({
 			42161: process.env.RPC_URL_ARBITRUM
 		},
 		ALCHEMY_KEY: process.env.ALCHEMY_KEY,
-		INFURA_KEY: process.env.INFURA_KEY
+		INFURA_KEY: process.env.INFURA_KEY,
+
+		/* 🔵 - Yearn Finance **************************************************
+		** Project specific config
+		**********************************************************************/
+		ETH_TOKEN_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+		WETH_TOKEN_ADDRESS: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+		USDC_TOKEN_ADDRESS: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
 	}
 });
