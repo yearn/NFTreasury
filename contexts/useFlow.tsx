@@ -1,24 +1,25 @@
 import	React, {ReactElement, useContext, createContext, Dispatch, SetStateAction}		from	'react';
+import {BigNumber, ethers} from 'ethers';
 
 export type	TFlowContext = {
-	ethToSwap: string,
-	set_ethToSwap: Dispatch<SetStateAction<string>>,
-	keptEth: string,
-	set_keptEth: Dispatch<SetStateAction<string>>
+	ethToSwap: BigNumber,
+	set_ethToSwap: Dispatch<SetStateAction<BigNumber>>,
+	keptEth: BigNumber,
+	set_keptEth: Dispatch<SetStateAction<BigNumber>>
 }
 
 const	defaultProps: TFlowContext = {
-	ethToSwap: '',
-	set_ethToSwap: (): string => '',
-	keptEth: '',
-	set_keptEth: (): string => ''
+	ethToSwap: ethers.constants.Zero,
+	set_ethToSwap: (): BigNumber => ethers.constants.Zero,
+	keptEth: ethers.constants.Zero,
+	set_keptEth: (): BigNumber => ethers.constants.Zero
 };
 
 const	FlowContext = createContext<TFlowContext>(defaultProps);
 
 export const FlowContextApp = ({children}: {children: ReactElement}): ReactElement => {
-	const [ethToSwap, set_ethToSwap] = React.useState('');
-	const [keptEth, set_keptEth] = React.useState('');
+	const [ethToSwap, set_ethToSwap] = React.useState<BigNumber>(ethers.constants.Zero);
+	const [keptEth, set_keptEth] = React.useState<BigNumber>(ethers.constants.Zero);
 
 
 	/* 🔵 - Yearn Finance ******************************************************
