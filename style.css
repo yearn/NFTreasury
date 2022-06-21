@@ -1,7 +1,11 @@
 /* This will load Tailwindcss + all the overwrite from Yearn lib */
 @import '@yearn-finance/web-lib/dist/style.css';
 
-input::placeholder {@apply not-italic}
+:root {
+	--default-rounded: 0rem;
+	margin-left: calc(100vw - 100%);
+}
+
 * {
 	@apply font-mono;
 }
@@ -58,6 +62,16 @@ input::placeholder {@apply not-italic}
 	--input-max-text-color: hsl(var(--color-typo-secondary));
 	--input-max-border-color: hsl(var(--color-typo-secondary));
 	--input-max-bg-color-hover: hsl(var(--color-typo-primary)/0.1);
+}
+
+.yearn--modal {
+	@apply sm:max-w-2xl border-2 border-primary-500;
+}
+.yearn--modalLogin-card {
+	@apply hover:bg-neutral-200;
+}
+.yearn--modalLogin-card {
+	& * {@apply !font-mono;}
 }
 
 /* 🔵 - Yearn Finance ******************************************************
