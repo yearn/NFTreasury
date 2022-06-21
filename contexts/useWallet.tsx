@@ -1,11 +1,11 @@
 import	React, {ReactElement, useContext, createContext}		from	'react';
 import	{Contract}												from	'ethcall';
+import	{BigNumber}												from	'ethers';
 import	{useSettings, useWeb3}									from	'@yearn-finance/web-lib/contexts';
 import	{format, toAddress, providers, performBatchedUpdates}	from	'@yearn-finance/web-lib/utils';
 import	ERC20_ABI												from	'utils/abi/erc20.abi';
 import	LENS_ABI												from	'utils/abi/lens.abi';
 import type * as TWalletTypes									from	'contexts/useWallet.d';
-import {BigNumber, ethers} from 'ethers';
 
 const	defaultProps = {
 	balances: {},
