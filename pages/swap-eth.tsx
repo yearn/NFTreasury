@@ -63,7 +63,8 @@ function	SwapEthPage(): ReactElement {
 				domain(1, '0x9008D19f58AAbD9eD0D60971565AA8510560ab41'),
 				quoteData.quote,
 				signer,
-				SigningScheme.ETHSIGN
+				// "signingScheme": "presign"
+				SigningScheme.PRESIGN as any
 			);
 			const signature = ethers.utils.joinSignature(rawSignature.data);
 			console.log(signature);
