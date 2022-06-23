@@ -2,8 +2,8 @@ import	React, {ReactElement, useState}	from	'react';
 import	Image							from	'next/image';
 import	{useRouter}						from	'next/router';
 import	{Card, Button}					from	'@yearn-finance/web-lib/components';
-import	WithShadow						from	'components/WithShadow';
 import	{useWeb3}						from	'@yearn-finance/web-lib/contexts';
+import	WithShadow						from	'components/WithShadow';
 
 
 function	DisclaimerPage(): ReactElement {

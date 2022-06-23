@@ -7,7 +7,7 @@ import	{format, performBatchedUpdates,
 	defaultTxStatus, toAddress, Transaction}		from	'@yearn-finance/web-lib/utils';
 import	{useWeb3}									from	'@yearn-finance/web-lib/contexts';
 import	WithShadow									from	'components/WithShadow';
-import	useFlow										from	'contexts/useFlow';
+import	useYearn									from	'contexts/useYearn';
 import	useWallet									from	'contexts/useWallet';
 import	{ZapEth}									from	'utils/actions/zapEth';
 
@@ -40,9 +40,10 @@ function	EstimateGasRow(): ReactElement {
 function	KeepEthPage(): ReactElement {
 	const	router = useRouter();
 	const	{provider, isActive} = useWeb3();
-	const	{keptEth, set_keptEth} = useFlow();
 	const	{balances, updateWallet, useWalletNonce} = useWallet();
 	const	[isShowingArrow, set_isShowingArrow] = useState(false);
+	const	{yvEthData} = useYearn();
+	const	[keptEth, set_keptEth] = useState(ethers.constants.Zero);
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
 	const	[percentage, set_percentage] = useState(0);
 	const	[inputValue, set_inputValue] = useState('0');
@@ -143,7 +144,7 @@ function	KeepEthPage(): ReactElement {
 									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
 									type={'number'}
 									min={0}
-									max={Number(balance)}
+									max={Number(balance.normalized)}
 									value={inputValue}
 									onChange={(e): void => onInputChange(e.target.value)} />
 								<button
@@ -183,7 +184,9 @@ function	KeepEthPage(): ReactElement {
 						</p>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'APY'}</span>
-							<span className={'font-bold'}>{'69,69 %'}</span>
+							<span className={'font-bold'}>
+								{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)} %` : '-'}
+							</span>
 						</p>
 						<EstimateGasRow />
 					</div>

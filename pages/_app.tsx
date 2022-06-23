@@ -5,7 +5,8 @@ import	{DefaultSeo}						from	'next-seo';
 import	{AnimatePresence, motion}			from	'framer-motion';
 import	{WithYearn}							from	'@yearn-finance/web-lib/contexts';
 import	{WalletContextApp}					from	'contexts/useWallet';
-import	{FlowContextApp}					from	'contexts/useFlow';
+import	{CowSwapContextApp}					from	'contexts/useCowSwap';
+import	{YearnContextApp}					from	'contexts/useYearn';
 import	Header								from	'components/Header';
 import	Footer								from	'components/Footer';
 
@@ -128,12 +129,14 @@ function	MyApp(props: AppProps): ReactElement {
 				}
 			}}>
 			<WalletContextApp>
-				<FlowContextApp>
-					<AppWrapper
-						Component={Component}
-						pageProps={pageProps}
-						router={props.router} />
-				</FlowContextApp>
+				<YearnContextApp>
+					<CowSwapContextApp>
+						<AppWrapper
+							Component={Component}
+							pageProps={pageProps}
+							router={props.router} />
+					</CowSwapContextApp>
+				</YearnContextApp>
 			</WalletContextApp>
 		</WithYearn>
 	);
