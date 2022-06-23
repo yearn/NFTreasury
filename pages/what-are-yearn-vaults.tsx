@@ -1,44 +1,30 @@
 import	React, {ReactElement}	from	'react';
-import	{Card, Button}			from	'@yearn-finance/web-lib/components';
-import	{Cross}					from	'@yearn-finance/web-lib/icons';
+import	{Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
+import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';
 
 function	DisclaimerPage(): ReactElement {
 	return (
-		<div className={'flex items-center w-8/12 h-full'}>
-			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
+		<DialogBox
+			title={'Yearn Vaults'}
+			paragraphs={[
+				'Vaults are a passive investing strategy, enabling people to put their capital to work via automation. Each Vault auto-compounds earned tokens, meaning Yearn reinvests earned tokens to generate additional earnings over time. A strategy is an automated smart contract. It puts your tokens into different protocols to generate yield.',
+				'Users benefit from socializing gas costs and need not be experts in defi or the underlying protocols to utilize Yearn Vaults.'
+			]}	
+		>
+			<div className={'flex justify-end'}>
+				<Link href={'/what-is-cowswap'}>
 					<div>
-						<div className={'flex flex-row justify-between pb-6 w-full'}>
-							<h3 className={'font-bold'}>{'Yearn Vaults'}</h3>
-							<Link href={'/'}>
-								<Cross className={'w-6 h-6 transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'} />
-							</Link>
-						</div>
-						<div className={'mb-16 space-y-6 text-justify'}>
-							<p>
-								{'Vaults are a passive investing strategy, enabling people to put their capital to work via automation. Each Vault auto-compounds earned tokens, meaning Yearn reinvests earned tokens to generate additional earnings over time. A strategy is an automated smart contract. It puts your tokens into different protocols to generate yield.'}
-							</p>
-							<p>
-								{'Users benefit from socializing gas costs and need not be experts in defi or the underlying protocols to utilize Yearn Vaults.'}
-							</p>
-						</div>
+						<WithShadow role={'button'}>
+							<Button className={'w-[176px]'}>
+								{'Next'}
+							</Button>
+						</WithShadow>
 					</div>
-					<div className={'flex justify-end'}>
-						<Link href={'/what-is-cowswap'}>
-							<div>
-								<WithShadow role={'button'}>
-									<Button className={'w-[176px]'}>
-										{'Next'}
-									</Button>
-								</WithShadow>
-							</div>
-						</Link>
-					</div>
-				</Card>
-			</WithShadow>
-		</div>
+				</Link>
+			</div>
+		</DialogBox>
 	);
 }
 
