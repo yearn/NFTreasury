@@ -1,11 +1,67 @@
-import	React, {ReactElement, useState}	from	'react';
-import	Link							from	'next/link';
-import	Image							from	'next/image';
-import	{Card, Button}					from	'@yearn-finance/web-lib/components';
-import	WithShadow						from	'components/WithShadow';
+import	React, {ReactElement, useState}			from	'react';
+import	Image									from	'next/image';
+import	{Card, Button}							from	'@yearn-finance/web-lib/components';
+import	WithShadow								from	'components/WithShadow';
+import	{useWeb3}								from	'@yearn-finance/web-lib/contexts';
+import	{Transaction, defaultTxStatus,
+	toAddress, performBatchedUpdates}			from	'@yearn-finance/web-lib/utils';
+import	useFlow									from	'contexts/useFlow';
+import	useWallet								from	'contexts/useWallet';
+import	{depositWETH}							from	'utils/actions/depositWETH';
+import {BigNumber} from 'ethers';
+
+function	toInputOrBalance(input: BigNumber, balance: BigNumber): BigNumber {
+	if (input.gt(balance)) {
+		return balance;
+	}
+	return input;
+}
 
 function	Page(): ReactElement {
-	const [isShowingArrow] = useState(false);
+	const	{provider, isActive} = useWeb3();
+	const	{ethToSwap} = useFlow();
+	const	{balances, updateWallet} = useWallet();
+	const	[isShowingArrow] = useState(false);
+	const	[txStatusDeposit, set_txStatusDeposit] = React.useState(defaultTxStatus);
+
+	async function	onDeposit(): Promise<void> {
+		if (!isActive || txStatusDeposit.pending)
+			return;
+		console.log(ethToSwap.toString());
+		const	transaction = (
+			new Transaction(provider, depositWETH, set_txStatusDeposit).populate(
+				toInputOrBalance(ethToSwap, balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw)
+			).onSuccess(async (): Promise<void> => {
+				await updateWallet();
+				performBatchedUpdates((): void => {
+					//If you need to update multiple state at one, update them inside the performBatchedUpdate
+				});
+			})
+		);
+
+		const	isSuccessful = await transaction.perform();
+		if (isSuccessful) {
+			console.log('Yeh');
+		}
+	}
+	// console.log(address);
+	// console.log(ethers.utils.parseUnits(String(Number(ethToSwap).toFixed(18))));
+
+	// // weth.balanceOf(address).then(console.log)
+
+	// // weth.withdraw({ value: BigNumber.from(String(Number(ethToSwap).toFixed(18))) }).then((tx: ethers.providers.TransactionResponse): void => {
+	// // 	console.log(tx)
+	// // }).catch((err: Error): void => {
+	// // 	console.log(err)
+	// // })
+
+	// weth.deposit({value: ethers.utils.parseUnits(String(Number(ethToSwap).toFixed(18)), 'ether')}).then((tx: ethers.providers.TransactionResponse): void => {
+	// 	console.log(tx);
+	// }).catch((err: Error): void => {
+	// 	console.log(err);
+	// });
+
+
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
@@ -21,15 +77,13 @@ function	Page(): ReactElement {
 						</div>
 					</div>
 					<div className={'flex justify-start'}>
-						<Link href={'/execute-swap'}>
-							<div>
-								<WithShadow role={'button'}>
-									<Button className={'w-[176px]'}>
-										{'Hit'}
-									</Button>
-								</WithShadow>
-							</div>
-						</Link>
+						<div onClick={onDeposit}>
+							<WithShadow role={'button'}>
+								<Button className={'w-[176px]'}>
+									{'Hit'}
+								</Button>
+							</WithShadow>
+						</div>
 					</div>
 				</Card>
 			</WithShadow>

@@ -32,12 +32,13 @@ function	Header(): ReactElement {
 	const isCreateTreasuryPage = createTreasuryPathnames.includes(router.pathname);
 	const isPortfolioPage = portfolioPathnames.includes(router.pathname);
 
-	const	{isActive, address, ens, openLoginModal, onDesactivate} = useWeb3();
+	const	{isActive, address, ens, openLoginModal, onDesactivate, onSwitchChain} = useWeb3();
 	const	[walletIdentity, set_walletIdentity] = React.useState('connect project');
 
 	React.useEffect((): void => {
-		if (!isActive) {
-			set_walletIdentity('connect project');
+		console.log(isActive, address);
+		if (!isActive && address) {
+			set_walletIdentity('invalid network');
 		} else if (ens) {
 			set_walletIdentity(ens);
 		} else if (address) {
@@ -70,6 +71,8 @@ function	Header(): ReactElement {
 				<div className={'flex'} onClick={(): void => {
 					if (isActive) {
 						onDesactivate();
+					} else if (!isActive && address) {
+						onSwitchChain(1, true);
 					} else {
 						openLoginModal();
 					}

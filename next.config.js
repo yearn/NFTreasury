@@ -14,6 +14,13 @@ module.exports = ({
 		/* 🔵 - Yearn Finance **************************************************
 		** Stuff used for the SEO or some related elements, like the title, the
 		** github url etc.
+		** - WEBSITE_URI is used to display the og image and get the base URI
+		** - WEBSITE_NAME is used as name displayed on the top of the tab in
+		**   the browser.
+		** - WEBSITE_TITLE should be the name of your website. It may be used
+		**   by third parties to display your app name (coinbase for instance)
+		** - WEBSITE_DESCRIPTION is used in the meta tags
+		** - PROJECT_GITHUB_URL should be the link to your project on GitHub
 		**********************************************************************/
 		WEBSITE_URI: 'https://nft.ycorpo.com/',
 		WEBSITE_NAME: 'NFTreasury',
@@ -37,6 +44,28 @@ module.exports = ({
 		USE_PRICE_TRI_CRYPTO: false,
 		CG_IDS: ['ethereum'],
 		TOKENS: [],
-		ALCHEMY_KEY: process.env.ALCHEMY_KEY
+
+		/* 🔵 - Yearn Finance **************************************************
+		** Config over the RPC
+		**********************************************************************/
+		WEB_SOCKET_URL: {
+			1: process.env.WS_URL_MAINNET,
+			250: process.env.WS_URL_FANTOM,
+			42161: process.env.WS_URL_ARBITRUM
+		},
+		JSON_RPC_URL: {
+			1: process.env.RPC_URL_MAINNET,
+			250: process.env.RPC_URL_FANTOM,
+			42161: process.env.RPC_URL_ARBITRUM
+		},
+		ALCHEMY_KEY: process.env.ALCHEMY_KEY,
+		INFURA_KEY: process.env.INFURA_KEY,
+
+		/* 🔵 - Yearn Finance **************************************************
+		** Project specific config
+		**********************************************************************/
+		ETH_TOKEN_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
+		WETH_TOKEN_ADDRESS: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+		USDC_TOKEN_ADDRESS: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
 	}
 });

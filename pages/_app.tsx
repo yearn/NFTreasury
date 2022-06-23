@@ -4,6 +4,8 @@ import	{AppProps}							from	'next/app';
 import	{DefaultSeo}						from	'next-seo';
 import	{AnimatePresence, motion}			from	'framer-motion';
 import	{WithYearn}							from	'@yearn-finance/web-lib/contexts';
+import	{WalletContextApp}					from	'contexts/useWallet';
+import	{FlowContextApp}					from	'contexts/useFlow';
 import	Header								from	'components/Header';
 import	Footer								from	'components/Footer';
 
@@ -125,10 +127,14 @@ function	MyApp(props: AppProps): ReactElement {
 					supportedChainID: [1, 1337]
 				}
 			}}>
-			<AppWrapper
-				Component={Component}
-				pageProps={pageProps}
-				router={props.router} />
+			<WalletContextApp>
+				<FlowContextApp>
+					<AppWrapper
+						Component={Component}
+						pageProps={pageProps}
+						router={props.router} />
+				</FlowContextApp>
+			</WalletContextApp>
 		</WithYearn>
 	);
 }
