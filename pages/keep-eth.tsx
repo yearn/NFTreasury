@@ -64,6 +64,7 @@ function	KeepEthPage(): ReactElement {
 		}
 	}, [balance, inputValue]);
 
+	//trigger the update of inputValue (as string) and keptEth (as BigNumber) on input type
 	const onInputChange = (_newValue: string): void => {
 		performBatchedUpdates((): void => {
 			const	newValue = _newValue;
