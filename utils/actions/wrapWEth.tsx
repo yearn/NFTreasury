@@ -1,7 +1,7 @@
 import	{ContractInterface, ethers} from	'ethers';
 import	WETH_ABI					from	'utils/abi/weth.abi';
 
-export async function	depositWETH(
+export async function	wrapWEth(
 	provider: ethers.providers.Web3Provider,
 	amount: ethers.BigNumber
 ): Promise<boolean> {

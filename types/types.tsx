@@ -1,3 +1,5 @@
+import	{Order}		from	'@gnosis.pm/gp-v2-contracts';
+
 export type	TYearnVault = {
     inception: number,
     address: string,
@@ -62,4 +64,11 @@ export type	TYearnVault = {
         available: boolean,
         address: string,
     }
+}
+
+export type TCowSwapQuote = {
+	quote: Order,
+	from: string,
+	expiration: string,
+	id: number
 }

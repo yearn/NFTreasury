@@ -12,6 +12,7 @@
 		"lintfix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
 	},
 	"dependencies": {
+		"@gnosis.pm/gp-v2-contracts": "^1.1.2",
 		"@yearn-finance/web-lib": "^0.9.3",
 		"autoprefixer": "10.4.7",
 		"axios": "0.27.2",
