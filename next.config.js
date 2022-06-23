@@ -64,8 +64,11 @@ module.exports = ({
 		/* 🔵 - Yearn Finance **************************************************
 		** Project specific config
 		**********************************************************************/
+		ZAP_ETH_WETH_CONTRACT: '0x7a1147a0B3eDD3E03D2C3397223BBaA8BFa6ff23',
+
+		ETH_VAULT_ADDRESS: '0xa258C4606Ca8206D8aA700cE2143D7db854D168c',
 		ETH_TOKEN_ADDRESS: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
 		WETH_TOKEN_ADDRESS: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-		USDC_TOKEN_ADDRESS: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
+		USDC_TOKEN_ADDRESS: '0x6810e776880C02933D47DB1b9fc05908e5386b96'
 	}
 });

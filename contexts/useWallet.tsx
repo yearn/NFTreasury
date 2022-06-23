@@ -72,10 +72,11 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 			}
 
 			const	tokenContract = new Contract(token, ERC20_ABI);
-			const	lensPriceContract = new Contract(networks[chainID === 1337 ? 1 : chainID || 1].lensAddress, LENS_ABI);
+			const	lensPriceContract = new Contract(networks[chainID === 1337 || chainID === 4 ? 1 : chainID || 1].lensAddress, LENS_ABI);
 			calls.push(...[
 				tokenContract.balanceOf(userAddress),
-				lensPriceContract.getPriceUsdcRecommended(token)
+				tokenContract.balanceOf(userAddress)
+				// lensPriceContract.getPriceUsdcRecommended(token)
 			]);
 		}
 

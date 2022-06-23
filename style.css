@@ -51,7 +51,7 @@
 	}
 	&[data-variant="filled"] {
 		@apply border-2;
-		&:disabled {@apply opacity-40;}
+		&:disabled {@apply bg-neutral-800 border-neutral-800;}
 	}
 }
 
@@ -82,6 +82,11 @@
 	& > * {@apply -top-2 -left-2 transition-all relative;}
 	background-image: url('/shadowPattern.svg');
 
+	&[role="button-disabled"] {@apply cursor-not-allowed -left-2 ml-4;}
+
+	&[role="button-busy"] {@apply cursor-wait -left-2 ml-4 -top-[7px];}
+	&[role="button-busy"] > * {@apply top-0 -left-0;}
+
 	&[role="button"] {@apply cursor-pointer -left-2 ml-4;}
 	&[role="button"] > *:hover {@apply -top-1 -left-1;}
 	&[role="button"] > *:active {@apply top-0 -left-0;}
@@ -96,9 +101,12 @@
 .nftreasury--withShadow-wrapper {
 	@apply pt-[1px] -mt-2 cursor-pointer mr-2 md:mr-0;
 
+	& .nftreasury--withShadow[role="button-disabled"],
+	& .nftreasury--withShadow[role="button-busy"],
 	& .nftreasury--withShadow[role="button"] {
 		@apply cursor-pointer -left-2 ml-4;
 	}
+
 	&:hover {
 		& > .nftreasury--withShadow[role="button"] > * {
 			@apply -top-1 -left-1;

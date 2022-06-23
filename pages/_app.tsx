@@ -123,8 +123,8 @@ function	MyApp(props: AppProps): ReactElement {
 					shouldUseTheme: false
 				},
 				web3: {
-					defaultChainID: 1,
-					supportedChainID: [1, 1337]
+					defaultChainID: 4,
+					supportedChainID: [1, 4, 1337]
 				}
 			}}>
 			<WalletContextApp>

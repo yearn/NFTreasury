@@ -74,7 +74,7 @@ function	DisclaimerPage(): ReactElement {
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[700px] h-[600px]'}>
+				<Card className={'flex flex-col justify-between w-[700px] h-[544px]'}>
 					<div>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
@@ -141,7 +141,7 @@ function	DisclaimerPage(): ReactElement {
 			</WithShadow>
 			<div className={'ml-24'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-[400px] h-[600px]'}>
+					<Card className={'flex flex-col justify-between w-[400px] h-[544px]'}>
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>

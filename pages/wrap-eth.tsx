@@ -1,14 +1,14 @@
 import	React, {ReactElement, useState}			from	'react';
 import	Image									from	'next/image';
-import	{Card, Button}							from	'@yearn-finance/web-lib/components';
+import	{BigNumber}								from	'ethers';
 import	WithShadow								from	'components/WithShadow';
+import	{Card, Button}							from	'@yearn-finance/web-lib/components';
 import	{useWeb3}								from	'@yearn-finance/web-lib/contexts';
 import	{Transaction, defaultTxStatus,
 	toAddress, performBatchedUpdates}			from	'@yearn-finance/web-lib/utils';
 import	useFlow									from	'contexts/useFlow';
 import	useWallet								from	'contexts/useWallet';
 import	{depositWETH}							from	'utils/actions/depositWETH';
-import {BigNumber} from 'ethers';
 
 function	toInputOrBalance(input: BigNumber, balance: BigNumber): BigNumber {
 	if (input.gt(balance)) {
@@ -65,7 +65,7 @@ function	Page(): ReactElement {
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
+				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
 					<div>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Wrap ETH'}</h2>
@@ -87,7 +87,7 @@ function	Page(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
+			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
 				<Image width={279} height={322} quality={90} src={'/wrap-eth.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>

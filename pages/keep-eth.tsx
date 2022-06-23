@@ -1,12 +1,22 @@
 import	React, {ReactElement, useState}				from	'react';
-import	Link										from	'next/link';
+import	{useRouter}									from	'next/router';
 import	Image										from	'next/image';
-import	{ethers}									from	'ethers';
+import	{ethers, BigNumber}							from	'ethers';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
-import	{format, performBatchedUpdates, toAddress}	from	'@yearn-finance/web-lib/utils';
+import	{format, performBatchedUpdates,
+	defaultTxStatus, toAddress, Transaction}		from	'@yearn-finance/web-lib/utils';
+import	{useWeb3}									from	'@yearn-finance/web-lib/contexts';
 import	WithShadow									from	'components/WithShadow';
 import	useFlow										from	'contexts/useFlow';
 import	useWallet									from	'contexts/useWallet';
+import	{ZapEth}									from	'utils/actions/zapEth';
+
+function	toInputOrBalance(input: BigNumber, balance: BigNumber): BigNumber {
+	if (input.gt(balance)) {
+		return balance;
+	}
+	return input;
+}
 
 function	EstimateGasRow(): ReactElement {
 	const	{currentGasPrice} = useWallet();
@@ -28,14 +38,17 @@ function	EstimateGasRow(): ReactElement {
 }
 
 function	KeepEthPage(): ReactElement {
+	const	router = useRouter();
+	const	{provider, isActive} = useWeb3();
 	const	{keptEth, set_keptEth} = useFlow();
-	const	{balances, useWalletNonce} = useWallet();
-	const	[isShowingArrow] = useState(false);
+	const	{balances, updateWallet, useWalletNonce} = useWallet();
+	const	[isShowingArrow, set_isShowingArrow] = useState(false);
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
 	const	[percentage, set_percentage] = useState(0);
 	const	[inputValue, set_inputValue] = useState('0');
+	const	[txStatusWrapDeposit, set_txStatusWrapDeposit] = React.useState(defaultTxStatus);
 
-	//Init the balance once available
+	// Init the balance once available
 	React.useEffect((): void => {
 		set_balance({
 			raw:  balances[toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')]?.raw || ethers.constants.Zero,
@@ -43,7 +56,7 @@ function	KeepEthPage(): ReactElement {
 		});
 	}, [balances, useWalletNonce]);
 
-	//check if value match a percentage. ValueN could be set as useMemo
+	// Check if value match a percentage. ValueN could be set as useMemo
 	React.useEffect((): void => {
 		const value20 = String((balance.normalized / 100) * 20);
 		const value40 = String((balance.normalized / 100) * 40);
@@ -61,6 +74,34 @@ function	KeepEthPage(): ReactElement {
 			set_percentage(0);
 		}
 	}, [balance, inputValue]);
+
+	// Wrap and deposit inputValue Eth to the contract to get wETH
+	async function	onZapEth(): Promise<void> {
+		if (!isActive || txStatusWrapDeposit.pending)
+			return;
+
+		const	toDeposit = (balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw).sub(keptEth);
+		if (toDeposit.lte(ethers.constants.Zero))
+			return;
+
+		set_isShowingArrow(true);
+		const	transaction = (
+			new Transaction(provider, ZapEth, set_txStatusWrapDeposit).populate(
+				toInputOrBalance(toDeposit, balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw)
+			).onSuccess(async (): Promise<void> => {
+				await updateWallet();
+			})
+		);
+
+		const	isSuccessful = await transaction.perform();
+		if (isSuccessful) {
+			router.push('/swap-eth');
+		} else {
+			performBatchedUpdates((): void => {
+				set_isShowingArrow(false);
+			});
+		}
+	}
 
 	const onInputChange = (_newValue: string): void => {
 		performBatchedUpdates((): void => {
@@ -86,7 +127,7 @@ function	KeepEthPage(): ReactElement {
 	return (
 		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
+				<Card className={'flex flex-col w-[544px] h-[544px]'}>
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You have'}</h2>
@@ -94,11 +135,10 @@ function	KeepEthPage(): ReactElement {
 								{`${(balance.normalized).toFixed(8)} ETH`}
 							</h2>
 						</div>
-						<div className={'space-y-6 w-full text-justify'}>
-							<p  className={'w-10/12'}>
-								{'How much ETH do you wanna keep in your wallet? The rest will be sent to Yearn vault.'}
-							</p>
-							<div className={'flex items-center'}>
+						<div className={'w-full text-justify'}>
+							<p>{'How much ETH do you wanna keep in your wallet?'}</p>
+							<p>{'The rest will be sent to Yearn vault.'}</p>
+							<div className={'flex items-center mt-2 mb-4'}>
 								<input
 									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
 									type={'number'}
@@ -131,12 +171,10 @@ function	KeepEthPage(): ReactElement {
 									{'80 %'}
 								</button>
 							</div>
+							<p>{'Next step we’ll swap some ETH to USDC.'}</p>
 						</div>
 					</div>
-					<p>
-						{'Next step we’ll swap some ETH to USDC.'}
-					</p>
-					<div className={'p-4 grey-box'}>
+					<div className={'p-4 mt-4 mb-6 grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>
@@ -149,21 +187,24 @@ function	KeepEthPage(): ReactElement {
 						</p>
 						<EstimateGasRow />
 					</div>
-					<div className={'flex justify-start'}>
-						<Link href={'/swap-eth'}>
-							<div>
-								<WithShadow role={'button'}>
-									<Button className={'w-[176px]'}>
-										{'Click-click'}
-									</Button>
-								</WithShadow>
-							</div>
-						</Link>
+					<div className={'flex justify-start mt-1'}>
+						<div onClick={onZapEth}>
+							<WithShadow role={txStatusWrapDeposit.pending ? 'button-busy' : 'button'}>
+								<Button isBusy={txStatusWrapDeposit.pending} className={'w-[176px]'}>
+									{'Click-click'}
+								</Button>
+							</WithShadow>
+						</div>
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
-				<Image width={322} height={258} quality={90} src={'/keep-eth.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
+			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
+				<Image
+					width={322}
+					height={258}
+					quality={90}
+					src={'/keep-eth.svg'}
+					className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>
 	);

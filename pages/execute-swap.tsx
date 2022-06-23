@@ -9,7 +9,7 @@ function	DisclaimerPage(): ReactElement {
 	return (
 		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[600px] h-[600px]'}>
+				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
 					<div>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Final step'}</h2>
@@ -36,7 +36,7 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[600px]'}>
+			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
 				<Image width={320} height={285} quality={90} src={'/execute-swap.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>
