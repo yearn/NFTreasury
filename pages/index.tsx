@@ -4,6 +4,7 @@ import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
 import	Image					from	'next/image';
+import	{useWeb3}				from	'@yearn-finance/web-lib/contexts';
 
 function	Gif({
 	width = 480,
@@ -30,6 +31,8 @@ function	Gif({
 }
 
 function	Index(): ReactElement {
+	const {isActive} = useWeb3();
+
 	return (
 		<section className={'flex flex-col items-center h-full md:flex-row'}>
 			<div className={'w-full md:w-8/12'}>
@@ -43,7 +46,7 @@ function	Index(): ReactElement {
 				</div>
 				<div className={'flex justify-center mt-8 space-x-4 md:justify-start md:space-x-8'}>
 					<div className={'w-full md:w-fit'}>
-						<Link href={'/connect-wallet'}>
+						<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
 							<div>
 								<WithShadow role={'button'}>
 									<Button className={'w-full'}>
