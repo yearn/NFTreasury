@@ -6,7 +6,6 @@ import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{format, performBatchedUpdates, toAddress}	from	'@yearn-finance/web-lib/utils';
 import	WithShadow									from	'components/WithShadow';
 import	useFlow										from	'contexts/useFlow';
-import	useYearn									from	'contexts/useYearn';
 import	useWallet									from	'contexts/useWallet';
 
 function	EstimateGasRow(): ReactElement {
@@ -31,7 +30,6 @@ function	EstimateGasRow(): ReactElement {
 function	KeepEthPage(): ReactElement {
 	const	{keptEth, set_keptEth} = useFlow();
 	const	{balances, useWalletNonce} = useWallet();
-	const	{yvEthData} = useYearn();
 	const	[isShowingArrow] = useState(false);
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
 	const	[percentage, set_percentage] = useState(0);
@@ -147,9 +145,7 @@ function	KeepEthPage(): ReactElement {
 						</p>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'APY'}</span>
-							<span className={'font-bold'}>
-								{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)} %` : '-'}
-							</span>
+							<span className={'font-bold'}>{'69,69 %'}</span>
 						</p>
 						<EstimateGasRow />
 					</div>
