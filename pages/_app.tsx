@@ -6,6 +6,7 @@ import	{AnimatePresence, motion}			from	'framer-motion';
 import	{WithYearn}							from	'@yearn-finance/web-lib/contexts';
 import	{WalletContextApp}					from	'contexts/useWallet';
 import	{FlowContextApp}					from	'contexts/useFlow';
+import	{YearnContextApp}					from	'contexts/useYearn';
 import	Header								from	'components/Header';
 import	Footer								from	'components/Footer';
 
@@ -128,12 +129,14 @@ function	MyApp(props: AppProps): ReactElement {
 				}
 			}}>
 			<WalletContextApp>
-				<FlowContextApp>
-					<AppWrapper
-						Component={Component}
-						pageProps={pageProps}
-						router={props.router} />
-				</FlowContextApp>
+				<YearnContextApp>
+					<FlowContextApp>
+						<AppWrapper
+							Component={Component}
+							pageProps={pageProps}
+							router={props.router} />
+					</FlowContextApp>
+				</YearnContextApp>
 			</WalletContextApp>
 		</WithYearn>
 	);
