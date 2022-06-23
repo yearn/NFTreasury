@@ -1,10 +1,10 @@
 import	React, {ReactElement, useState}				from	'react';
 import	{useRouter}									from	'next/router';
 import	Image										from	'next/image';
-import	{ethers}									from	'ethers';
 import	{useWeb3}									from	'@yearn-finance/web-lib';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
-import	{Transaction, toAddress, defaultTxStatus}	from	'@yearn-finance/web-lib/utils';
+import	{Transaction, toAddress, defaultTxStatus,
+	format}											from	'@yearn-finance/web-lib/utils';
 import	WithShadow									from	'components/WithShadow';
 import	useWallet									from	'contexts/useWallet';
 import	useCowSwap									from	'contexts/useCowSwap';
@@ -29,7 +29,7 @@ function	ApproveWEth(): ReactElement {
 				process.env.WETH_TOKEN_ADDRESS as string,
 				process.env.COW_VAULT_RELAYER_ADDRESS as string,
 				toInputOrBalance(
-					ethers.utils.parseUnits(_cowSwapQuote.quote.sellAmount as string).add(ethers.utils.parseUnits(_cowSwapQuote.quote.feeAmount as string)),
+					format.BN(_cowSwapQuote.quote.sellAmount as string).add(format.BN(_cowSwapQuote.quote.feeAmount as string)),
 					balances[toAddress(process.env.WETH_TOKEN_ADDRESS)].raw
 				)
 			).onSuccess(async (): Promise<void> => {

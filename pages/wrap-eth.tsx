@@ -1,10 +1,10 @@
 import	React, {ReactElement, useState}				from	'react';
 import	Image										from	'next/image';
 import	{useRouter}									from	'next/router';
-import	{ethers}									from	'ethers';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{useWeb3}									from	'@yearn-finance/web-lib/contexts';
-import	{Transaction, defaultTxStatus, toAddress}	from	'@yearn-finance/web-lib/utils';
+import	{Transaction, defaultTxStatus, toAddress,
+	format}											from	'@yearn-finance/web-lib/utils';
 import	WithShadow									from	'components/WithShadow';
 import	useCowSwap									from	'contexts/useCowSwap';
 import	useWallet									from	'contexts/useWallet';
@@ -28,7 +28,7 @@ function	WrapEth(): ReactElement {
 		const	transaction = (
 			new Transaction(provider, wrapWEth, set_txStatusWrap).populate(
 				toInputOrBalance(
-					ethers.utils.parseUnits(_cowSwapQuote.quote.sellAmount as string).add(ethers.utils.parseUnits(_cowSwapQuote.quote.feeAmount as string)),
+					format.BN(_cowSwapQuote.quote.sellAmount as string).add(format.BN(_cowSwapQuote.quote.feeAmount as string)),
 					balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw
 				)
 			).onSuccess(async (): Promise<void> => {
