@@ -4,10 +4,11 @@ import	Image										from	'next/image';
 import	{ethers}									from	'ethers';
 import	axios										from	'axios';
 import	{useWeb3}									from	'@yearn-finance/web-lib';
-import	{Card, Button}								from	'@yearn-finance/web-lib/components';
+import	{Button}								from	'@yearn-finance/web-lib/components';
 import	{performBatchedUpdates, defaultTxStatus}	from	'@yearn-finance/web-lib/utils';
 import	{domain, SigningScheme, signOrder}			from	'@gnosis.pm/gp-v2-contracts';
 import	WithShadow									from	'components/WithShadow';
+import	AppBox										from	'components/AppBox';
 import	useCowSwap									from	'contexts/useCowSwap';
 import	useWallet									from	'contexts/useWallet';
 import	type {TCowSwapQuote}						from	'types/types';
@@ -90,42 +91,37 @@ function	SwapStepPage(): ReactElement {
 	}
 
 	return (
-		<div className={'flex items-center h-full'}>
-			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
-					<div>
-						<div className={'pb-6 w-full'}>
-							<h2 className={'font-bold'}>{'Final final step'}</h2>
-						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
-							<p>{'Final final step!!'}</p>
-							<p>{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let cowswap do the swap.'}</p>
-						</div>
-					</div>
-					<div className={'flex justify-start'}>
-						<WithShadow
-							role={'button'}
-							isDisabled={!isActive || !address || !provider || txStatusSwap.pending || !cowSwapQuote}
-							onClick={onSignOrder}>
-							<Button
-								isBusy={txStatusSwap.pending}
-								isDisabled={!isActive || !address || !provider || txStatusSwap.pending || !cowSwapQuote}
-								className={'w-[176px]'}>
-								{'Crush'}
-							</Button>
-						</WithShadow>
-					</div>
-				</Card>
-			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[544px] h-[544px]'}>
-				<Image
-					width={518}
-					height={535}
-					quality={90}
-					src={'/final-svg.png'}
-					className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
-			</div>
-		</div>
+		<AppBox
+			description={<div>
+				<div className={'pb-6 w-full'}>
+					<h2 className={'font-bold'}>{'Final final step'}</h2>
+				</div>
+				<div className={'space-y-6 w-10/12 text-justify'}>
+					<p>{'Final final step!!'}</p>
+					<p>{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let cowswap do the swap.'}</p>
+				</div>
+			</div>}
+			buttons={<div className={'flex justify-start'}>
+				<WithShadow
+					role={'button'}
+					isDisabled={!isActive || !address || !provider || txStatusSwap.pending || !cowSwapQuote}
+					onClick={onSignOrder}>
+					<Button
+						isBusy={txStatusSwap.pending}
+						isDisabled={!isActive || !address || !provider || txStatusSwap.pending || !cowSwapQuote}
+						className={'w-[176px]'}>
+						{'Crush'}
+					</Button>
+				</WithShadow>
+			</div>}
+			arrow={<Image
+				width={518}
+				height={535}
+				quality={90}
+				src={'/final-svg.png'}
+				className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`}
+			/>}
+		/>
 	);
 }
 
