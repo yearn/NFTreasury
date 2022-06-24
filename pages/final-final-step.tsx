@@ -13,7 +13,7 @@ import	useWallet									from	'contexts/useWallet';
 import	type {TCowSwapQuote}						from	'types/types';
 
 const		shouldUsePresign = true;
-function	SwapStep(): ReactElement {
+function	SwapStepPage(): ReactElement {
 	const	router = useRouter();
 	const	{provider, address, isActive} = useWeb3();
 	const	{updateWallet} = useWallet();
@@ -129,4 +129,4 @@ function	SwapStep(): ReactElement {
 	);
 }
 
-export default SwapStep;
+export default SwapStepPage;

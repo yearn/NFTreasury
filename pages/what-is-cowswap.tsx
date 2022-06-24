@@ -4,7 +4,7 @@ import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';
 
-function	DisclaimerPage(): ReactElement {
+function	DisclaimerCowswapPage(): ReactElement {
 	return (
 		<DialogBox
 			title={'Why Cowswap?'}
@@ -36,4 +36,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default DisclaimerCowswapPage;

@@ -12,7 +12,7 @@ import	{approveERC20}								from	'utils/actions/approveToken';
 import	{toInputOrBalance}							from	'utils';
 import	type {TCowSwapQuote}						from	'types/types';
 
-function	ApproveWEth(): ReactElement {
+function	ApproveWEthPage(): ReactElement {
 	const	router = useRouter();
 	const	{provider, address, isActive} = useWeb3();
 	const	{cowSwapQuote} = useCowSwap();
@@ -85,4 +85,4 @@ function	ApproveWEth(): ReactElement {
 	);
 }
 
-export default ApproveWEth;
+export default ApproveWEthPage;

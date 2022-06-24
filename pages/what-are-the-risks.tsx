@@ -4,7 +4,7 @@ import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';
 
-function	DisclaimerPage(): ReactElement {
+function	DisclaimerRiskPage(): ReactElement {
 	return (
 		<DialogBox
 			title={'Risk'}
@@ -27,4 +27,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default DisclaimerRiskPage;

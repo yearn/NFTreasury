@@ -4,7 +4,7 @@ import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';
 
-function	DisclaimerPage(): ReactElement {
+function	DisclaimerMevPage(): ReactElement {
 	return (
 		<DialogBox
 			title={'*wtf is MEV?'}
@@ -36,4 +36,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default DisclaimerMevPage;

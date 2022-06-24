@@ -1,10 +1,10 @@
-import	React, {ReactElement}	from	'react';
+ import	React, {ReactElement}	from	'react';
 import	{Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';
 
-function	DisclaimerPage(): ReactElement {
+function	DisclaimerYearnPage(): ReactElement {
 	return (
 		<DialogBox
 			title={'Yearn Vaults'}
@@ -28,4 +28,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default DisclaimerYearnPage;

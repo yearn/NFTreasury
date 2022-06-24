@@ -12,7 +12,7 @@ import	{wrapWEth}									from	'utils/actions/wrapWEth';
 import	{toInputOrBalance}							from	'utils';
 import	type {TCowSwapQuote}						from	'types/types';
 
-function	WrapEth(): ReactElement {
+function	WrapEthPage(): ReactElement {
 	const	router = useRouter();
 	const	{provider, isActive} = useWeb3();
 	const	{cowSwapQuote} = useCowSwap();
@@ -83,4 +83,4 @@ function	WrapEth(): ReactElement {
 	);
 }
 
-export default WrapEth;
+export default WrapEthPage;

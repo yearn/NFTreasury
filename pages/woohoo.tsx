@@ -3,7 +3,7 @@ import	Link					from	'next/link';
 import	{Card, Button}			from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 
-function	DisclaimerPage(): ReactElement {
+function	WoohooPage(): ReactElement {
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
@@ -35,4 +35,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default WoohooPage;

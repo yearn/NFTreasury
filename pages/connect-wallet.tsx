@@ -6,7 +6,7 @@ import	{useWeb3}						from	'@yearn-finance/web-lib/contexts';
 import	WithShadow						from	'components/WithShadow';
 
 
-function	DisclaimerPage(): ReactElement {
+function	ConnectWalletPage(): ReactElement {
 	const [isShowingArrow, set_isShowingArrow] = useState(false);
 	const {openLoginModal, isActive} = useWeb3();
 	const router = useRouter();
@@ -54,4 +54,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default ConnectWalletPage;
