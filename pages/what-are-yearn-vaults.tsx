@@ -1,5 +1,5 @@
  import	React, {ReactElement}	from	'react';
-import	{Button}			from	'@yearn-finance/web-lib/components';
+import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';

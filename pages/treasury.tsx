@@ -2,7 +2,8 @@ import	React, {ReactElement}						from	'react';
 import	Link										from	'next/link';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	WithShadow									from	'components/WithShadow';
-import {LineChart, Line, Tooltip, XAxis, YAxis, ResponsiveContainer} 	from 	'recharts';
+import {LineChart, Line, Tooltip, XAxis, YAxis,
+	ResponsiveContainer} 							from 	'recharts';
 
 const mockData: object[] = [
 	{
@@ -70,7 +71,7 @@ function Chart(): ReactElement {
 	);
 }
 
-function	DisclaimerPage(): ReactElement {
+function	TreasuryPage(): ReactElement {
 	return (
 		<div className={'flex items-center h-full'}>
 			<WithShadow role={'large'}>
@@ -181,4 +182,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default TreasuryPage;

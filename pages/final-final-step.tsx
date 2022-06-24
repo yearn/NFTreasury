@@ -4,7 +4,7 @@ import	Image										from	'next/image';
 import	{ethers}									from	'ethers';
 import	axios										from	'axios';
 import	{useWeb3}									from	'@yearn-finance/web-lib';
-import	{Button}								from	'@yearn-finance/web-lib/components';
+import	{Button}									from	'@yearn-finance/web-lib/components';
 import	{performBatchedUpdates, defaultTxStatus}	from	'@yearn-finance/web-lib/utils';
 import	{domain, SigningScheme, signOrder}			from	'@gnosis.pm/gp-v2-contracts';
 import	WithShadow									from	'components/WithShadow';
@@ -101,6 +101,7 @@ function	SwapStepPage(): ReactElement {
 					<p>{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let cowswap do the swap.'}</p>
 				</div>
 			</div>}
+
 			buttons={<div className={'flex justify-start'}>
 				<WithShadow
 					role={'button'}
@@ -114,6 +115,7 @@ function	SwapStepPage(): ReactElement {
 					</Button>
 				</WithShadow>
 			</div>}
+
 			arrow={<Image
 				width={518}
 				height={535}
