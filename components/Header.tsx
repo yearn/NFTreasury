@@ -50,7 +50,7 @@ function	Header(): ReactElement {
 
 	return (
 		<>
-			<header className={'flex flex-row justify-between items-center py-4 mb-2 md:py-10 md:mb-0'}>
+			<header className={'flex flex-row justify-between items-center py-4 mb-2 md:py-10 md:mb-0 text-sm md:text-base'}>
 				<div className={'hidden md:block'}>
 					<Link href={'/'}>
 						<div className={'cursor-pointer'}>
@@ -65,7 +65,7 @@ function	Header(): ReactElement {
 						</div>
 					</Link>
 				</div>
-				<div className={'flex flex-row items-center space-x-3 text-sm md:space-x-6 md:text-base '}>
+				<div className={'flex flex-row items-center space-x-3 md:space-x-6'}>
 					<Link href={'/'}>
 						<p className={`nftreasury--link-with-dot ${isAboutPage ? 'active' : '' }`}>
 							{'about'}

@@ -73,7 +73,7 @@ function	ApproveWEth(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'hidden md:flex justify-center items-start min-w-[500px] h-[544px]'}>
 				<Image
 					width={320}
 					height={285}

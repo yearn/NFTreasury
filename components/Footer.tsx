@@ -21,12 +21,12 @@ function	Footer(): ReactElement {
 			</Link>
 
 			<div className={'px-2 ml-auto'}>
-				<a href={'https://twitter.com/iearnfinance'} target={'_blank'} rel={'noreferrer'} className={'text-base hover:underline transition-colors cursor-pointer'}>
+				<a href={'https://twitter.com/iearnfinance'} target={'_blank'} rel={'noreferrer'} className={'hover:underline transition-colors cursor-pointer'}>
 					{'twitter'}
 				</a>
 			</div>
 			<div className={'px-2'}>
-				<a href={'https://discord.yearn.finance/'} target={'_blank'} rel={'noreferrer'} className={'text-base hover:underline transition-colors cursor-pointer'}>
+				<a href={'https://discord.yearn.finance/'} target={'_blank'} rel={'noreferrer'} className={'hover:underline transition-colors cursor-pointer'}>
 					{'discord'}
 				</a>
 			</div>
