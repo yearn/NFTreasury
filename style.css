@@ -77,6 +77,19 @@
 /* 🔵 - Yearn Finance ******************************************************
 ** Adding some custom scss classes
 **************************************************************************/
+
+h1 {
+	@apply text-4xl md:text-6xl;
+}
+
+h2 {
+	@apply text-2xl md:text-4xl font-bold;
+}
+
+h3 {
+	@apply text-base md:text-xl;
+}
+
 .nftreasury--withShadow {
 	@apply relative mt-2 w-full md:w-fit h-fit bg-repeat -mr-2;
 	& > * {@apply -top-2 -left-2 transition-all relative;}
@@ -119,25 +132,13 @@
 	}
 }
 
-h1 {
-	@apply text-4xl md:text-6xl;
-}
-
-h2 {
-	@apply text-2xl md:text-4xl font-bold;
-}
-
-h3 {
-	@apply text-base md:text-xl;
-}
-
-.link-no-dot {
+.nftreasury--link-no-dot {
 	@apply relative cursor-pointer transition-colors text-neutral-400 hover:text-primary-100/60;
 	&.active {
 		@apply text-primary-100 hover:text-primary-100;
 	}
 }
-.link-with-dot {
+.nftreasury--link-with-dot {
 	@apply relative cursor-pointer transition-colors text-neutral-400 hover:text-primary-100/60;
 	
 	&:hover::before {
