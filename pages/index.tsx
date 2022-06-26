@@ -56,7 +56,6 @@ function	Index(): ReactElement {
 							</div>
 						</Link>
 					</div>
-
 					<div className={'w-full md:w-fit'}>
 						<Link href={'/learn-more'}>
 							<div>
@@ -70,7 +69,7 @@ function	Index(): ReactElement {
 					</div>
 				</div>
 			</div>
-			<div className={'hidden md:flex'}>
+			<div className={'hidden ml-4 md:flex md:w-4/12'}>
 				<Gif />
 			</div>
 		</section>
