@@ -50,13 +50,22 @@ function	Header(): ReactElement {
 
 	return (
 		<>
-			<header className={'hidden flex-row justify-between items-center py-10 md:flex'}>
-				<Link href={'/'}>
-					<div className={'cursor-pointer'}>
-						<LogoNFTreasury />
-					</div>
-				</Link>
-				<div className={'flex flex-row items-center space-x-6'}>
+			<header className={'flex flex-row justify-between items-center py-4 md:py-10 mb-2 md:mb-0'}>
+				<div className={'hidden md:block'}>
+					<Link href={'/'}>
+						<div className={'cursor-pointer'}>
+							<LogoNFTreasury />
+						</div>
+					</Link>
+				</div>
+				<div className={'md:hidden'}>
+					<Link href={'/'}>
+						<div className={'cursor-pointer'}>
+							<LogoNFTreasurySmall className={'w-10 h-10'}/>
+						</div>
+					</Link>
+				</div>
+				<div className={'flex flex-row items-center space-x-3 text-sm md:text-base md:space-x-6 '}>
 					<Link href={'/'}>
 						<p className={`nftreasury--link-with-dot ${isAboutPage ? 'active' : '' }`}>
 							{'about'}
@@ -80,16 +89,6 @@ function	Header(): ReactElement {
 					<p className={`nftreasury--link-no-dot ${isActive ? 'active' : '' }`}>
 						{walletIdentity}
 					</p>
-				</div>
-			</header>
-			<header className={'flex flex-row justify-between items-center py-4 mb-4 border-b-2 md:hidden border-primary-500'}>
-				<Link href={'/'}>
-					<div className={'cursor-pointer'}>
-						<LogoNFTreasurySmall className={'w-10 h-10'}/>
-					</div>
-				</Link>
-				<div>
-					<p className={'text-sm'}>{'connect project'}</p>
 				</div>
 			</header>
 		</>

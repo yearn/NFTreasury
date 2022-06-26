@@ -13,7 +13,7 @@ function	Index(): ReactElement {
 					<h2 className={'mt-8 text-right'}>{'Just The world’s best defi developers.'}</h2>
 					<h2 className={'text-right'}>{'Wanna TEAM UP?'}</h2>
 				</div>
-				<p className={'mt-8 w-7/12'}>
+				<p className={'mt-8 w-full md:w-7/12'}>
 					{'NFTreasury is a simple yet powerful treasury management tool, powered by Yearn. We’ll give you a mix of stables and Eth for your short term project needs, and put your long term assets in a vault to earn yield until you need them. Ready to roll?'}
 				</p>
 				<div className={'flex justify-start mt-10'}>
