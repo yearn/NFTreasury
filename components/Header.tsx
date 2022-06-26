@@ -58,12 +58,12 @@ function	Header(): ReactElement {
 				</Link>
 				<div className={'flex flex-row items-center space-x-6'}>
 					<Link href={'/'}>
-						<p className={`link-with-dot ${isAboutPage ? 'active' : '' }`}>
+						<p className={`nftreasury--link-with-dot ${isAboutPage ? 'active' : '' }`}>
 							{'about'}
 						</p>
 					</Link>
 					<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
-						<p className={`link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
+						<p className={`nftreasury--link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
 							{(isActive && isPortfolioPage) ? 'portfolio' : 'create treasury'}
 						</p>
 					</Link>
@@ -77,7 +77,7 @@ function	Header(): ReactElement {
 						openLoginModal();
 					}
 				}}>
-					<p className={`link-no-dot ${isActive ? 'active' : '' }`}>
+					<p className={`nftreasury--link-no-dot ${isActive ? 'active' : '' }`}>
 						{walletIdentity}
 					</p>
 				</div>

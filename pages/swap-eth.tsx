@@ -139,7 +139,7 @@ function	SwapEthPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 grey-box'}>
+					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>

@@ -175,7 +175,7 @@ function	KeepEthPage(): ReactElement {
 							<p>{'Next step we’ll swap some ETH to USDC.'}</p>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 grey-box'}>
+					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>
