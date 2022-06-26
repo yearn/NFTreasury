@@ -73,7 +73,7 @@ function Chart(): ReactElement {
 
 function	TreasuryPage(): ReactElement {
 	return (
-		<div className={'flex flex-col md:flex-row items-center h-full'}>
+		<div className={'flex flex-col items-center h-full md:flex-row'}>
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-full md:w-[700px] md:h-[544px]'}>
 					<div>
@@ -81,7 +81,7 @@ function	TreasuryPage(): ReactElement {
 							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
 						</div>
 						<div className={'flex flex-wrap justify-between items-center mb-6 md:mb:0'}>
-							<div className={'m-0 px-2 md:p-0 mb-4 mb:p-0'}>
+							<div className={'mb:p-0 px-2 m-0 mb-4 md:p-0'}>
 								<p>
 									{'Holdings, ETH'}
 								</p>
@@ -89,7 +89,7 @@ function	TreasuryPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div className={'m-0 px-2 md:p-0'}>
+							<div className={'px-2 m-0 md:p-0'}>
 								<p>
 									{'Holdings, $'}
 								</p>
@@ -97,7 +97,7 @@ function	TreasuryPage(): ReactElement {
 									{'51234.12'}
 								</p>
 							</div>
-							<div className={'m-0 px-2 md:p-0'}>
+							<div className={'px-2 m-0 md:p-0'}>
 								<p>
 									{'Earnings, ETH'}
 								</p>
@@ -105,7 +105,7 @@ function	TreasuryPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div className={'m-0 px-2 md:p-0'}>
+							<div className={'px-2 m-0 md:p-0'}>
 								<p>
 									{'Est. Yield, %'}
 								</p>
@@ -140,9 +140,9 @@ function	TreasuryPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'w-full mt-8 md:mt-0 md:ml-24'}>
+			<div className={'mt-8 w-full md:mt-0 md:ml-24'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-full md:w-[400px] h-[544px]'}>
+					<Card className={'flex flex-col justify-between w-full h-[544px] md:w-[400px]'}>
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
