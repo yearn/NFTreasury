@@ -47,7 +47,7 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden md:flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'hidden justify-center items-start min-w-[500px] h-[544px] md:flex'}>
 				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>

@@ -117,7 +117,7 @@ function	SwapStep(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden md:flex justify-center items-start min-w-[544px] h-[544px]'}>
+			<div className={'hidden justify-center items-start min-w-[544px] h-[544px] md:flex'}>
 				<Image
 					width={518}
 					height={535}

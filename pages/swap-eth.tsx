@@ -160,7 +160,7 @@ function	SwapEthPage(): ReactElement {
 							<span className={'font-bold'}>{'0,0323445 ETH'}</span>
 						</div>
 					</div>
-					<div className={'hidden md:flex justify-start mt-auto'}>
+					<div className={'hidden justify-start mt-auto md:flex'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !quoteData?.quote}

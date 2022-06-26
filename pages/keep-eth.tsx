@@ -201,7 +201,7 @@ function	KeepEthPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden md:flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'hidden justify-center items-start min-w-[500px] h-[544px] md:flex'}>
 				<Image
 					width={322}
 					height={258}
