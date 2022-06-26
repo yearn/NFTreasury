@@ -6,7 +6,7 @@ import	Link					from	'next/link';
 
 function	DialogBox({children=<div />, title='', paragraphs=['']}): ReactElement {
 	return (
-		<div className={'flex items-center w-full md:w-8/12 h-full text-sm md:text-base md:pl-4'}>
+		<div className={'flex items-center w-full h-full text-sm md:pl-4 md:w-8/12 md:text-base'}>
 			<WithShadow role={'large'}>
 				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
 					<div>

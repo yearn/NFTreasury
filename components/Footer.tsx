@@ -13,7 +13,7 @@ function	Footer(): ReactElement {
 	const router = useRouter();
 	const isDisclaimerPage = disclaimerPathnames.includes(router.pathname);
 	return (
-		<footer className={'flex flex-row items-center py-8 mx-auto w-full text-sm md:text-base mt-2 md:mt-0'}>
+		<footer className={'flex flex-row items-center py-8 mx-auto mt-2 w-full text-sm md:mt-0 md:text-base'}>
 			<Link href={'/what-are-yearn-vaults'}>
 				<p className={`nftreasury--link-with-dot ${isDisclaimerPage ? 'active' : '' }`}>
 					{'disclaimer'}
