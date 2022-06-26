@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 import	React, {ReactElement}	from	'react';
-import	{Button}			from	'@yearn-finance/web-lib/components';
-=======
- import	React, {ReactElement}	from	'react';
 import	{Button}				from	'@yearn-finance/web-lib/components';
->>>>>>> 9c32498 (apply standard import identation)
 import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';

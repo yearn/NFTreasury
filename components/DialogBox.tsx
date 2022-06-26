@@ -1,5 +1,5 @@
 import	React, {ReactElement}	from	'react';
-import	{Card}			from	'@yearn-finance/web-lib/components';
+import	{Card}					from	'@yearn-finance/web-lib/components';
 import	{Cross}					from	'@yearn-finance/web-lib/icons';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
