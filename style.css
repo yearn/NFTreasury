@@ -177,5 +177,5 @@ h3 {
 	@apply flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12 md:pl-4;
 }
 .nftreasury--app-card {
-	@apply flex flex-col justify-between w-full md:w-[544px] md:h-[544px];
+	@apply flex flex-col justify-between w-full min-h-[544px] md:w-[544px] md:h-[544px];
 }
