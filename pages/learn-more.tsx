@@ -5,9 +5,9 @@ import	Link					from	'next/link';
 
 function	Index(): ReactElement {
 	return (
-		<section className={'flex items-center h-full'}>
-			<div>
-				<div>
+		<section className={'flex items-center w-full h-full'}>
+			<div className={'w-full'}>
+				<div className={'w-full'}>
 					<h2>{'We don’t have a discord'}</h2>
 					<h2>{'with 10,000 KRAZY koalas in.'}</h2>
 					<h2 className={'mt-8 text-right'}>{'Just The world’s best defi developers.'}</h2>
