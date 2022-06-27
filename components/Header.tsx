@@ -50,7 +50,7 @@ function	Header(): ReactElement {
 
 	return (
 		<>
-			<header className={'flex flex-row justify-between items-center py-4 mb-2 text-sm md:py-10 md:mb-0 md:text-base'}>
+			<header className={'flex flex-row justify-between items-center py-4 mb-2 text-xs sm:text-sm md:py-10 md:mb-0 md:text-base'}>
 				<div className={'hidden md:block'}>
 					<Link href={'/'}>
 						<div className={'cursor-pointer'}>
