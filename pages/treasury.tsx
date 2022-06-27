@@ -116,7 +116,7 @@ function	TreasuryPage(): ReactElement {
 						</div>
 					</div>
 					<Chart />
-					<div className={'flex justify-start'}>
+					<div className={'flex flex-col justify-start items-start md:flex-row'}>
 						<Link href={'/keep-eth'}>
 							<div>
 								<WithShadow role={'button'}>
@@ -126,7 +126,7 @@ function	TreasuryPage(): ReactElement {
 								</WithShadow>
 							</div>
 						</Link>
-						<div className={'ml-6'}>
+						<div className={'mt-8 md:mt-0 md:ml-6'}>
 							<Link href={'/withdraw'}>
 								<div>
 									<WithShadow role={'button'}>
