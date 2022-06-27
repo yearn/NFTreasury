@@ -50,20 +50,29 @@ function	Header(): ReactElement {
 
 	return (
 		<>
-			<header className={'hidden flex-row justify-between items-center py-10 md:flex'}>
-				<Link href={'/'}>
-					<div className={'cursor-pointer'}>
-						<LogoNFTreasury />
-					</div>
-				</Link>
-				<div className={'flex flex-row items-center space-x-6'}>
+			<header className={'flex flex-row justify-between items-center py-4 mb-2 text-xs sm:text-sm md:py-10 md:mb-0 md:text-base'}>
+				<div className={'hidden md:block'}>
 					<Link href={'/'}>
-						<p className={`link-with-dot ${isAboutPage ? 'active' : '' }`}>
+						<div className={'cursor-pointer'}>
+							<LogoNFTreasury />
+						</div>
+					</Link>
+				</div>
+				<div className={'md:hidden'}>
+					<Link href={'/'}>
+						<div className={'cursor-pointer'}>
+							<LogoNFTreasurySmall className={'w-10 h-10'}/>
+						</div>
+					</Link>
+				</div>
+				<div className={'flex flex-row items-center space-x-3 md:space-x-6'}>
+					<Link href={'/'}>
+						<p className={`nftreasury--link-with-dot ${isAboutPage ? 'active' : '' }`}>
 							{'about'}
 						</p>
 					</Link>
 					<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
-						<p className={`link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
+						<p className={`nftreasury--link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
 							{(isActive && isPortfolioPage) ? 'portfolio' : 'create treasury'}
 						</p>
 					</Link>
@@ -77,19 +86,9 @@ function	Header(): ReactElement {
 						openLoginModal();
 					}
 				}}>
-					<p className={`link-no-dot ${isActive ? 'active' : '' }`}>
+					<p className={`nftreasury--link-no-dot ${isActive ? 'active' : '' }`}>
 						{walletIdentity}
 					</p>
-				</div>
-			</header>
-			<header className={'flex flex-row justify-between items-center py-4 mb-4 border-b-2 md:hidden border-primary-500'}>
-				<Link href={'/'}>
-					<div className={'cursor-pointer'}>
-						<LogoNFTreasurySmall className={'w-10 h-10'}/>
-					</div>
-				</Link>
-				<div>
-					<p className={'text-sm'}>{'connect project'}</p>
 				</div>
 			</header>
 		</>

@@ -90,9 +90,9 @@ function	SwapStep(): ReactElement {
 	}
 
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'nftreasury--app-wrapper'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'nftreasury--app-card'}>
 					<div>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Final final step'}</h2>
@@ -117,7 +117,7 @@ function	SwapStep(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[544px] h-[544px]'}>
+			<div className={'hidden justify-center items-start min-w-[544px] h-[544px] md:flex'}>
 				<Image
 					width={518}
 					height={535}

@@ -1,5 +1,6 @@
-import React, {ReactElement} from 'react';
-import Document, {Html, Head, Main, NextScript, DocumentContext} from 'next/document';
+import React, {ReactElement} 			from 'react';
+import Document, {Html, Head, Main,
+	NextScript, DocumentContext} 		from 'next/document';
 
 type TInitialProps = {
     html: string;

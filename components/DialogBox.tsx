@@ -1,14 +1,14 @@
 import	React, {ReactElement}	from	'react';
-import	{Card}			from	'@yearn-finance/web-lib/components';
+import	{Card}					from	'@yearn-finance/web-lib/components';
 import	{Cross}					from	'@yearn-finance/web-lib/icons';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
 
 function	DialogBox({children=<div />, title='', paragraphs=['']}): ReactElement {
 	return (
-		<div className={'flex items-center w-8/12 h-full'}>
+		<div className={'flex items-center w-full h-full text-sm md:pl-4 md:w-8/12 md:text-base'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
+				<Card className={'flex flex-col justify-between w-full min-h-[500px] md:h-[500px]'}>
 					<div>
 						<div className={'flex flex-row justify-between pb-6 w-full'}>
 							<h3 className={'font-bold'}>{title}</h3>

@@ -92,9 +92,9 @@ function	SwapEthPage(): ReactElement {
 
 
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'nftreasury--app-wrapper'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col w-[544px] h-[544px]'}>
+				<Card className={'nftreasury--app-card'}>
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You are keeping'}</h2>
@@ -139,7 +139,7 @@ function	SwapEthPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 grey-box'}>
+					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
 						<p className={'flex justify-between mb-4'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
@@ -160,7 +160,7 @@ function	SwapEthPage(): ReactElement {
 							<span className={'font-bold'}>{'0,0323445 ETH'}</span>
 						</div>
 					</div>
-					<div className={'flex justify-start mt-auto'}>
+					<div className={'hidden justify-start mt-auto md:flex'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !quoteData?.quote}
