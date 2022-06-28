@@ -12,7 +12,7 @@ import	useCowSwap									from	'contexts/useCowSwap';
 import	useWallet									from	'contexts/useWallet';
 import	type {TCowSwapQuote}						from	'types/types';
 
-const		shouldUsePresign = true;
+const		shouldUsePresign = false;
 function	SwapStep(): ReactElement {
 	const	router = useRouter();
 	const	{provider, address, isActive} = useWeb3();
@@ -30,7 +30,7 @@ function	SwapStep(): ReactElement {
 			domain(1, '0x9008D19f58AAbD9eD0D60971565AA8510560ab41'),
 			_cowSwapQuote.quote,
 			signer,
-			SigningScheme.ETHSIGN
+			SigningScheme.EIP712
 		);
 		const signature = ethers.utils.joinSignature(rawSignature.data);
 		return signature;
@@ -47,21 +47,21 @@ function	SwapStep(): ReactElement {
 				const	slippage = 0.1;
 				const	buyAmount = Number(ethers.utils.formatUnits(_cowSwapQuote.quote.buyAmount, 6));
 				const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
+				_cowSwapQuote.quote.buyAmount = buyAmountWithSlippage.toString();
 				const	signature = await signCowswapOrder(_cowSwapQuote);
 				console.warn({
 					..._cowSwapQuote.quote,
-					buyAmount: buyAmountWithSlippage.toString(),
+					from: address,
 					quoteId: _cowSwapQuote.id,
 					signature: signature,
-					signingScheme: shouldUsePresign ? SigningScheme.PRESIGN : SigningScheme.ETHSIGN
+					signingScheme: String(shouldUsePresign ? 'presign' : 'eip712')
 				});
 				const	{data: orderUID} = await axios.post('https://api.cow.fi/mainnet/api/v1/orders', {
 					..._cowSwapQuote.quote,
 					from: address,
-					buyAmount: buyAmountWithSlippage.toString(),
 					quoteId: _cowSwapQuote.id,
 					signature: signature,
-					signingScheme: String(shouldUsePresign ? 'presign' : 'ethsign')
+					signingScheme: String(shouldUsePresign ? 'presign' : 'eip712')
 				});
 				if (orderUID) {
 					const	interval = setInterval(async (): Promise<void> => {
