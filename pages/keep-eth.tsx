@@ -82,8 +82,10 @@ function	KeepEthPage(): ReactElement {
 			return;
 
 		const	toDeposit = (balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw).sub(keptEth);
-		if (toDeposit.lte(ethers.constants.Zero))
+		if (toDeposit.lte(ethers.constants.Zero)) {
+			router.push('/swap-eth');
 			return;
+		}
 
 		set_isShowingArrow(true);
 		const	transaction = (

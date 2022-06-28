@@ -46,18 +46,26 @@ function	SwapStep(): ReactElement {
 			try {
 				const	slippage = 0.1;
 				const	buyAmount = Number(ethers.utils.formatUnits(_cowSwapQuote.quote.buyAmount, 6));
-				const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount - (buyAmount * (1 - slippage))).toFixed(6), 6);
+				const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
 				const	signature = await signCowswapOrder(_cowSwapQuote);
-				const	{data: orderUID} = await axios.post('https://barn.api.cow.fi/mainnet/api/v1/orders', {
+				console.warn({
 					..._cowSwapQuote.quote,
 					buyAmount: buyAmountWithSlippage.toString(),
 					quoteId: _cowSwapQuote.id,
 					signature: signature,
 					signingScheme: shouldUsePresign ? SigningScheme.PRESIGN : SigningScheme.ETHSIGN
 				});
+				const	{data: orderUID} = await axios.post('https://api.cow.fi/mainnet/api/v1/orders', {
+					..._cowSwapQuote.quote,
+					from: address,
+					buyAmount: buyAmountWithSlippage.toString(),
+					quoteId: _cowSwapQuote.id,
+					signature: signature,
+					signingScheme: String(shouldUsePresign ? 'presign' : 'ethsign')
+				});
 				if (orderUID) {
 					const	interval = setInterval(async (): Promise<void> => {
-						const	{data: order} = await axios.get(`https://barn.api.cow.fi/mainnet/api/v1/orders/${orderUID}`);
+						const	{data: order} = await axios.get(`https://api.cow.fi/mainnet/api/v1/orders/${orderUID}`);
 						if (order?.status === 'fulfilled') {
 							await updateWallet();
 							clearInterval(interval);
