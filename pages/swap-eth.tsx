@@ -33,7 +33,7 @@ function	SwapEthPage(): ReactElement {
 		kind: 'sell',
 		sellAmountBeforeFee: ethers.utils.parseEther(Number(inputValue).toFixed(18)).toString()
 	};
-	const	{data: quoteData, error} = useSWR(inputValue !== '0' ? ['https://barn.api.cow.fi/mainnet/api/v1/quote', quote] : null, fetcher);
+	const	{data: quoteData, error} = useSWR(inputValue !== '0' ? ['https://api.cow.fi/mainnet/api/v1/quote', quote] : null, fetcher);
 
 	// Init the balance once available
 	React.useEffect((): void => {
@@ -65,7 +65,8 @@ function	SwapEthPage(): ReactElement {
 	const	onStartSwap = (): void => {
 		if (quoteData) {
 			set_cowSwapQuote(quoteData);
-			router.push('/wrap-eth');
+			// router.push('/wrap-eth');
+			router.push('/final-final-step');
 		}
 	};
 
