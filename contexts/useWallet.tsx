@@ -58,7 +58,9 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 		}
 		const	tokenList: string[] = [
 			toAddress(process.env.ETH_TOKEN_ADDRESS),
-			toAddress(process.env.WETH_TOKEN_ADDRESS)
+			toAddress(process.env.WETH_TOKEN_ADDRESS),
+			toAddress(process.env.ETH_VAULT_ADDRESS),
+			toAddress(process.env.USDC_TOKEN_ADDRESS)
 		];
 
 		const	currentProvider = provider || providers.getProvider(chainID || 1);
@@ -100,7 +102,7 @@ export const WalletContextApp = ({children}: {children: ReactElement}): ReactEle
 
 			_balances[toAddress(token)] = {
 				raw: tokenBalance,
-				normalized: format.toNormalizedValue(tokenBalance, 18)
+				normalized: format.toNormalizedValue(tokenBalance, token === toAddress(process.env.USDC_TOKEN_ADDRESS) ? 6 : 18)
 			};
 			_prices[toAddress(token)] = {
 				raw: tokenPrice,
