@@ -5,9 +5,9 @@ import	WithShadow				from	'components/WithShadow';
 
 function	WithdrawPage(): ReactElement {
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'nftreasury--app-wrapper'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'nftreasury--app-card'}>
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'You have 24.6913578 ETH'}</h2>
@@ -35,7 +35,7 @@ function	WithdrawPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'flex justify-start space-x-6 w-full'}>
+					<div className={'flex flex-col justify-start items-start w-full md:flex-row md:space-x-6'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>
@@ -43,16 +43,15 @@ function	WithdrawPage(): ReactElement {
 								</Button>
 							</Link>
 						</WithShadow>
-						<div>
-							
+						<div className={'mt-8 md:mt-0'}>
+							<WithShadow role={'button'}>
+								<Link href={'/treasury'}>
+									<Button variant={'outlined'} className={'w-[176px]'}>
+										{'Back'}
+									</Button>
+								</Link>
+							</WithShadow>
 						</div>
-						<WithShadow role={'button'}>
-							<Link href={'/treasury'}>
-								<Button variant={'outlined'} className={'w-[176px]'}>
-									{'Back'}
-								</Button>
-							</Link>
-						</WithShadow>
 					</div>
 				</Card>
 			</WithShadow>

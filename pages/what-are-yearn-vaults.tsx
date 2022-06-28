@@ -1,5 +1,5 @@
 import	React, {ReactElement}	from	'react';
-import	{Button}			from	'@yearn-finance/web-lib/components';
+import	{Button}				from	'@yearn-finance/web-lib/components';
 import	WithShadow				from	'components/WithShadow';
 import	DialogBox				from	'components/DialogBox';
 import	Link					from	'next/link';
@@ -13,7 +13,7 @@ function	DisclaimerPage(): ReactElement {
 				'Users benefit from socializing gas costs and need not be experts in defi or the underlying protocols to utilize Yearn Vaults.'
 			]}	
 		>
-			<div className={'flex justify-end'}>
+			<div className={'flex justify-end mt-8 md:mt-0'}>
 				<Link href={'/what-is-cowswap'}>
 					<div>
 						<WithShadow role={'button'}>

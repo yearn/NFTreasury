@@ -36,13 +36,13 @@ function	Index(): ReactElement {
 	return (
 		<section className={'flex flex-col items-center h-full md:flex-row'}>
 			<div className={'w-full md:w-8/12'}>
-				<div>
+				<div className={'text-center md:text-left'}>
 					<h1>{'NFTreasury.'}</h1>
 					<h3 className={'mt-1 md:mt-6'}>{'A treasury management tool for NFT projects.'}</h3>
 					<h3>{'Powered by Yearn.'}</h3>
 				</div>
-				<div className={'flex mx-auto mt-2 mb-4 w-full md:hidden'}>
-					<Gif bounce={2} damping={12} />
+				<div className={'flex justify-center mx-auto mt-2 mb-4 w-full md:hidden'}>
+					<Gif bounce={2} damping={24} />
 				</div>
 				<div className={'flex justify-center mt-8 space-x-4 md:justify-start md:space-x-8'}>
 					<div className={'w-full md:w-fit'}>
@@ -56,7 +56,6 @@ function	Index(): ReactElement {
 							</div>
 						</Link>
 					</div>
-
 					<div className={'w-full md:w-fit'}>
 						<Link href={'/learn-more'}>
 							<div>
@@ -70,7 +69,7 @@ function	Index(): ReactElement {
 					</div>
 				</div>
 			</div>
-			<div className={'hidden md:flex'}>
+			<div className={'hidden ml-4 md:flex md:w-4/12'}>
 				<Gif />
 			</div>
 		</section>

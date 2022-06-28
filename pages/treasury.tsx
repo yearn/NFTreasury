@@ -2,7 +2,8 @@ import	React, {ReactElement}						from	'react';
 import	Link										from	'next/link';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	WithShadow									from	'components/WithShadow';
-import {LineChart, Line, Tooltip, XAxis, YAxis, ResponsiveContainer} 	from 	'recharts';
+import {LineChart, Line, Tooltip, XAxis, YAxis,
+	ResponsiveContainer} 							from 	'recharts';
 
 const mockData: object[] = [
 	{
@@ -70,17 +71,17 @@ function Chart(): ReactElement {
 	);
 }
 
-function	DisclaimerPage(): ReactElement {
+function	TreasuryPage(): ReactElement {
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'flex flex-col items-center h-full md:flex-row'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[700px] h-[544px]'}>
+				<Card className={'flex flex-col justify-between w-full md:w-[700px] md:h-[544px]'}>
 					<div>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
 						</div>
-						<div className={'flex justify-between items-center'}>
-							<div className={'m-0'}>
+						<div className={'flex flex-wrap justify-between items-center mb-6 md:mb:0'}>
+							<div className={'mb:p-0 px-2 m-0 mb-4 md:p-0'}>
 								<p>
 									{'Holdings, ETH'}
 								</p>
@@ -88,7 +89,7 @@ function	DisclaimerPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div className={'m-0'}>
+							<div className={'px-2 m-0 md:p-0'}>
 								<p>
 									{'Holdings, $'}
 								</p>
@@ -96,7 +97,7 @@ function	DisclaimerPage(): ReactElement {
 									{'51234.12'}
 								</p>
 							</div>
-							<div>
+							<div className={'px-2 m-0 md:p-0'}>
 								<p>
 									{'Earnings, ETH'}
 								</p>
@@ -104,7 +105,7 @@ function	DisclaimerPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div>
+							<div className={'px-2 m-0 md:p-0'}>
 								<p>
 									{'Est. Yield, %'}
 								</p>
@@ -115,7 +116,7 @@ function	DisclaimerPage(): ReactElement {
 						</div>
 					</div>
 					<Chart />
-					<div className={'flex justify-start'}>
+					<div className={'flex flex-col justify-start items-start md:flex-row'}>
 						<Link href={'/keep-eth'}>
 							<div>
 								<WithShadow role={'button'}>
@@ -125,7 +126,7 @@ function	DisclaimerPage(): ReactElement {
 								</WithShadow>
 							</div>
 						</Link>
-						<div className={'ml-6'}>
+						<div className={'mt-8 md:mt-0 md:ml-6'}>
 							<Link href={'/withdraw'}>
 								<div>
 									<WithShadow role={'button'}>
@@ -139,9 +140,9 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'ml-24'}>
+			<div className={'mt-8 w-full md:mt-0 md:ml-24'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-[400px] h-[544px]'}>
+					<Card className={'flex flex-col justify-between w-full h-[544px] md:w-[400px]'}>
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
@@ -181,4 +182,4 @@ function	DisclaimerPage(): ReactElement {
 	);
 }
 
-export default DisclaimerPage;
+export default TreasuryPage;
