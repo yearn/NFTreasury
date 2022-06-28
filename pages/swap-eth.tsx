@@ -65,8 +65,8 @@ function	SwapEthPage(): ReactElement {
 	const	onStartSwap = (): void => {
 		if (quoteData) {
 			set_cowSwapQuote(quoteData);
-			// router.push('/wrap-eth');
-			router.push('/final-final-step');
+			router.push('/wrap-eth');
+			// router.push('/final-final-step');
 		}
 	};
 
@@ -91,6 +91,17 @@ function	SwapEthPage(): ReactElement {
 		set_ethToWrap(ethers.utils.parseUnits(Number(value).toFixed(18), 18));
 	};
 
+	const	buyAmountWithSlippage = (): string => {
+		if (quoteData?.quote?.buyAmount) {
+			const	slippage = 0.1;
+			const	buyAmount = Number(ethers.utils.formatUnits(quoteData?.quote?.buyAmount, 6));
+			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
+			return (
+				format.amount(Number(format.units(buyAmountWithSlippage, 6)), 2, 2)
+			);
+		}
+		return '';
+	};
 
 	return (
 		<div className={'nftreasury--app-wrapper'}>
@@ -144,7 +155,7 @@ function	SwapEthPage(): ReactElement {
 						<p className={'flex justify-between mb-4'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
-								{!quoteData || error ? '- USDC' : `${format.amount(Number(format.units(quoteData?.quote?.buyAmount, 6)), 2, 2)} USDC`}
+								{!quoteData || error ? '- USDC' : `${buyAmountWithSlippage()} USDC`}
 							</span>
 						</p>
 						<p className={'flex justify-between mb-4'}>
