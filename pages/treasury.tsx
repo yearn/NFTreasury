@@ -30,9 +30,10 @@ function Chart({data}: {data: any[]}): ReactElement {
 		return null;
 	};
 
-
+	const	minInData = Math.min(...data.map((d): number => d.outputTokenPriceUSD));
+	const	maxInData = Math.max(...data.map((d): number => d.outputTokenPriceUSD));
 	return (
-		<div>
+		<div className={'flex flex-row space-x-2 w-full h-[192px]'}>
 			<ResponsiveContainer width={608} height={192}>
 				<LineChart
 					className={'overflow-hidden max-h-[192px] border-2 border-black'}
@@ -56,6 +57,10 @@ function Chart({data}: {data: any[]}): ReactElement {
 					/>
 				</LineChart>
 			</ResponsiveContainer>
+			<div className={'flex flex-col justify-between h-full'}>
+				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(maxInData), 2, 2)} $`}</div>
+				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(minInData), 2, 2)} $`}</div>
+			</div>
 		</div>
 	);
 }
@@ -65,10 +70,10 @@ function	TreasuryPage(): ReactElement {
 	const	{yvEthData, treasuryData} = useYearn();
 
 	return (
-		<div className={'flex flex-col items-center h-full md:flex-row'}>
+		<div className={'flex flex-col items-center w-full h-full md:flex-row justify-betwee'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col w-full md:w-[700px] md:h-[488px]'}>
-					<div className={'mb-8'}>
+				<Card className={'flex flex-col w-full md:w-[752px] md:h-[488px]'}>
+					<div className={'mb-8 w-[608px]'}>
 						<div className={'pb-6 w-full'}>
 							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
 						</div>
@@ -132,9 +137,13 @@ function	TreasuryPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'mt-8 w-full md:mt-0 md:ml-24'}>
+			<div className={'flex justify-end mt-8 w-full md:mt-0'}>
 				<WithShadow role={'large'}>
+<<<<<<< HEAD
 					<Card className={'flex flex-col justify-between w-full h-[340px] md:w-[400px] md:h-[544px]'}>
+=======
+					<Card className={'flex flex-col justify-between w-full h-[488px] md:w-[392px]'}>
+>>>>>>> 8574cbc (featL graph upd)
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
