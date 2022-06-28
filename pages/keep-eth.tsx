@@ -28,7 +28,7 @@ function	EstimateGasRow(): ReactElement {
 	}, [currentGasPrice]);
 
 	return (
-		<p className={'flex justify-between'}>
+		<p className={'flex justify-between flex-col md:flex-row'}>
 			<span>{'Est. gas cost for deposit'}</span>
 			<span className={'font-bold'}>
 				{`${currentEstimate.toFixed(8)} ETH`}
@@ -176,13 +176,13 @@ function	KeepEthPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
-						<p className={'flex justify-between mb-4'}>
+						<p className={'flex justify-between mb-4 flex-col md:flex-row'}>
 							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>
 								{format.bigNumberAsAmount((balance.raw).sub(keptEth), 18, 8, 'ETH')}
 							</span>
 						</p>
-						<p className={'flex justify-between mb-4'}>
+						<p className={'flex justify-between mb-4 flex-col md:flex-row'}>
 							<span>{'APY'}</span>
 							<span className={'font-bold'}>
 								{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)} %` : '-'}

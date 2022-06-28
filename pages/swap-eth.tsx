@@ -140,19 +140,19 @@ function	SwapEthPage(): ReactElement {
 						</div>
 					</div>
 					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
-						<p className={'flex justify-between mb-4'}>
+						<p className={'flex justify-between mb-4 flex-col md:flex-row'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
 								{!quoteData || error ? '- USDC' : `${format.amount(Number(format.units(quoteData?.quote?.buyAmount, 6)), 2, 2)} USDC`}
 							</span>
 						</p>
-						<p className={'flex justify-between mb-4'}>
+						<p className={'flex justify-between mb-4 flex-col md:flex-row'}>
 							<span>{'You’ll keep'}</span>
 							<span className={'font-bold'}>
 								{format.bigNumberAsAmount((balance.raw).sub(ethToWrap), 18, 8, 'ETH')}
 							</span>
 						</p>
-						<div className={'flex justify-between'}>
+						<div className={'flex justify-between flex-col md:flex-row'}>
 							<span>
 								<p>{'Est. gas cost for all steps'}</p>
 								<p>{'(wrap, approve, sign)'}</p>

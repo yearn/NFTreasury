@@ -89,7 +89,7 @@ function	TreasuryPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div className={'px-2 m-0 md:p-0'}>
+							<div className={'px-2 m-0 md:p-0 text-right sm:text-left'}>
 								<p>
 									{'Holdings, $'}
 								</p>
@@ -105,7 +105,7 @@ function	TreasuryPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div className={'px-2 m-0 md:p-0'}>
+							<div className={'px-2 m-0 md:p-0 text-right sm:text-left'}>
 								<p>
 									{'Est. Yield, %'}
 								</p>
@@ -142,7 +142,7 @@ function	TreasuryPage(): ReactElement {
 			</WithShadow>
 			<div className={'mt-8 w-full md:mt-0 md:ml-24'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-full h-[544px] md:w-[400px]'}>
+					<Card className={'flex flex-col justify-between w-full h-[340px] md:h-[544px] md:w-[400px]'}>
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
