@@ -43,7 +43,7 @@
 }
 
 .yearn--button {
-	@apply rounded-none h-10 relative transition-all border-primary-500 flex justify-start min-w-0 md:min-w-[176px];
+	@apply rounded-none h-10 relative transition-all border-primary-500 flex justify-start w-auto md:min-w-[176px] text-sm md:text-base;
 
 	&[data-variant="outlined"] {
 		@apply bg-neutral-0 border-2;

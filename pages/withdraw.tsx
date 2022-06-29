@@ -35,7 +35,7 @@ function	WithdrawPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'flex flex-col justify-start items-start w-full md:flex-row md:space-x-6'}>
+					<div className={'flex justify-between md:justify-start w-full md:space-x-6'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>
@@ -43,15 +43,13 @@ function	WithdrawPage(): ReactElement {
 								</Button>
 							</Link>
 						</WithShadow>
-						<div className={'mt-8 md:mt-0'}>
-							<WithShadow role={'button'}>
-								<Link href={'/treasury'}>
-									<Button variant={'outlined'} className={'w-[176px]'}>
-										{'Back'}
-									</Button>
-								</Link>
-							</WithShadow>
-						</div>
+						<WithShadow role={'button'}>
+							<Link href={'/treasury'}>
+								<Button variant={'outlined'} className={'w-[176px]'}>
+									{'Back'}
+								</Button>
+							</Link>
+						</WithShadow>
 					</div>
 				</Card>
 			</WithShadow>
