@@ -4,7 +4,7 @@ import	{Cross}					from	'@yearn-finance/web-lib/icons';
 import	WithShadow				from	'components/WithShadow';
 import	Link					from	'next/link';
 
-function	DialogBox({children=<div />, title='', paragraphs=[<p />]}): ReactElement {
+function	DialogBox({children=<div />, title='', paragraphs=[<p key={'0'} />]}): ReactElement {
 	return (
 		<div className={'flex items-center w-full h-full text-sm md:pl-4 md:w-8/12 md:text-base'}>
 			<WithShadow role={'large'}>

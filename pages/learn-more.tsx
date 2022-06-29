@@ -16,7 +16,7 @@ function	Index(): ReactElement {
 				<p className={'mt-8 w-full md:w-7/12'}>
 					{'NFTreasury is a simple yet powerful treasury management tool, powered by Yearn. We’ll give you a mix of stables and Eth for your short term project needs, and put your long term assets in a vault to earn yield until you need them. Ready to roll?'}
 				</p>
-				<div className={'flex mt-10 justify-between md:justify-start space-x-6'}>
+				<div className={'flex justify-between mt-10 space-x-6 md:justify-start'}>
 					<div>
 						<Link href={'/connect-wallet'}>
 							<div>

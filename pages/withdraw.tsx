@@ -35,7 +35,7 @@ function	WithdrawPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'flex justify-between md:justify-start w-full md:space-x-6'}>
+					<div className={'flex justify-between w-full md:justify-start md:space-x-6'}>
 						<WithShadow role={'button'}>
 							<Link href={'/treasury'}>
 								<Button className={'w-[176px]'}>
