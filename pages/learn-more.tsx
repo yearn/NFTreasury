@@ -16,7 +16,7 @@ function	Index(): ReactElement {
 				<p className={'mt-8 w-full md:w-7/12'}>
 					{'NFTreasury is a simple yet powerful treasury management tool, powered by Yearn. We’ll give you a mix of stables and Eth for your short term project needs, and put your long term assets in a vault to earn yield until you need them. Ready to roll?'}
 				</p>
-				<div className={'flex flex-col items-start mt-10 md:flex-row md:justify-start'}>
+				<div className={'flex justify-between mt-10 space-x-6 md:justify-start'}>
 					<div>
 						<Link href={'/connect-wallet'}>
 							<div>
@@ -29,17 +29,15 @@ function	Index(): ReactElement {
 						</Link>
 					</div>
 
-					<div className={'mt-8 md:mt-0 md:ml-8'}>
-						<Link href={'/how-it-works'}>
-							<div>
-								<WithShadow role={'button'}>
-									<Button variant={'outlined'} className={'w-[176px]'}>
-										{'Learn More'}
-									</Button>
-								</WithShadow>
-							</div>
-						</Link>
-					</div>
+					<Link href={'/how-it-works'}>
+						<div>
+							<WithShadow role={'button'}>
+								<Button variant={'outlined'} className={'w-[176px]'}>
+									{'Learn More'}
+								</Button>
+							</WithShadow>
+						</div>
+					</Link>
 				</div>
 			</div>
 		</section>

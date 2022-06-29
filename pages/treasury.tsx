@@ -84,8 +84,10 @@ function	TreasuryPage(): ReactElement {
 									{balances ? format.amount(balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0, 8, 8) : '-'}
 								</p>
 							</div>
-							<div className={'px-2 m-0 md:p-0'}>
-								<p>{'Holdings, $'}</p>
+							<div className={'px-2 m-0 text-right sm:text-left md:p-0'}>
+								<p>
+									{'Holdings, $'}
+								</p>
 								<p className={'font-bold'}>
 									{balances ? format.amount(
 										(balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0)
@@ -100,8 +102,10 @@ function	TreasuryPage(): ReactElement {
 									{'1234.12345678'}
 								</p>
 							</div>
-							<div className={'px-2 m-0 md:p-0'}>
-								<p>{'Est. Yield, %'}</p>
+							<div className={'px-2 m-0 text-right sm:text-left md:p-0'}>
+								<p>
+									{'Est. Yield, %'}
+								</p>
 								<p className={'font-bold'}>
 									{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)}` : '-'}
 								</p>
@@ -119,7 +123,7 @@ function	TreasuryPage(): ReactElement {
 								</WithShadow>
 							</div>
 						</Link>
-						<div className={'mt-8 md:mt-0 md:ml-6'}>
+						<div className={'ml-6'}>
 							<Link href={'/withdraw'}>
 								<div>
 									<WithShadow role={'button'}>
@@ -135,7 +139,7 @@ function	TreasuryPage(): ReactElement {
 			</WithShadow>
 			<div className={'flex justify-end mt-8 w-full md:mt-0'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-full h-[488px] md:w-[392px]'}>
+					<Card className={'flex flex-col justify-between w-full h-[340px] md:w-[400px] md:h-[488px]'}>
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>

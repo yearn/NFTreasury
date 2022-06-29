@@ -44,23 +44,23 @@ function	Index(): ReactElement {
 				<div className={'flex justify-center mx-auto mt-2 mb-4 w-full md:hidden'}>
 					<Gif bounce={2} damping={24} />
 				</div>
-				<div className={'flex justify-center mt-8 space-x-4 md:justify-start md:space-x-8'}>
-					<div className={'w-full md:w-fit'}>
+				<div className={'flex justify-around mt-8 space-x-4 md:justify-start md:space-x-8'}>
+					<div>
 						<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
 							<div>
 								<WithShadow role={'button'}>
-									<Button className={'w-full'}>
+									<Button>
 										{'Lets Start'}
 									</Button>
 								</WithShadow>
 							</div>
 						</Link>
 					</div>
-					<div className={'w-full md:w-fit'}>
+					<div>
 						<Link href={'/learn-more'}>
 							<div>
 								<WithShadow role={'button'}>
-									<Button variant={'outlined'} className={'w-full'}>
+									<Button variant={'outlined'}>
 										{'Learn More'}
 									</Button>
 								</WithShadow>
