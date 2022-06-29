@@ -139,7 +139,7 @@ function	TreasuryPage(): ReactElement {
 			</WithShadow>
 			<div className={'flex justify-end mt-8 w-full md:mt-0'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-full h-[340px] md:w-[400px] md:h-[544px]'}>
+					<Card className={'flex flex-col justify-between w-full h-[340px] md:w-[400px] md:h-[488px]'}>
 						<div className={'space-y-6'}>
 							<div className={'pb-6 w-full'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
