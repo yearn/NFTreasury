@@ -21,7 +21,6 @@ export async function	ZapEth(
 
 		return true;
 	} catch(error) {
-		console.log(amount, amount.toString());
 		console.error(error);
 		return false;
 	}

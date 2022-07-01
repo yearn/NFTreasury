@@ -6,7 +6,7 @@ function	WithShadow({
 	onClick = (): void => undefined,
 	children = <div />
 }): ReactElement {
-	if (role === 'button') {
+	if (role.includes('button')) {
 		if (isDisabled)
 			role = 'button-disabled';
 		return (

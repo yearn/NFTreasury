@@ -31,7 +31,7 @@ function	EstimateGasRow(): ReactElement {
 		<p className={'flex flex-col justify-between md:flex-row'}>
 			<span>{'Est. gas cost for deposit'}</span>
 			<span className={'font-bold'}>
-				{`${currentEstimate.toFixed(8)} ETH`}
+				{`${format.amount(Number(currentEstimate.toFixed(8)), 8, 8)} ETH`}
 			</span>
 		</p>
 	);
