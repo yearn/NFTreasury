@@ -157,7 +157,7 @@ function	TreasuryPage(): ReactElement {
 								</p>
 							</div>
 						</div>
-						<div className={'flex justify-start'}>
+						<div className={'flex justify-start mb-0 md:mb-4'}>
 							<Link href={'/keep-eth'}>
 								<div>
 									<WithShadow role={'button'}>
