@@ -13,6 +13,30 @@ import	type {TCowSwapQuote}						from	'types/types';
 
 const fetcher = async (url: string, data: unknown): Promise<TCowSwapQuote> => axios.post(url, data).then((res): TCowSwapQuote => res.data);
 
+function	EstimateGasRow({cowswapFees = 0}): ReactElement {
+	const	{currentGasPrice} = useWallet();
+	const	[currentEstimate, set_currentEstimate] = React.useState(0);
+
+	React.useEffect((): void => {
+		const	gas = Number(format.units(currentGasPrice, 'ether'));
+		const	zapCost = gas * 111753;
+		const	approveCost = gas * 46076;
+		set_currentEstimate(zapCost + approveCost + cowswapFees); 
+	}, [currentGasPrice, cowswapFees]);
+
+	return (
+		<div className={'flex flex-col justify-between md:flex-row'}>
+			<span>
+				<p>{'Est. gas cost for all steps'}</p>
+				<p>{'(wrap, approve, sign)'}</p>
+			</span>
+			<span className={'font-bold'}>
+				{`${format.amount(Number(currentEstimate.toFixed(8)), 8, 8)} ETH`}
+			</span>
+		</div>
+	);
+}
+
 function	SwapEthPage(): ReactElement {
 	const	router = useRouter();
 	const	{address, isActive} = useWeb3();
@@ -24,12 +48,12 @@ function	SwapEthPage(): ReactElement {
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
 
 	const	quote = {
+		from: address,
 		sellToken: process.env.WETH_TOKEN_ADDRESS,
 		buyToken: process.env.USDC_TOKEN_ADDRESS,
 		receiver: address,
 		appData: process.env.COW_APP_DATA,
 		partiallyFillable: false,
-		from: address,
 		kind: 'sell',
 		sellAmountBeforeFee: ethers.utils.parseEther(Number(inputValue).toFixed(18)).toString()
 	};
@@ -155,7 +179,7 @@ function	SwapEthPage(): ReactElement {
 						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
-								{!quoteData || error ? '- USDC' : `${buyAmountWithSlippage()} USDC`}
+								{!quoteData || error ? '- USDC' : `~ ${buyAmountWithSlippage()} USDC`}
 							</span>
 						</p>
 						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
@@ -164,13 +188,8 @@ function	SwapEthPage(): ReactElement {
 								{format.bigNumberAsAmount((balance.raw).sub(ethToWrap), 18, 8, 'ETH')}
 							</span>
 						</p>
-						<div className={'flex flex-col justify-between md:flex-row'}>
-							<span>
-								<p>{'Est. gas cost for all steps'}</p>
-								<p>{'(wrap, approve, sign)'}</p>
-							</span>
-							<span className={'font-bold'}>{'0,0323445 ETH'}</span>
-						</div>
+						<EstimateGasRow
+							cowswapFees={quoteData ? format.toNormalizedValue(format.BN(quoteData.quote.feeAmount as string), 18) : 0} />
 					</div>
 					<div className={'hidden justify-start mt-auto md:flex'}>
 						<WithShadow

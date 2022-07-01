@@ -1,17 +1,20 @@
 import	React, {ReactElement, useState}				from	'react';
 import	{useRouter}									from	'next/router';
 import	Image										from	'next/image';
+import	useSWR										from	'swr';
 import	{ethers}									from	'ethers';
 import	axios										from	'axios';
 import	{useWeb3}									from	'@yearn-finance/web-lib';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
-import	{performBatchedUpdates, defaultTxStatus}	from	'@yearn-finance/web-lib/utils';
+import	{performBatchedUpdates, defaultTxStatus,
+	format}											from	'@yearn-finance/web-lib/utils';
 import	{domain, SigningScheme, signOrder}			from	'@gnosis.pm/gp-v2-contracts';
 import	WithShadow									from	'components/WithShadow';
 import	useCowSwap									from	'contexts/useCowSwap';
 import	useWallet									from	'contexts/useWallet';
 import	type {TCowSwapQuote}						from	'types/types';
 
+const		fetcher = async (url: string, data: unknown): Promise<TCowSwapQuote> => axios.post(url, data).then((res): TCowSwapQuote => res.data);
 const		shouldUsePresign = false;
 function	SwapStep(): ReactElement {
 	const	router = useRouter();
@@ -20,46 +23,65 @@ function	SwapStep(): ReactElement {
 	const	{cowSwapQuote} = useCowSwap();
 	const	[txStatusSwap, set_txStatusSwap] = React.useState(defaultTxStatus);
 	const	[isShowingArrow, set_isShowingArrow] = useState(false);
+	const	[currentQuote, set_currentQuote] = useState<TCowSwapQuote>(cowSwapQuote as TCowSwapQuote);
 
-	async function	signCowswapOrder(_cowSwapQuote: TCowSwapQuote): Promise<string> {
+	const	{data: updatedQuote} = useSWR(cowSwapQuote ? [
+		'https://api.cow.fi/mainnet/api/v1/quote', {
+			from: address,
+			sellToken: cowSwapQuote.quote.sellToken,
+			buyToken: cowSwapQuote.quote.buyToken,
+			receiver: cowSwapQuote.quote.receiver,
+			appData: cowSwapQuote.quote.appData,
+			partiallyFillable: cowSwapQuote.quote.partiallyFillable,
+			kind: cowSwapQuote.quote.kind,
+			sellAmountAfterFee: cowSwapQuote.quote.sellAmount.toString()
+		}] : null, fetcher, {refreshInterval: 10000});
+
+	React.useEffect((): void => {
+		if (updatedQuote) {
+			set_currentQuote(updatedQuote);
+		} else if (cowSwapQuote) {
+			set_currentQuote(cowSwapQuote);
+		}
+	}, [cowSwapQuote, updatedQuote]);
+
+	async function	signCowswapOrder(quote: any): Promise<string> {
 		if (shouldUsePresign) {
 			return address;
 		}
 		const	signer = provider.getSigner();
 		const	rawSignature = await signOrder(
 			domain(1, '0x9008D19f58AAbD9eD0D60971565AA8510560ab41'),
-			_cowSwapQuote.quote,
+			quote,
 			signer,
 			SigningScheme.EIP712
 		);
 		const signature = ethers.utils.joinSignature(rawSignature.data);
 		return signature;
 	}
+
 	async function	onSignOrder(): Promise<void> {
-		if (cowSwapQuote) {
-			const	_cowSwapQuote = (cowSwapQuote as TCowSwapQuote);
+		if (currentQuote) {
 			performBatchedUpdates((): void => {
 				set_txStatusSwap({...defaultTxStatus, pending: true});
 				set_isShowingArrow(true);
 			});
 
 			try {
+				const	currentQuoteToSign = {...currentQuote};
 				const	slippage = 0.1;
-				const	buyAmount = Number(ethers.utils.formatUnits(_cowSwapQuote.quote.buyAmount, 6));
+				const	buyAmount = Number(ethers.utils.formatUnits(currentQuoteToSign.quote.buyAmount, 6));
 				const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
-				_cowSwapQuote.quote.buyAmount = buyAmountWithSlippage.toString();
-				const	signature = await signCowswapOrder(_cowSwapQuote);
-				console.warn({
-					..._cowSwapQuote.quote,
-					from: address,
-					quoteId: _cowSwapQuote.id,
-					signature: signature,
-					signingScheme: String(shouldUsePresign ? 'presign' : 'eip712')
+				const	signature = await signCowswapOrder({
+					...currentQuoteToSign.quote,
+					buyAmount: buyAmountWithSlippage.toString()
 				});
+
 				const	{data: orderUID} = await axios.post('https://api.cow.fi/mainnet/api/v1/orders', {
-					..._cowSwapQuote.quote,
+					...currentQuoteToSign.quote,
+					buyAmount: buyAmountWithSlippage.toString(),
 					from: address,
-					quoteId: _cowSwapQuote.id,
+					quoteId: currentQuoteToSign.id,
 					signature: signature,
 					signingScheme: String(shouldUsePresign ? 'presign' : 'eip712')
 				});
@@ -79,7 +101,7 @@ function	SwapStep(): ReactElement {
 							});
 						}
 
-						if (_cowSwapQuote.quote.validTo < (new Date().valueOf() / 1000)) {
+						if (currentQuoteToSign.quote.validTo < (new Date().valueOf() / 1000)) {
 							clearInterval(interval);
 							performBatchedUpdates((): void => {
 								set_txStatusSwap({...defaultTxStatus, error: true});
@@ -97,6 +119,18 @@ function	SwapStep(): ReactElement {
 		}
 	}
 
+	const	buyAmountWithSlippage = (): string => {
+		if (currentQuote?.quote?.buyAmount) {
+			const	slippage = 0.1;
+			const	buyAmount = Number(ethers.utils.formatUnits(currentQuote?.quote?.buyAmount, 6));
+			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
+			return (
+				format.amount(Number(format.units(buyAmountWithSlippage, 6)), 4, 4)
+			);
+		}
+		return '';
+	};
+
 	return (
 		<div className={'nftreasury--app-wrapper'}>
 			<WithShadow role={'large'}>
@@ -107,7 +141,27 @@ function	SwapStep(): ReactElement {
 						</div>
 						<div className={'space-y-6 w-10/12 text-justify'}>
 							<p>{'Final final step!!'}</p>
-							<p>{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let cowswap do the swap.'}</p>
+							<p>
+								{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let '}
+								<a href={`https://explorer.cow.fi/address/${address}`} target={'_blank'} className={'underline cursor-pointer'} rel={'noreferrer'}>{'cowswap'}</a>
+								{' do the swap.'}
+							</p>
+						</div>
+					</div>
+					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
+						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
+							<span>{'You’ll get'}</span>
+							<span className={'font-bold'}>
+								{!currentQuote ? '- USDC' : `~ ${buyAmountWithSlippage()} USDC`}
+							</span>
+						</p>
+						<div className={'flex flex-col justify-between md:flex-row'}>
+							<span>
+								<p>{'Transaction fees'}</p>
+							</span>
+							<span className={'font-bold'}>
+								{currentQuote ? format.bigNumberAsAmount(format.BN(currentQuote?.quote?.feeAmount as string), 18, 8, 'ETH') : '- ETH'}
+							</span>
 						</div>
 					</div>
 					<div className={'flex justify-start'}>

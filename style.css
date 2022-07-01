@@ -100,12 +100,12 @@ h3 {
 	& > * {@apply -top-2 -left-2 transition-all relative;}
 	background-image: url('/shadowPattern.svg');
 
-	&[role="button-disabled"] {@apply cursor-not-allowed -left-2 ml-4;}
-
-	&[role="button-busy"] {@apply cursor-wait -left-2 ml-4 -top-[7px];}
+	&[role="button"] {@apply cursor-pointer -left-2 ml-4;}
+	&[role="button-disabled"] {@apply cursor-not-allowed -left-2 ml-4 bg-none;}
+	&[role="button-busy"] {@apply cursor-wait -left-2 ml-4 bg-none;}
+	
 	&[role="button-busy"] > * {@apply top-0 -left-0;}
 
-	&[role="button"] {@apply cursor-pointer -left-2 ml-4;}
 	&[role="button"] > *:hover {@apply -top-1 -left-1;}
 	&[role="button"] > *:active {@apply top-0 -left-0;}
 	&[role="large"] {
