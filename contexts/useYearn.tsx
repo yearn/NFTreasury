@@ -37,6 +37,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 			vaultDailySnapshots(orderBy: timestamp, orderDirection: desc, where: {vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
 				timestamp
 				outputTokenPriceUSD
+				pricePerShare
 			}			  
 			deposits(where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
 				timestamp
