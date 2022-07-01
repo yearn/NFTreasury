@@ -31,8 +31,8 @@ function Chart({data}: {data: any[]}): ReactElement {
 		return null;
 	};
 
-	const	minInData = Math.min(...data.map((d): number => d.outputTokenPriceUSD));
-	const	maxInData = Math.max(...data.map((d): number => d.outputTokenPriceUSD));
+	const	minInData = Math.min(...data.map((d): number => d.accumulatedBalance));
+	const	maxInData = Math.max(...data.map((d): number => d.accumulatedBalance));
 	return (
 		<div className={'flex flex-row space-x-2 w-full h-[192px]'}>
 			<ResponsiveContainer width={'95%'} height={192}>
@@ -44,7 +44,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 							.sort((a, b): number => a.timestamp - b.timestamp)
 							.map((dayData): {name: string, ['USD Price']: number} => ({
 								name: format.date(dayData.timestamp * 1000),
-								['USD Price']: Number(dayData.outputTokenPriceUSD)
+								['USD Price']: Number(dayData.accumulatedBalance)
 							})))}>
 					<XAxis dataKey={'name'} stroke={'#000'} tick={false} axisLine={false} height={0} />
 					<Tooltip content={<CustomTooltip />} />
@@ -68,7 +68,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 
 function	TreasuryPage(): ReactElement {
 	const	{balances, prices} = useWallet();
-	const	{yvEthData, treasuryData} = useYearn();
+	const	{yvEthData, balanceData} = useYearn();
 	return (
 		<div className={'flex flex-col items-center w-full h-full md:flex-row justify-betwee'}>
 			<WithShadow role={'large'}>
@@ -112,7 +112,7 @@ function	TreasuryPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<Chart data={treasuryData?.vaultDailySnapshots || []}/>
+					<Chart data={balanceData || []}/>
 					<div className={'flex justify-start mt-8'}>
 						<Link href={'/keep-eth'}>
 							<div>

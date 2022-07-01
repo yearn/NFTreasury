@@ -7,16 +7,16 @@ import	{useWeb3}								from	'@yearn-finance/web-lib/contexts';
 
 export type	TYearnContext = {
 	yvEthData: TYearnVault | undefined,
-	treasuryData: any | undefined,
+	balanceData: any | undefined,
 }
 
 const	defaultProps: TYearnContext = {
 	yvEthData: undefined,
-	treasuryData: undefined
+	balanceData: undefined
 };
 
-const restFetcher = async (url: string): Promise<TYearnVault> => axios.get(url).then((res): TYearnVault => res.data);
-const graphFetcher = async (url: string, query: string): Promise<TYearnVault> => request(url, query);
+const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
+const graphFetcher = async (url: string, query: string): Promise<any> => request(url, query);
 
 const	YearnContext = createContext<TYearnContext>(defaultProps);
 export const YearnContextApp = ({children}: {children: React.ReactElement}): React.ReactElement => {
@@ -31,21 +31,69 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	/* 🔵 - Yearn Finance ******************************************************
 	**	Use the subgraph to get the user's treasury informations
 	***************************************************************************/
-	const	{data: treasuryData} = useSWR(address ? [
+	const	{data: rawBalanceData} = useSWR(address ? [
 		'https://api.thegraph.com/subgraphs/name/messari/yearn-v2-ethereum',
 		`{
-			vaultDailySnapshots(orderBy: timestamp, orderDirection: desc, where: {vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
-				timestamp
-				outputTokenPriceUSD
-				pricePerShare
-			}			  
 			deposits(where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
-				timestamp
-				amount
-				amountUSD
+			 timestamp
+			 amount
+			}
+			withdraws(where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
+			 timestamp
+			 amount
 			}
 		}`
 	] : null, graphFetcher);
+
+	const	{data: dailyData} = useSWR((address && rawBalanceData?.deposits?.[0]) ? [
+		'https://api.thegraph.com/subgraphs/name/messari/yearn-v2-ethereum',
+		`{
+			vaultDailySnapshots(
+				orderBy: timestamp,
+				orderDirection: desc,
+				where: {
+				vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}",
+				timestamp_gte: ${rawBalanceData.deposits[0].timestamp}
+				}
+			) {
+				timestamp
+				pricePerShare
+				outputTokenPriceUSD
+			}
+		}`
+	] : null, graphFetcher);
+
+	type deposit = { timestamp:number, amount:number }
+	type withdraw = { timestamp:number, amount:number }
+	type dailyInfo = { timestamp:number, pricePerShare:number, outputTokenPriceUSD:number, accumulatedBalance?:number }
+
+	const lastEthPrice = dailyData?.vaultDailySnapshots?.[dailyData?.vaultDailySnapshots?.length - 1]?.outputTokenPriceUSD
+	
+	console.log(rawBalanceData)
+
+	const balanceData = dailyData?.vaultDailySnapshots
+		?.map((dailyInfo:dailyInfo) => ({
+			...dailyInfo,
+			accumulatedBalance: rawBalanceData.deposits
+				.filter((deposit:deposit) => deposit.timestamp < dailyInfo.timestamp)
+				.reduce((acc:number, deposit:deposit) => acc + Number(deposit.amount), 0)
+		}))
+		?.map((dailyInfo:dailyInfo) => ({
+			...dailyInfo,
+			accumulatedBalance: (dailyInfo?.accumulatedBalance || 0) - rawBalanceData.withdraws
+				.filter((withdraw:withdraw) => withdraw.timestamp < dailyInfo.timestamp)
+				.reduce((acc:number, withdraw:withdraw) => acc + Number(withdraw.amount), 0)
+		}))
+		?.map((dailyInfo:dailyInfo) => ({
+			...dailyInfo,
+			accumulatedBalance: (
+				(dailyInfo?.accumulatedBalance || 0)
+				* Number(dailyInfo.pricePerShare)
+				* Number(lastEthPrice)
+			) / 1000000000000000000000000000000000000
+		}))
+
+	console.log(balanceData)
 
 	/* 🔵 - Yearn Finance ******************************************************
 	**	Setup and render the Context provider to use in the app.
@@ -53,7 +101,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	return (
 		<YearnContext.Provider value={{
 			yvEthData,
-			treasuryData
+			balanceData
 		}}>
 			{children}
 		</YearnContext.Provider>
