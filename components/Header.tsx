@@ -36,7 +36,6 @@ function	Header(): ReactElement {
 	const	[walletIdentity, set_walletIdentity] = React.useState('connect project');
 
 	React.useEffect((): void => {
-		console.log(isActive, address);
 		if (!isActive && address) {
 			set_walletIdentity('invalid network');
 		} else if (ens) {
