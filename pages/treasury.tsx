@@ -31,8 +31,8 @@ function Chart({data}: {data: any[]}): ReactElement {
 		return null;
 	};
 
-	const	minInData = Math.min(...data.map((d): number => d.amountUSD));
-	const	maxInData = Math.max(...data.map((d): number => d.amountUSD));
+	const	minInData = Math.min(...data.map((d): number => d.outputTokenPriceUSD));
+	const	maxInData = Math.max(...data.map((d): number => d.outputTokenPriceUSD));
 	return (
 		<div className={'flex flex-row space-x-2 w-full h-[192px]'}>
 			<ResponsiveContainer width={'95%'} height={192}>
@@ -44,7 +44,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 							.sort((a, b): number => a.timestamp - b.timestamp)
 							.map((dayData): {name: string, ['USD Price']: number} => ({
 								name: format.date(dayData.timestamp * 1000),
-								['USD Price']: Number(dayData.amountUSD)
+								['USD Price']: Number(dayData.outputTokenPriceUSD)
 							})))}>
 					<XAxis dataKey={'name'} stroke={'#000'} tick={false} axisLine={false} height={0} />
 					<Tooltip content={<CustomTooltip />} />
@@ -112,7 +112,7 @@ function	TreasuryPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<Chart data={treasuryData?.deposits || []}/>
+					<Chart data={treasuryData?.vaultDailySnapshots || []}/>
 					<div className={'flex justify-start mt-8'}>
 						<Link href={'/keep-eth'}>
 							<div>
