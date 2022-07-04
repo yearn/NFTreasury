@@ -9,15 +9,24 @@ function	DisclaimerPage(): ReactElement {
 		<DialogBox
 			title={'Risk'}
 			paragraphs={[
-				<p key={'0'}>{'Vaults and other Yearn decentralized finance systems, while superficially similar to traditional financial transactions in some ways, are in fact very different. DeFi and TradFi each have unique costs and benefits, risks and protection mechanisms. Please bear this fact in mind when using this website, and do not use Yearn vaults without a sufficient understanding of their unique risks and how they differ from traditional financial transactions. The only way to fully understand such risks is to have a strong understanding of the relevant technical systems and the incentive design mechanisms they embody--we strongly encourage you to review Yearn’s technical documentation and code before use.'}</p>
+				<p key={'0'}>{'Vaults and other Yearn decentralized finance systems, while superficially similar to traditional financial transactions in some ways, are in fact very different. DeFi and TradFi each have unique costs and benefits, risks and protection mechanisms. Please bear this fact in mind when using this website, and do not use Yearn vaults without a sufficient understanding of their unique risks and how they differ from traditional financial transactions. The only way to fully understand such risks is to have a strong understanding of the relevant technical systems and the incentive design mechanisms they embody - we strongly encourage you to review Yearn’s technical documentation and code before use.'}</p>
 			]}	
 		>
-			<div className={'flex justify-start mt-8 md:mt-0'}>
-				<Link href={'/what-is-mev'}>
+			<div className={'flex justify-between mt-8'}>
+				<Link href={'/what-are-yearn-vaults'}>
 					<div>
 						<WithShadow role={'button'}>
 							<Button className={'w-[176px]'}>
 								{'Previous'}
+							</Button>
+						</WithShadow>
+					</div>
+				</Link>
+				<Link href={'/what-is-cowswap'}>
+					<div>
+						<WithShadow role={'button'}>
+							<Button className={'w-[176px]'}>
+								{'Next'}
 							</Button>
 						</WithShadow>
 					</div>
