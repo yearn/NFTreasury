@@ -1,7 +1,7 @@
 import	React, {ReactElement, useState}				from	'react';
 import	{useRouter}									from	'next/router';
 import	Image										from	'next/image';
-import	{ethers, BigNumber}							from	'ethers';
+import	{ethers}									from	'ethers';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{format, performBatchedUpdates,
 	defaultTxStatus, toAddress, Transaction}		from	'@yearn-finance/web-lib/utils';
@@ -10,13 +10,7 @@ import	WithShadow									from	'components/WithShadow';
 import	useYearn									from	'contexts/useYearn';
 import	useWallet									from	'contexts/useWallet';
 import	{ZapEth}									from	'utils/actions/zapEth';
-
-function	toInputOrBalance(input: BigNumber, balance: BigNumber): BigNumber {
-	if (input.gt(balance)) {
-		return balance;
-	}
-	return input;
-}
+import	{toInputOrBalance}							from	'utils';
 
 function	EstimateGasRow(): ReactElement {
 	const	{currentGasPrice} = useWallet();
@@ -192,7 +186,7 @@ function	KeepEthPage(): ReactElement {
 						</p>
 						<EstimateGasRow />
 					</div>
-					<div className={'flex justify-start mt-1'}>
+					<div className={'flex justify-start mt-auto'}>
 						<div onClick={onZapEth}>
 							<WithShadow role={txStatusWrapDeposit.pending ? 'button-busy' : 'button'}>
 								<Button isBusy={txStatusWrapDeposit.pending} className={'w-[176px]'}>

@@ -24,6 +24,7 @@ function	SwapStep(): ReactElement {
 	const	[txStatusSwap, set_txStatusSwap] = React.useState(defaultTxStatus);
 	const	[isShowingArrow, set_isShowingArrow] = useState(false);
 	const	[currentQuote, set_currentQuote] = useState<TCowSwapQuote>(cowSwapQuote as TCowSwapQuote);
+	const	[error, set_error] = useState<string>('');
 
 	const	{data: updatedQuote} = useSWR(cowSwapQuote ? [
 		'https://api.cow.fi/mainnet/api/v1/quote', {
@@ -63,6 +64,7 @@ function	SwapStep(): ReactElement {
 	async function	onSignOrder(): Promise<void> {
 		if (currentQuote) {
 			performBatchedUpdates((): void => {
+				set_error('');
 				set_txStatusSwap({...defaultTxStatus, pending: true});
 				set_isShowingArrow(true);
 			});
@@ -96,6 +98,7 @@ function	SwapStep(): ReactElement {
 						} else if (order?.status === 'cancelled' || order?.status === 'expired') {
 							clearInterval(interval);
 							performBatchedUpdates((): void => {
+								set_error('TX fail because the order was not fulfilled');
 								set_txStatusSwap({...defaultTxStatus, error: true});
 								set_isShowingArrow(false);
 							});
@@ -104,14 +107,16 @@ function	SwapStep(): ReactElement {
 						if (currentQuoteToSign.quote.validTo < (new Date().valueOf() / 1000)) {
 							clearInterval(interval);
 							performBatchedUpdates((): void => {
+								set_error('TX fail because the order was not fulfilled');
 								set_txStatusSwap({...defaultTxStatus, error: true});
 								set_isShowingArrow(false);
 							});
 						}
 					}, 3000);
 				}
-			} catch (error) {
+			} catch (_error) {
 				performBatchedUpdates((): void => {
+					set_error('Error signing order');
 					set_txStatusSwap({...defaultTxStatus, error: true});
 					set_isShowingArrow(false);
 				});
@@ -148,7 +153,7 @@ function	SwapStep(): ReactElement {
 							</p>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
+					<div className={'p-4 mt-8 mb-2 nftreasury--grey-box'}>
 						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
@@ -164,7 +169,12 @@ function	SwapStep(): ReactElement {
 							</span>
 						</div>
 					</div>
-					<div className={'flex justify-start'}>
+
+					<div className={`p-4 mb-6 border-2 border-[#FF0000] transition-opacity ${txStatusSwap.error ? 'opacity-100' : 'opacity-0'}`}>
+						<p className={'text-xs font-bold text-[#FE0000]'}>{error}</p>
+					</div>
+
+					<div className={'flex justify-start mt-auto'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !provider || txStatusSwap.pending || !cowSwapQuote}

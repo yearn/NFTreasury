@@ -1,21 +1,49 @@
 import	React, {useContext, createContext}		from	'react';
 import	useSWR									from	'swr';
+import	{BigNumber}								from	'ethers';
 import	axios									from	'axios';
 import	{request}								from	'graphql-request';
-import	type {TYearnVault}						from	'types/types';
 import	{useWeb3}								from	'@yearn-finance/web-lib/contexts';
+import	{format, toAddress}						from	'@yearn-finance/web-lib/utils';
+import	{toNumber}								from	'utils';
+import	type {TYearnVault}						from	'types/types';
+
+type TDepositOrWithdraw = {
+	timestamp: string,
+	amount: BigNumber,
+	kind: 'withdraw' | 'deposit'
+}
+type TDailyInfo = {
+	timestamp: string,
+	pricePerShare: BigNumber,
+	outputTokenPriceUSD: string
+}
+type TBalanceData = {
+	outputTokenPriceUSD: number,
+	pricePerShare: BigNumber,
+	normalizedPricePerShare: number,
+	accumulatedBalance: number,
+	timestamp: string
+}
 
 export type	TYearnContext = {
 	yvEthData: TYearnVault | undefined,
-	balanceData: any | undefined,
+	balanceData: TBalanceData[] | undefined,
+	earnings: number
 }
-
 const	defaultProps: TYearnContext = {
 	yvEthData: undefined,
-	balanceData: undefined
+	balanceData: undefined,
+	earnings: 0
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const restFetcherV1 = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data.find((item: any): boolean => toAddress(item.address) === toAddress(process.env.ETH_VAULT_ADDRESS)));
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const graphFetcher = async (url: string, query: string): Promise<any> => request(url, query);
 
 const	YearnContext = createContext<TYearnContext>(defaultProps);
@@ -26,7 +54,8 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	**	We will play with the yvETH vault. To correctly play with it, we need to
 	**	fetch the data from the API, especially to get the apy.net_apy
 	***************************************************************************/
-	const	{data: yvEthData} = useSWR(`https://api.ycorpo.com/1/vaults/${process.env.ETH_VAULT_ADDRESS}`, restFetcher);
+	const	{data: yvEthData} = useSWR('https://api.yearn.finance/v1/chains/1/vaults/all', restFetcherV1);
+	// const	{data: yvEthData} = useSWR(`https://api.ycorpo.com/1/vaults/${process.env.ETH_VAULT_ADDRESS}`, restFetcher);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	**	Use the subgraph to get the user's treasury informations
@@ -34,11 +63,19 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	const	{data: rawBalanceData} = useSWR(address ? [
 		'https://api.thegraph.com/subgraphs/name/messari/yearn-v2-ethereum',
 		`{
-			deposits(where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
+			deposits(
+				orderBy: timestamp,
+				orderDirection: asc,
+				where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}
+			) {
 			 timestamp
 			 amount
 			}
-			withdraws(where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}) {
+			withdraws(
+				orderBy: timestamp,
+				orderDirection: asc,
+				where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}
+			) {
 			 timestamp
 			 amount
 			}
@@ -53,7 +90,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 				orderDirection: desc,
 				where: {
 				vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}",
-				timestamp_gte: ${rawBalanceData.deposits[0].timestamp}
+				timestamp_gte: ${Number(rawBalanceData.deposits[0].timestamp) - 150000}
 				}
 			) {
 				timestamp
@@ -63,37 +100,73 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 		}`
 	] : null, graphFetcher);
 
-	type deposit = { timestamp:number, amount:number }
-	type withdraw = { timestamp:number, amount:number }
-	type dailyInfo = { timestamp:number, pricePerShare:number, outputTokenPriceUSD:number, accumulatedBalance?:number }
+	const	balanceData = React.useMemo((): TBalanceData[] => {
+		const	lastEthPrice = (dailyData?.vaultDailySnapshots?.[dailyData?.vaultDailySnapshots?.length - 1]?.outputTokenPriceUSD) || 0;
+		const	depositsOrWithdraws = [
+			...(rawBalanceData?.deposits || []).map((deposit: TDepositOrWithdraw): TDepositOrWithdraw => ({...deposit, kind: 'deposit'})),
+			...(rawBalanceData?.withdraws || []).map((withdraw: TDepositOrWithdraw): TDepositOrWithdraw => ({...withdraw, kind: 'withdraw'}))
+		];
 
-	const lastEthPrice = dailyData?.vaultDailySnapshots?.[dailyData?.vaultDailySnapshots?.length - 1]?.outputTokenPriceUSD
-	
-	console.log(rawBalanceData)
-
-	const balanceData = dailyData?.vaultDailySnapshots
-		?.map((dailyInfo:dailyInfo) => ({
+		const	memoizeMeBalanceData = dailyData?.vaultDailySnapshots?.map((dailyInfo: TDailyInfo): TBalanceData => ({
 			...dailyInfo,
-			accumulatedBalance: rawBalanceData.deposits
-				.filter((deposit:deposit) => deposit.timestamp < dailyInfo.timestamp)
-				.reduce((acc:number, deposit:deposit) => acc + Number(deposit.amount), 0)
-		}))
-		?.map((dailyInfo:dailyInfo) => ({
-			...dailyInfo,
-			accumulatedBalance: (dailyInfo?.accumulatedBalance || 0) - rawBalanceData.withdraws
-				.filter((withdraw:withdraw) => withdraw.timestamp < dailyInfo.timestamp)
-				.reduce((acc:number, withdraw:withdraw) => acc + Number(withdraw.amount), 0)
-		}))
-		?.map((dailyInfo:dailyInfo) => ({
-			...dailyInfo,
-			accumulatedBalance: (
-				(dailyInfo?.accumulatedBalance || 0)
-				* Number(dailyInfo.pricePerShare)
+			outputTokenPriceUSD: Number(dailyInfo.outputTokenPriceUSD),
+			pricePerShare: format.BN(dailyInfo.pricePerShare),
+			normalizedPricePerShare: format.toNormalizedValue(format.BN(dailyInfo.pricePerShare), 18),
+			accumulatedBalance: depositsOrWithdraws
+				.filter(({timestamp}: {timestamp: number}): boolean => timestamp < Number(dailyInfo.timestamp))
+				.reduce((acc: number, depOrWith: TDepositOrWithdraw): number => (
+					depOrWith.kind === 'deposit' ?
+						acc + format.toNormalizedValue(format.BN(depOrWith.amount), 18)
+						: acc - format.toNormalizedValue(format.BN(depOrWith.amount), 18)
+				), 0)
+				* format.toNormalizedValue(format.BN(dailyInfo.pricePerShare), 18)
 				* Number(lastEthPrice)
-			) / 1000000000000000000000000000000000000
-		}))
+		}));
+		return (memoizeMeBalanceData);
+	}, [dailyData?.vaultDailySnapshots, rawBalanceData]);
 
-	console.log(balanceData)
+
+	const	earnings = React.useMemo((): number => {
+		const	lastPPS = (dailyData?.vaultDailySnapshots?.[dailyData?.vaultDailySnapshots?.length - 1]?.pricePerShare) || 0;
+		const	depositsOrWithdraws = [
+			...(rawBalanceData?.deposits || []).map((deposit: TDepositOrWithdraw): TDepositOrWithdraw => ({...deposit, kind: 'deposit'})),
+			...(rawBalanceData?.withdraws || []).map((withdraw: TDepositOrWithdraw): TDepositOrWithdraw => ({...withdraw, kind: 'withdraw'}))
+		];
+
+		const	timeStampToIgnore: [number] = [0];
+		const	dailySnapshots = [];
+		const	revertedVaultDailySnapshots = dailyData?.vaultDailySnapshots?.reverse() || [];
+		for (const kind of depositsOrWithdraws) {
+			if (timeStampToIgnore.includes(kind.timestamp))
+				continue;
+			for (const dailyInfo of revertedVaultDailySnapshots) {
+				if (Number(kind.timestamp) > Number(dailyInfo.timestamp)) {
+					timeStampToIgnore.push(kind.timestamp);
+					dailySnapshots.push({
+						...dailyInfo,
+						amount: kind.amount,
+						kind: kind.kind
+					});
+					break;
+				}
+			}
+		}
+
+		const	accumulatedDeposits = dailySnapshots.reduce((acc: number, dailyInfo: any): number => {
+			if (dailyInfo.kind === 'withdraw')
+				return (acc - (toNumber(dailyInfo.amount) * toNumber(dailyInfo.pricePerShare)));
+			return (acc + (toNumber(dailyInfo.amount) * toNumber(dailyInfo.pricePerShare)));
+		}, 0);
+		const	accumulatedDepositsNow = dailySnapshots.reduce((acc: number, dailyInfo: any): number => {
+			if (dailyInfo.kind === 'withdraw')
+				return (acc - (toNumber(dailyInfo.amount) * toNumber(lastPPS)));
+			return (acc + (toNumber(dailyInfo.amount) * toNumber(lastPPS)));
+		}, 0);
+		
+		
+		return (accumulatedDepositsNow - accumulatedDeposits);
+	}, [dailyData?.vaultDailySnapshots, rawBalanceData]);
+
 
 	/* 🔵 - Yearn Finance ******************************************************
 	**	Setup and render the Context provider to use in the app.
@@ -101,7 +174,8 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	return (
 		<YearnContext.Provider value={{
 			yvEthData,
-			balanceData
+			balanceData,
+			earnings
 		}}>
 			{children}
 		</YearnContext.Provider>

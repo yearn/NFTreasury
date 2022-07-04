@@ -56,7 +56,7 @@ function	WrapEth(): ReactElement {
 							<p>{'You have to sign one more transaction. That’s just how it works. Don’t ask...'}</p>
 						</div>
 					</div>
-					<div className={'flex justify-start'}>
+					<div className={'flex justify-start mt-auto'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !provider || txStatusWrap.pending || !cowSwapQuote}

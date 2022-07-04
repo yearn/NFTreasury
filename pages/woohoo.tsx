@@ -18,7 +18,7 @@ function	DisclaimerPage(): ReactElement {
 							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start'}>
+					<div className={'flex justify-start mt-auto'}>
 						<Link href={'/treasury'}>
 							<div>
 								<WithShadow role={'button'}>

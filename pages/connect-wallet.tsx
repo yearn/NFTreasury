@@ -33,7 +33,7 @@ function	DisclaimerPage(): ReactElement {
 							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start'}>
+					<div className={'flex justify-start mt-auto'}>
 						<div onClick={(): void => {
 							set_isShowingArrow(true);
 							openLoginModal();

@@ -58,7 +58,7 @@ function	ApproveWEth(): ReactElement {
 							<p>{'Promise'}</p>
 						</div>
 					</div>
-					<div className={'flex justify-start'}>
+					<div className={'flex justify-start mt-auto'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !provider || txStatusApprove.pending || !cowSwapQuote}

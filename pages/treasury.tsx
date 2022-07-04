@@ -9,7 +9,6 @@ import useWallet from 'contexts/useWallet';
 import useYearn from 'contexts/useYearn';
 
 function Chart({data}: {data: any[]}): ReactElement {
-	
 	const ActiveDot = (props: any): ReactElement => {
 		const	{cx, cy} = props;
 		return (
@@ -41,7 +40,6 @@ function Chart({data}: {data: any[]}): ReactElement {
 					margin={{top: 8, right: 0, left: 0, bottom: 8}}
 					data={(
 						data
-							.sort((a, b): number => a.timestamp - b.timestamp)
 							.map((dayData): {name: string, ['USD Price']: number} => ({
 								name: format.date(dayData.timestamp * 1000),
 								['USD Price']: Number(dayData.accumulatedBalance)
@@ -60,7 +58,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 			</ResponsiveContainer>
 			<div className={'flex flex-col justify-between h-full'}>
 				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(maxInData), 2, 2)} $`}</div>
-				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(minInData), 2, 2)} $`}</div>
+				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${Number(maxInData) === Number(minInData) ? '0' : format.amount(Number(minInData), 2, 2)} $`}</div>
 			</div>
 		</div>
 	);
@@ -68,7 +66,18 @@ function Chart({data}: {data: any[]}): ReactElement {
 
 function	TreasuryPage(): ReactElement {
 	const	{balances, prices} = useWallet();
-	const	{yvEthData, balanceData} = useYearn();
+	const	{yvEthData, balanceData, earnings} = useYearn();
+
+	const	chartData = React.useMemo((): any => {
+		const	_chartData = [...(balanceData || [])].sort((a, b): number => Number(a.timestamp) - Number(b.timestamp));
+		if (_chartData?.[0]?.accumulatedBalance === 0 && _chartData?.[1]?.accumulatedBalance === 0) {
+			return _chartData.slice(2);
+		} else if (_chartData?.[0]?.accumulatedBalance === 0) {
+			return _chartData.slice(1);
+		}
+		return _chartData;
+	}, [balanceData]);
+
 	return (
 		<div className={'flex flex-col items-center w-full h-full md:flex-row justify-betwee'}>
 			<WithShadow role={'large'}>
@@ -99,7 +108,7 @@ function	TreasuryPage(): ReactElement {
 							<div className={'px-2 m-0 md:p-0'}>
 								<p>{'Earnings, ETH'}</p>
 								<p className={'font-bold'}>
-									{'1234.12345678'}
+									{format.amount(earnings, 8, 8)}
 								</p>
 							</div>
 							<div className={'px-2 m-0 text-right sm:text-left md:p-0'}>
@@ -112,9 +121,9 @@ function	TreasuryPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<Chart data={balanceData || []}/>
+					<Chart data={chartData || []}/>
 					<div className={'flex justify-start mt-8'}>
-						<Link href={'/keep-eth'}>
+						<Link href={'/deposit'}>
 							<div>
 								<WithShadow role={'button'}>
 									<Button className={'w-[176px]'}>
@@ -158,7 +167,7 @@ function	TreasuryPage(): ReactElement {
 							</div>
 						</div>
 						<div className={'flex justify-start mb-0 md:mb-4'}>
-							<Link href={'/keep-eth'}>
+							<Link href={'/swap-eth'}>
 								<div>
 									<WithShadow role={'button'}>
 										<Button className={'w-[176px]'}>

@@ -5,6 +5,7 @@ import	LogoNFTreasury				from	'components/icons/LogoNFTreasury';
 import 	LogoNFTreasurySmall 		from 	'./icons/LogoNFTreasurySmall';
 import	{useWeb3}					from	'@yearn-finance/web-lib/contexts';
 import	{truncateHex}				from	'@yearn-finance/web-lib/utils';
+import useWallet from 'contexts/useWallet';
 
 const aboutPathnames: string[] = [
 	'/',
@@ -27,6 +28,7 @@ const portfolioPathnames: string[] = [
 ];
 
 function	Header(): ReactElement {
+	const	{balances} = useWallet();
 	const router = useRouter();
 	const isAboutPage = aboutPathnames.includes(router.pathname);
 	const isCreateTreasuryPage = createTreasuryPathnames.includes(router.pathname);
@@ -70,9 +72,9 @@ function	Header(): ReactElement {
 							{'about'}
 						</p>
 					</Link>
-					<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
+					<Link href={!isActive ? '/connect-wallet' : (isActive && balances?.[process.env.ETH_VAULT_ADDRESS as string]?.normalized > 0) ? '/treasury' : '/keep-eth'}>
 						<p className={`nftreasury--link-with-dot ${isCreateTreasuryPage || isPortfolioPage ? 'active' : '' }`}>
-							{(isActive && isPortfolioPage) ? 'portfolio' : 'create treasury'}
+							{(isActive && balances?.[process.env.ETH_VAULT_ADDRESS as string]?.normalized > 0) ? 'portfolio' : 'create treasury'}
 						</p>
 					</Link>
 				</div>

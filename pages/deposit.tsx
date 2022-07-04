@@ -10,7 +10,7 @@ import	{useWeb3}									from	'@yearn-finance/web-lib/contexts';
 import	WithShadow									from	'components/WithShadow';
 import	useYearn									from	'contexts/useYearn';
 import	useWallet									from	'contexts/useWallet';
-import	{UnzapEth}									from	'utils/actions/unzapEth';
+import	{ZapEth}									from	'utils/actions/zapEth';
 import	{toInputOrBalance}							from	'utils';
 
 function	EstimateGasRow(): ReactElement {
@@ -19,12 +19,12 @@ function	EstimateGasRow(): ReactElement {
 
 	React.useEffect((): void => {
 		const	gas = Number(format.units(currentGasPrice, 'ether'));
-		set_currentEstimate(gas * (49014 + 145214));
+		set_currentEstimate(gas * 88600);
 	}, [currentGasPrice]);
 
 	return (
 		<p className={'flex flex-col justify-between md:flex-row'}>
-			<span>{'Est. gas cost for withdrawal'}</span>
+			<span>{'Est. gas cost for deposit'}</span>
 			<span className={'font-bold'}>
 				{`${format.amount(Number(currentEstimate.toFixed(8)), 8, 8)} ETH`}
 			</span>
@@ -32,23 +32,23 @@ function	EstimateGasRow(): ReactElement {
 	);
 }
 
-function	WithdrawEthPage(): ReactElement {
+function	DepositEthPage(): ReactElement {
 	const	router = useRouter();
 	const	{provider, isActive} = useWeb3();
 	const	{balances, updateWallet, useWalletNonce} = useWallet();
 	const	[isShowingArrow, set_isShowingArrow] = useState(false);
 	const	{yvEthData} = useYearn();
-	const	[toWithdraw, set_toWithdraw] = useState(ethers.constants.Zero);
+	const	[keptEth, set_keptEth] = useState(ethers.constants.Zero);
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
 	const	[percentage, set_percentage] = useState(0);
 	const	[inputValue, set_inputValue] = useState('0');
-	const	[txStatusUnzapDeposit, set_txStatusUnzapDeposit] = React.useState(defaultTxStatus);
+	const	[txStatusWrapDeposit, set_txStatusWrapDeposit] = React.useState(defaultTxStatus);
 
 	// Init the balance once available
 	React.useEffect((): void => {
 		set_balance({
-			raw:  balances[toAddress(process.env.ETH_VAULT_ADDRESS as string)]?.raw || ethers.constants.Zero,
-			normalized:  balances[toAddress(process.env.ETH_VAULT_ADDRESS as string)]?.normalized || 0
+			raw:  balances[toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')]?.raw || ethers.constants.Zero,
+			normalized:  balances[toAddress('0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE')]?.normalized || 0
 		});
 	}, [balances, useWalletNonce]);
 
@@ -71,16 +71,21 @@ function	WithdrawEthPage(): ReactElement {
 		}
 	}, [balance, inputValue]);
 
-	async function	onUnzapEth(): Promise<void> {
-		if (!isActive || txStatusUnzapDeposit.pending || toWithdraw.isZero())
+	// Wrap and deposit inputValue Eth to the contract to get wETH
+	async function	onZapEth(): Promise<void> {
+		if (!isActive || txStatusWrapDeposit.pending)
 			return;
 
-		console.log(toInputOrBalance(toWithdraw, balances[toAddress(process.env.ETH_VAULT_ADDRESS)].raw).toString());
+		const	toDeposit = (balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw).sub(keptEth);
+		if (toDeposit.lte(ethers.constants.Zero)) {
+			router.push('/swap-eth');
+			return;
+		}
 
 		set_isShowingArrow(true);
 		const	transaction = (
-			new Transaction(provider, UnzapEth, set_txStatusUnzapDeposit).populate(
-				toInputOrBalance(toWithdraw, balances[toAddress(process.env.ETH_VAULT_ADDRESS)].raw)
+			new Transaction(provider, ZapEth, set_txStatusWrapDeposit).populate(
+				toInputOrBalance(toDeposit, balances[toAddress(process.env.ETH_TOKEN_ADDRESS)].raw)
 			).onSuccess(async (): Promise<void> => {
 				await updateWallet();
 			})
@@ -103,18 +108,18 @@ function	WithdrawEthPage(): ReactElement {
 
 			if ((balance.raw).sub(newRawValue).isNegative()) {
 				set_inputValue(String(balance.normalized));
-				set_toWithdraw(balance.raw);
+				set_keptEth(balance.raw);
 				return;
 			}
 			set_inputValue(newValue);
-			set_toWithdraw(newRawValue);
+			set_keptEth(newRawValue);
 		});
 	};
 
 	const onPercentageChange = (_percentage: number): void => {
 		const value = String((balance.normalized / 100) * _percentage);
 		set_inputValue(value);
-		set_toWithdraw(ethers.utils.parseUnits(Number(value).toFixed(18), 18));
+		set_keptEth(ethers.utils.parseUnits(Number(value).toFixed(18), 18));
 	};
 	
 	return (
@@ -123,11 +128,15 @@ function	WithdrawEthPage(): ReactElement {
 				<Card className={'nftreasury--app-card'}>
 					<div className={'w-full'}>
 						<div className={'pb-6 w-full'}>
-							<h2 className={'font-bold'}>{`You have ${(balance.normalized).toFixed(8)} ETH in Vault`}</h2>
+							<h2 className={'font-bold'}>{'You have'}</h2>
+							<h2 className={'font-bold'}>
+								{`${(balance.normalized).toFixed(8)} ETH`}
+							</h2>
 						</div>
 						<div className={'w-full text-justify'}>
-							<p>{'How much ETH do you want to withdraw?'}</p>
-							<div className={'flex items-center mt-2'}>
+							<p>{'How much ETH do you wanna keep in your wallet?'}</p>
+							<p>{'The rest will be sent to Yearn vault.'}</p>
+							<div className={'flex items-center mt-2 mb-4'}>
 								<input
 									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
 									type={'number'}
@@ -160,13 +169,14 @@ function	WithdrawEthPage(): ReactElement {
 									{'80 %'}
 								</button>
 							</div>
+							<p>{'Next step we’ll swap some ETH to USDC.'}</p>
 						</div>
 					</div>
 					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
 						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
-							<span>{'Remaining in vault '}</span>
+							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>
-								{format.bigNumberAsAmount((balance.raw).sub(toWithdraw), 18, 8, 'ETH')}
+								{format.bigNumberAsAmount((balance.raw).sub(keptEth), 18, 8, 'ETH')}
 							</span>
 						</p>
 						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
@@ -178,9 +188,9 @@ function	WithdrawEthPage(): ReactElement {
 						<EstimateGasRow />
 					</div>
 					<div className={'flex justify-between mt-auto w-full md:justify-start md:space-x-6'}>
-						<div onClick={onUnzapEth}>
-							<WithShadow role={txStatusUnzapDeposit.pending ? 'button-busy' : 'button'}>
-								<Button isBusy={txStatusUnzapDeposit.pending} className={'w-[176px]'}>
+						<div onClick={onZapEth}>
+							<WithShadow role={txStatusWrapDeposit.pending ? 'button-busy' : 'button'}>
+								<Button isBusy={txStatusWrapDeposit.pending} className={'w-[176px]'}>
 									{'Click-click'}
 								</Button>
 							</WithShadow>
@@ -207,4 +217,4 @@ function	WithdrawEthPage(): ReactElement {
 	);
 }
 
-export default WithdrawEthPage;
+export default DepositEthPage;
