@@ -41,7 +41,7 @@ const	defaultProps: TYearnContext = {
 const restFetcherV1 = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data.find((item: any): boolean => toAddress(item.address) === toAddress(process.env.ETH_VAULT_ADDRESS)));
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
-const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
+// const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const graphFetcher = async (url: string, query: string): Promise<any> => request(url, query);
