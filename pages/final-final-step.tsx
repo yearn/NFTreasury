@@ -71,9 +71,8 @@ function	SwapStep(): ReactElement {
 
 			try {
 				const	currentQuoteToSign = {...currentQuote};
-				const	slippage = 0.1;
 				const	buyAmount = Number(ethers.utils.formatUnits(currentQuoteToSign.quote.buyAmount, 6));
-				const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
+				const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - Number(process.env.DEFAULT_SLIPPAGE_COWSWAP))).toFixed(6), 6);
 				const	signature = await signCowswapOrder({
 					...currentQuoteToSign.quote,
 					buyAmount: buyAmountWithSlippage.toString()
@@ -126,9 +125,8 @@ function	SwapStep(): ReactElement {
 
 	const	buyAmountWithSlippage = (): string => {
 		if (currentQuote?.quote?.buyAmount) {
-			const	slippage = 0.1;
 			const	buyAmount = Number(ethers.utils.formatUnits(currentQuote?.quote?.buyAmount, 6));
-			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
+			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - Number(process.env.DEFAULT_SLIPPAGE_COWSWAP))).toFixed(6), 6);
 			return (
 				format.amount(Number(format.units(buyAmountWithSlippage, 6)), 4, 4)
 			);

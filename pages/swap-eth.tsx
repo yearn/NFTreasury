@@ -117,9 +117,8 @@ function	SwapEthPage(): ReactElement {
 
 	const	buyAmountWithSlippage = (): string => {
 		if (quoteData?.quote?.buyAmount) {
-			const	slippage = 0.1;
 			const	buyAmount = Number(ethers.utils.formatUnits(quoteData?.quote?.buyAmount, 6));
-			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - slippage)).toFixed(6), 6);
+			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - Number(process.env.DEFAULT_SLIPPAGE_COWSWAP))).toFixed(6), 6);
 			return (
 				format.amount(Number(format.units(buyAmountWithSlippage, 6)), 2, 2)
 			);
