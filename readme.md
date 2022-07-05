@@ -1,8 +1,6 @@
-# NFTreasury
-
-A treasury management tool for NFT projects
-
-[![](https://i.imgur.com/ikYne8h.gif)](https://nft-reasury.vercel.app/)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/7863230/177352000-91cf996f-8ea5-4841-97e2-2ab6d0b72cbc.png">
+</p>
 
 # Quickstart
 
