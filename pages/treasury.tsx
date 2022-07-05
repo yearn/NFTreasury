@@ -2,11 +2,11 @@ import	React, {ReactElement}						from	'react';
 import	Link										from	'next/link';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{format}									from	'@yearn-finance/web-lib/utils';
-import	WithShadow									from	'components/WithShadow';
 import {LineChart, Line, Tooltip, XAxis,
 	ResponsiveContainer} 							from 	'recharts';
-import useWallet from 'contexts/useWallet';
-import useYearn from 'contexts/useYearn';
+import	WithShadow									from	'components/WithShadow';
+import	useWallet									from	'contexts/useWallet';
+import	useYearn									from	'contexts/useYearn';
 
 function Chart({data}: {data: any[]}): ReactElement {
 	const ActiveDot = (props: any): ReactElement => {
@@ -22,7 +22,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 		if (active && payload && payload.length) {
 			return (
 				<div className={'custom-tooltip'}>
-					<p className={'label'}>{`$ ${format.amount(payload[0].value, 2, 2)}`}</p>
+					<p className={'label'}>{`${format.amount(payload[0].value, 8, 8)} ETH`}</p>
 				</div>
 			);
 		}
@@ -30,7 +30,6 @@ function Chart({data}: {data: any[]}): ReactElement {
 		return null;
 	};
 
-	const	minInData = Math.min(...data.map((d): number => d.accumulatedBalance));
 	const	maxInData = Math.max(...data.map((d): number => d.accumulatedBalance));
 	return (
 		<div className={'flex flex-row space-x-2 w-full h-[192px]'}>
@@ -40,16 +39,16 @@ function Chart({data}: {data: any[]}): ReactElement {
 					margin={{top: 8, right: 0, left: 0, bottom: 8}}
 					data={(
 						data
-							.map((dayData): {name: string, ['USD Price']: number} => ({
+							.map((dayData): {name: string, ['ETH value']: number} => ({
 								name: format.date(dayData.timestamp * 1000),
-								['USD Price']: Number(dayData.accumulatedBalance)
+								['ETH value']: Number(dayData.accumulatedBalance)
 							})))}>
 					<XAxis dataKey={'name'} stroke={'#000'} tick={false} axisLine={false} height={0} />
 					<Tooltip content={<CustomTooltip />} />
 					<Line
 						activeDot={<ActiveDot />}
 						type={'monotone'}
-						dataKey={'USD Price'}
+						dataKey={'ETH value'}
 						stroke={'#000'}
 						strokeWidth={2}
 						dot={false}
@@ -57,8 +56,8 @@ function Chart({data}: {data: any[]}): ReactElement {
 				</LineChart>
 			</ResponsiveContainer>
 			<div className={'flex flex-col justify-between h-full'}>
-				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(maxInData), 2, 2)} $`}</div>
-				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${Number(maxInData) === Number(minInData) ? '0' : format.amount(Number(minInData), 2, 2)} $`}</div>
+				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(maxInData), 8, 8)} ETH`}</div>
+				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{'0 ETH'}</div>
 			</div>
 		</div>
 	);

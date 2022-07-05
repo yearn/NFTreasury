@@ -39,8 +39,6 @@ const	defaultProps: TYearnContext = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const restFetcherV1 = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data.find((item: any): boolean => toAddress(item.address) === toAddress(process.env.ETH_VAULT_ADDRESS)));
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
 // const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -101,7 +99,6 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	] : null, graphFetcher);
 
 	const	balanceData = React.useMemo((): TBalanceData[] => {
-		const	lastEthPrice = (dailyData?.vaultDailySnapshots?.[dailyData?.vaultDailySnapshots?.length - 1]?.outputTokenPriceUSD) || 0;
 		const	depositsOrWithdraws = [
 			...(rawBalanceData?.deposits || []).map((deposit: TDepositOrWithdraw): TDepositOrWithdraw => ({...deposit, kind: 'deposit'})),
 			...(rawBalanceData?.withdraws || []).map((withdraw: TDepositOrWithdraw): TDepositOrWithdraw => ({...withdraw, kind: 'withdraw'}))
@@ -116,11 +113,11 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 				.filter(({timestamp}: {timestamp: number}): boolean => timestamp < Number(dailyInfo.timestamp))
 				.reduce((acc: number, depOrWith: TDepositOrWithdraw): number => (
 					depOrWith.kind === 'deposit' ?
-						acc + format.toNormalizedValue(format.BN(depOrWith.amount), 18)
-						: acc - format.toNormalizedValue(format.BN(depOrWith.amount), 18)
+						acc + toNumber(depOrWith.amount)
+						: acc - toNumber(depOrWith.amount)
 				), 0)
-				* format.toNormalizedValue(format.BN(dailyInfo.pricePerShare), 18)
-				* Number(lastEthPrice)
+				* toNumber(dailyInfo.pricePerShare)
+				// * Number(lastEthPrice)
 		}));
 		return (memoizeMeBalanceData);
 	}, [dailyData?.vaultDailySnapshots, rawBalanceData]);
