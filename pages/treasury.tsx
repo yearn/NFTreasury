@@ -34,7 +34,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 	const	maxInData = Math.max(...data.map((d): number => d.accumulatedBalance));
 	return (
 		<div className={'flex flex-row space-x-2 w-full h-[192px]'}>
-			<ResponsiveContainer width={'95%'} height={192}>
+			<ResponsiveContainer width={'83%'} height={192}>
 				<LineChart
 					className={'overflow-hidden max-h-[192px] border-2 border-black'}
 					margin={{top: 8, right: 0, left: 0, bottom: 8}}
