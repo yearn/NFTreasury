@@ -35,6 +35,7 @@ function	SwapStep(): ReactElement {
 			appData: cowSwapQuote.quote.appData,
 			partiallyFillable: cowSwapQuote.quote.partiallyFillable,
 			kind: cowSwapQuote.quote.kind,
+			validTo: Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)),
 			sellAmountAfterFee: cowSwapQuote.quote.sellAmount.toString()
 		}] : null, fetcher, {refreshInterval: 10000});
 

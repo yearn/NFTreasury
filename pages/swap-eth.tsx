@@ -55,6 +55,7 @@ function	SwapEthPage(): ReactElement {
 		appData: process.env.COW_APP_DATA,
 		partiallyFillable: false,
 		kind: 'sell',
+		validTo: Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)),
 		sellAmountBeforeFee: ethers.utils.parseEther(Number(inputValue).toFixed(18)).toString()
 	};
 	const	{data: quoteData, error} = useSWR(inputValue !== '0' ? ['https://api.cow.fi/mainnet/api/v1/quote', quote] : null, fetcher);
@@ -119,9 +120,7 @@ function	SwapEthPage(): ReactElement {
 		if (quoteData?.quote?.buyAmount) {
 			const	buyAmount = Number(ethers.utils.formatUnits(quoteData?.quote?.buyAmount, 6));
 			const	buyAmountWithSlippage = ethers.utils.parseUnits((buyAmount * (1 - Number(process.env.DEFAULT_SLIPPAGE_COWSWAP))).toFixed(6), 6);
-			return (
-				format.amount(Number(format.units(buyAmountWithSlippage, 6)), 2, 2)
-			);
+			return (format.amount(Number(format.units(buyAmountWithSlippage, 6)), 2, 2));
 		}
 		return '';
 	};
