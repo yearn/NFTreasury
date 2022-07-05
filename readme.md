@@ -6,7 +6,7 @@
 
 ## Clone
 
-`git clone git@github.com:Majorfi/NFTreasury.git`
+`git clone git@github.com:yearn/NFTreasury.git`
 
 ## Install
 
