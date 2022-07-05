@@ -24,6 +24,7 @@ function	SwapStep(): ReactElement {
 	const	[txStatusSwap, set_txStatusSwap] = React.useState(defaultTxStatus);
 	const	[isShowingArrow, set_isShowingArrow] = useState(false);
 	const	[currentQuote, set_currentQuote] = useState<TCowSwapQuote>(cowSwapQuote as TCowSwapQuote);
+	const	[validTo, set_validTo] = useState(Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)));
 	const	[error, set_error] = useState<string>('');
 
 	const	{data: updatedQuote} = useSWR(cowSwapQuote ? [
@@ -35,9 +36,17 @@ function	SwapStep(): ReactElement {
 			appData: cowSwapQuote.quote.appData,
 			partiallyFillable: cowSwapQuote.quote.partiallyFillable,
 			kind: cowSwapQuote.quote.kind,
-			validTo: Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)),
+			validTo,
 			sellAmountAfterFee: cowSwapQuote.quote.sellAmount.toString()
 		}] : null, fetcher, {refreshInterval: 10000});
+
+	// Update validTo every minutes
+	React.useEffect((): () => void => {
+		const	interval = setInterval((): void => {
+			set_validTo(Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)));
+		}, 60000);
+		return (): void => clearInterval(interval);
+	}, []);
 
 	React.useEffect((): void => {
 		if (updatedQuote) {

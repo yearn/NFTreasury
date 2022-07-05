@@ -46,6 +46,7 @@ function	SwapEthPage(): ReactElement {
 	const	[inputValue, set_inputValue] = useState('0');
 	const	[percentage, set_percentage] = useState(0);
 	const	[balance, set_balance] = useState({raw: ethers.constants.Zero, normalized: 0});
+	const	[validTo, set_validTo] = useState(Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)));
 
 	const	quote = {
 		from: address,
@@ -55,10 +56,18 @@ function	SwapEthPage(): ReactElement {
 		appData: process.env.COW_APP_DATA,
 		partiallyFillable: false,
 		kind: 'sell',
-		validTo: Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)),
+		validTo,
 		sellAmountBeforeFee: ethers.utils.parseEther(Number(inputValue).toFixed(18)).toString()
 	};
 	const	{data: quoteData, error} = useSWR(inputValue !== '0' ? ['https://api.cow.fi/mainnet/api/v1/quote', quote] : null, fetcher);
+
+	// Update validTo every minutes
+	React.useEffect((): () => void => {
+		const	interval = setInterval((): void => {
+			set_validTo(Math.round((new Date().setMinutes(new Date().getMinutes() + 10) / 1000)));
+		}, 60000);
+		return (): void => clearInterval(interval);
+	}, []);
 
 	// Init the balance once available
 	React.useEffect((): void => {
