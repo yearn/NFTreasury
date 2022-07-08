@@ -1,4 +1,5 @@
-import	{Order}		from	'@gnosis.pm/gp-v2-contracts';
+import	{BigNumber}		from	'ethers';
+import	{Order}			from	'@gnosis.pm/gp-v2-contracts';
 
 export type	TYearnVault = {
     inception: number,
@@ -71,4 +72,12 @@ export type TCowSwapQuote = {
 	from: string,
 	expiration: string,
 	id: number
+}
+
+export type TChartData = {
+	timestamp: string
+	pricePerShare: BigNumber
+	outputTokenPriceUSD: number
+	normalizedPricePerShare: number
+	accumulatedBalance: number
 }

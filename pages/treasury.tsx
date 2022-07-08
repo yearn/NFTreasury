@@ -2,24 +2,25 @@ import	React, {ReactElement}						from	'react';
 import	Link										from	'next/link';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{format}									from	'@yearn-finance/web-lib/utils';
-import {LineChart, Line, Tooltip, XAxis,
+import	{LineChart, Line, Tooltip, XAxis,
 	ResponsiveContainer} 							from 	'recharts';
 import	WithShadow									from	'components/WithShadow';
 import	useWallet									from	'contexts/useWallet';
 import	useYearn									from	'contexts/useYearn';
+import type {TChartData}							from	'types/types';
 
-function Chart({data}: {data: any[]}): ReactElement {
-	const ActiveDot = (props: any): ReactElement => {
-		const	{cx, cy} = props;
+function Chart({data}: {data: TChartData[]}): ReactElement {
+	const ActiveDot = (props: unknown): ReactElement => {
+		const	{cx, cy} = props as {cx: number, cy: number};
 		return (
 			<svg x={cx - 5} y={cy - 5} width={10} height={10} fill={'none'} viewBox={'0 0 10 10'}>
 				<rect x={'1'} y={'1'} width={'8'} height={'8'} fill={'white'} stroke={'black'} strokeWidth={'2'}/>
 			</svg>
 		);
 	};
-	const CustomTooltip = (props: any): ReactElement | null => {
-		const	{active, payload} = props;
-		if (active && payload && payload.length) {
+	const CustomTooltip = (props: unknown): ReactElement | null => {
+		const	{active: isActive, payload} = props as {active: boolean, payload: {value: number}[]};
+		if (isActive && payload && payload.length) {
 			return (
 				<div className={'custom-tooltip'}>
 					<p className={'label'}>{`${format.amount(payload[0].value, 8, 8)} ETH`}</p>
@@ -40,7 +41,7 @@ function Chart({data}: {data: any[]}): ReactElement {
 					data={(
 						data
 							.map((dayData): {name: string, ['ETH value']: number} => ({
-								name: format.date(dayData.timestamp * 1000),
+								name: format.date(Number(dayData.timestamp) * 1000),
 								['ETH value']: Number(dayData.accumulatedBalance)
 							})))}>
 					<XAxis dataKey={'name'} stroke={'#000'} tick={false} axisLine={false} height={0} />
@@ -67,15 +68,27 @@ function	TreasuryPage(): ReactElement {
 	const	{balances, prices} = useWallet();
 	const	{yvEthData, balanceData, earnings} = useYearn();
 
-	const	chartData = React.useMemo((): any => {
-		const	_chartData = [...(balanceData || [])].sort((a, b): number => Number(a.timestamp) - Number(b.timestamp));
+	const	chartData = React.useMemo((): TChartData[] => {
+		let	_chartData = [...(balanceData || [])].sort((a, b): number => Number(a.timestamp) - Number(b.timestamp));
 		if (_chartData?.[0]?.accumulatedBalance === 0 && _chartData?.[1]?.accumulatedBalance === 0) {
-			return _chartData.slice(2);
+			_chartData = _chartData.slice(2);
 		} else if (_chartData?.[0]?.accumulatedBalance === 0) {
-			return _chartData.slice(1);
+			_chartData = _chartData.slice(1);
 		}
-		return _chartData;
-	}, [balanceData]);
+		if (_chartData.length > 0) {
+			return ([
+				..._chartData,
+				{
+					timestamp: (new Date().valueOf() / 1000).toString(),
+					pricePerShare: _chartData[_chartData.length - 1].pricePerShare,
+					outputTokenPriceUSD: _chartData[_chartData.length - 1].outputTokenPriceUSD,
+					normalizedPricePerShare: _chartData[_chartData.length - 1].normalizedPricePerShare,
+					accumulatedBalance: balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0
+				}
+			]);
+		}
+		return (_chartData);
+	}, [balanceData, balances]);
 
 	return (
 		<div className={'flex flex-col items-center w-full h-full md:flex-row justify-betwee'}>
