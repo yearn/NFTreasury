@@ -1,4 +1,6 @@
-module.exports = ({
+const withPWA = require('next-pwa');
+
+module.exports = withPWA({
 	images: {
 		domains: [
 			'rawcdn.githack.com',
