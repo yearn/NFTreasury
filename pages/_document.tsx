@@ -10,7 +10,7 @@ type TInitialProps = {
 class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext): Promise<TInitialProps> {
 		const initialProps = await Document.getInitialProps(ctx);
-		return {...initialProps};
+		return {...initialProps} as any;
 	}
 
 	render(): ReactElement {
