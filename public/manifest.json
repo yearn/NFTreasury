@@ -1,5 +1,36 @@
 {
 	"name": "NFTreasury",
+	"short_name": "NFTreasury",
 	"description": "A treasury management tool for NFT projects. Powered by Yearn.",
-	"iconPath": "./favicons/safari-pinned-tab.svg"
+	"iconPath": "./favicons/apple-icon.png",
+	"locale": "en-US",
+	"uri": "https://nft.ycorpo.com/",
+	"og": "https://nft.ycorpo.com/og.png",
+	"twitter": "@iearnfinance",
+	"github": "https://github.com/Majorfi/NFTreasury/tree/main",
+
+	"icons": [
+		{
+			"src": "./favicons/android-icon-192x192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "./favicons/android-icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		},
+		{
+			"src": "./favicons/favicon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"theme_color": "#000000",
+	"background_color": "#000000",
+	"title_color": "#FFFFFF",
+	"start_url": "/",
+	"display": "standalone",
+	"orientation": "portrait"
 }
