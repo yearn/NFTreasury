@@ -34,17 +34,17 @@ function	Index(): ReactElement {
 	const {isActive} = useWeb3();
 
 	return (
-		<section className={'flex flex-col items-center h-full md:flex-row'}>
+		<section className={'flex h-full flex-col items-center md:flex-row'}>
 			<div className={'w-full md:w-8/12'}>
 				<div>
 					<h1>{'NFTreasury.'}</h1>
 					<h3 className={'mt-1 md:mt-6'}>{'A treasury management tool for NFT projects.'}</h3>
 					<h3>{'Powered by Yearn.'}</h3>
 				</div>
-				<div className={'flex mx-auto mt-2 mb-4 w-full md:hidden'}>
+				<div className={'mx-auto mt-2 mb-4 flex w-full md:hidden'}>
 					<Gif bounce={2} damping={12} />
 				</div>
-				<div className={'flex justify-center mt-8 space-x-4 md:justify-start md:space-x-8'}>
+				<div className={'mt-8 flex justify-center space-x-4 md:justify-start md:space-x-8'}>
 					<div className={'w-full md:w-fit'}>
 						<Link href={isActive ? '/keep-eth' : '/connect-wallet'}>
 							<div>

@@ -46,14 +46,14 @@ function	ApproveWEth(): ReactElement {
 	}
 
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'mt-4 flex h-full w-full items-start pl-0 md:mt-0 md:w-6/12 md:items-center md:pl-4'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col justify-between'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Final step'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>{'For real this time. Let’s just swap your ETH (WETH) to USDC and then you’re done.'}</p>
 							<p>{'Promise'}</p>
 						</div>
@@ -73,7 +73,7 @@ function	ApproveWEth(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'flex h-[544px] min-w-[500px] items-start justify-center'}>
 				<Image
 					width={320}
 					height={285}

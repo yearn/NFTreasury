@@ -50,7 +50,7 @@ function	Header(): ReactElement {
 
 	return (
 		<>
-			<header className={'hidden flex-row justify-between items-center py-10 md:flex'}>
+			<header className={'hidden flex-row items-center justify-between py-10 md:flex'}>
 				<Link href={'/'}>
 					<div className={'cursor-pointer'}>
 						<LogoNFTreasury />
@@ -82,10 +82,10 @@ function	Header(): ReactElement {
 					</p>
 				</div>
 			</header>
-			<header className={'flex flex-row justify-between items-center py-4 mb-4 border-b-2 md:hidden border-primary-500'}>
+			<header className={'mb-4 flex flex-row items-center justify-between border-b-2 border-primary-500 py-4 md:hidden'}>
 				<Link href={'/'}>
 					<div className={'cursor-pointer'}>
-						<LogoNFTreasurySmall className={'w-10 h-10'}/>
+						<LogoNFTreasurySmall className={'h-10 w-10'}/>
 					</div>
 				</Link>
 				<div>

@@ -90,14 +90,14 @@ function	SwapStep(): ReactElement {
 	}
 
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'flex h-full items-center'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col justify-between'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Final final step'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>{'Final final step!!'}</p>
 							<p>{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let cowswap do the swap.'}</p>
 						</div>
@@ -117,7 +117,7 @@ function	SwapStep(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[544px] h-[544px]'}>
+			<div className={'flex h-[544px] min-w-[544px] items-start justify-center'}>
 				<Image
 					width={518}
 					height={535}

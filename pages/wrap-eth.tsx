@@ -45,14 +45,14 @@ function	WrapEth(): ReactElement {
 	}
 
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'flex h-full items-center'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col justify-between'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Wrap ETH'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>{'You have to sign one more transaction. That’s just how it works. Don’t ask...'}</p>
 						</div>
 					</div>
@@ -71,7 +71,7 @@ function	WrapEth(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'flex h-[544px] min-w-[500px] items-start justify-center'}>
 				<Image
 					width={279}
 					height={322}

@@ -126,11 +126,11 @@ function	KeepEthPage(): ReactElement {
 	};
 	
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'mt-4 flex h-full w-full items-start pl-0 md:mt-0 md:w-6/12 md:items-center md:pl-4'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col'}>
 					<div className={'w-full'}>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'You have'}</h2>
 							<h2 className={'font-bold'}>
 								{`${(balance.normalized).toFixed(8)} ETH`}
@@ -139,9 +139,9 @@ function	KeepEthPage(): ReactElement {
 						<div className={'w-full text-justify'}>
 							<p>{'How much ETH do you wanna keep in your wallet?'}</p>
 							<p>{'The rest will be sent to Yearn vault.'}</p>
-							<div className={'flex items-center mt-2 mb-4'}>
+							<div className={'mt-2 mb-4 flex items-center'}>
 								<input
-									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
+									className={'h-10 w-6/12 border-2 border-primary-500 p-2 ring-0 focus:border-primary-500 focus:!outline-none focus:!ring-0'}
 									type={'number'}
 									min={0}
 									max={Number(balance.normalized)}
@@ -175,14 +175,14 @@ function	KeepEthPage(): ReactElement {
 							<p>{'Next step we’ll swap some ETH to USDC.'}</p>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 grey-box'}>
-						<p className={'flex justify-between mb-4'}>
+					<div className={'grey-box mt-4 mb-6 p-4'}>
+						<p className={'mb-4 flex justify-between'}>
 							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>
 								{format.bigNumberAsAmount((balance.raw).sub(keptEth), 18, 8, 'ETH')}
 							</span>
 						</p>
-						<p className={'flex justify-between mb-4'}>
+						<p className={'mb-4 flex justify-between'}>
 							<span>{'APY'}</span>
 							<span className={'font-bold'}>
 								{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)} %` : '-'}
@@ -190,7 +190,7 @@ function	KeepEthPage(): ReactElement {
 						</p>
 						<EstimateGasRow />
 					</div>
-					<div className={'flex justify-start mt-1'}>
+					<div className={'mt-1 flex justify-start'}>
 						<div onClick={onZapEth}>
 							<WithShadow role={txStatusWrapDeposit.pending ? 'button-busy' : 'button'}>
 								<Button isBusy={txStatusWrapDeposit.pending} className={'w-[176px]'}>
@@ -201,7 +201,7 @@ function	KeepEthPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'flex h-[544px] min-w-[500px] items-start justify-center'}>
 				<Image
 					width={322}
 					height={258}

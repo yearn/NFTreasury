@@ -5,14 +5,14 @@ import	WithShadow				from	'components/WithShadow';
 
 function	DisclaimerPage(): ReactElement {
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'flex h-full items-center'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col justify-between'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Woohoo!'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>
 								{'You’re great and now you have a treasury!'}
 							</p>

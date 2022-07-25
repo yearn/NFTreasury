@@ -92,21 +92,21 @@ function	SwapEthPage(): ReactElement {
 
 
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'mt-4 flex h-full w-full items-start pl-0 md:mt-0 md:w-6/12 md:items-center md:pl-4'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col'}>
 					<div className={'w-full'}>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'You are keeping'}</h2>
 							<h2 className={'font-bold'}>
 								{`${(balance.normalized).toFixed(8)} ETH`}
 							</h2>
 						</div>
-						<div className={'space-y-4 w-full text-justify'}>
+						<div className={'w-full space-y-4 text-justify'}>
 							<p>{'How much of it do you wanna swap to USDC?'}</p>
 							<div className={'flex items-center'}>
 								<input
-									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
+									className={'h-10 w-6/12 border-2 border-primary-500 p-2 ring-0 focus:border-primary-500 focus:!outline-none focus:!ring-0'}
 									type={'number'}
 									min={0}
 									max={Number(balance.normalized)}
@@ -139,14 +139,14 @@ function	SwapEthPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 grey-box'}>
-						<p className={'flex justify-between mb-4'}>
+					<div className={'grey-box mt-4 mb-6 p-4'}>
+						<p className={'mb-4 flex justify-between'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
 								{!quoteData || error ? '- USDC' : `${format.amount(Number(format.units(quoteData?.quote?.buyAmount, 6)), 2, 2)} USDC`}
 							</span>
 						</p>
-						<p className={'flex justify-between mb-4'}>
+						<p className={'mb-4 flex justify-between'}>
 							<span>{'You’ll keep'}</span>
 							<span className={'font-bold'}>
 								{format.bigNumberAsAmount((balance.raw).sub(ethToWrap), 18, 8, 'ETH')}
@@ -160,7 +160,7 @@ function	SwapEthPage(): ReactElement {
 							<span className={'font-bold'}>{'0,0323445 ETH'}</span>
 						</div>
 					</div>
-					<div className={'flex justify-start mt-auto'}>
+					<div className={'mt-auto flex justify-start'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !quoteData?.quote}

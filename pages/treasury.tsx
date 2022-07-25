@@ -72,14 +72,14 @@ function Chart(): ReactElement {
 
 function	DisclaimerPage(): ReactElement {
 	return (
-		<div className={'flex items-center h-full'}>
+		<div className={'flex h-full items-center'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[700px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[700px] flex-col justify-between'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
 						</div>
-						<div className={'flex justify-between items-center'}>
+						<div className={'flex items-center justify-between'}>
 							<div className={'m-0'}>
 								<p>
 									{'Holdings, ETH'}
@@ -141,9 +141,9 @@ function	DisclaimerPage(): ReactElement {
 			</WithShadow>
 			<div className={'ml-24'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-[400px] h-[544px]'}>
+					<Card className={'flex h-[544px] w-[400px] flex-col justify-between'}>
 						<div className={'space-y-6'}>
-							<div className={'pb-6 w-full'}>
+							<div className={'w-full pb-6'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
 							</div>
 							<div>

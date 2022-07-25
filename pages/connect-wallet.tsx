@@ -17,14 +17,14 @@ function	DisclaimerPage(): ReactElement {
 	}, [isActive, router]);
 
 	return (
-		<div className={'flex items-start pl-0 mt-4 w-full h-full md:items-center md:pl-4 md:mt-0 md:w-6/12'}>
+		<div className={'mt-4 flex h-full w-full items-start pl-0 md:mt-0 md:w-6/12 md:items-center md:pl-4'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-[544px] h-[544px]'}>
+				<Card className={'flex h-[544px] w-[544px] flex-col justify-between'}>
 					<div>
-						<div className={'flex flex-row justify-between pb-6 w-full'}>
+						<div className={'flex w-full flex-row justify-between pb-6'}>
 							<h2 className={'font-bold'}>{'Connect project'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>
 								{'Connect your NFT project wallet that has money you want to invest.'}
 							</p>
@@ -47,7 +47,7 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-center items-start min-w-[500px] h-[544px]'}>
+			<div className={'flex h-[544px] min-w-[500px] items-start justify-center'}>
 				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>

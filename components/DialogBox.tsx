@@ -6,14 +6,14 @@ import	Link					from	'next/link';
 
 function	DialogBox({children=<div />, title='', paragraphs=['']}): ReactElement {
 	return (
-		<div className={'flex items-center w-8/12 h-full'}>
+		<div className={'flex h-full w-8/12 items-center'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col justify-between w-full h-[500px]'}>
+				<Card className={'flex h-[500px] w-full flex-col justify-between'}>
 					<div>
-						<div className={'flex flex-row justify-between pb-6 w-full'}>
+						<div className={'flex w-full flex-row justify-between pb-6'}>
 							<h3 className={'font-bold'}>{title}</h3>
 							<Link href={'/'}>
-								<Cross className={'w-6 h-6 transition-colors cursor-pointer text-neutral-500 hover:text-neutral-700'} />
+								<Cross className={'h-6 w-6 cursor-pointer text-neutral-500 transition-colors hover:text-neutral-700'} />
 							</Link>
 						</div>
 						<div className={'space-y-6 text-justify'}>
