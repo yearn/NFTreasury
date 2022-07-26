@@ -7,6 +7,9 @@ module.exports = withPWA({
 			'raw.githubusercontent.com'
 		]
 	},
+	pwa: {
+		dest: 'public'
+	},
 	env: {
 		/* 🔵 - Yearn Finance **************************************************
 		** Config over the RPC
