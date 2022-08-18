@@ -2,8 +2,8 @@ name: IPFS
 
 on:
   workflow_dispatch:
-  push: #uncomment to enable
-    branches: ["next"] #uncomment to enable
+#   push: #uncomment to enable
+    # branches: ["next"] #uncomment to enable
 
 jobs:
   deploy-ipfs:
