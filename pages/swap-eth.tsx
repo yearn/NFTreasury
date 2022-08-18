@@ -139,17 +139,17 @@ function	SwapEthPage(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'nftreasury--app-card'}>
 					<div className={'w-full'}>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'You are keeping'}</h2>
 							<h2 className={'font-bold'}>
 								{`${(balance.normalized).toFixed(8)} ETH`}
 							</h2>
 						</div>
-						<div className={'space-y-4 w-full text-justify'}>
+						<div className={'w-full space-y-4 text-justify'}>
 							<p>{'How much of it do you wanna swap to USDC?'}</p>
 							<div className={'flex items-center'}>
 								<input
-									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
+									className={'h-10 w-6/12 border-2 border-primary-500 p-2 ring-0 focus:border-primary-500 focus:!outline-none focus:!ring-0'}
 									type={'number'}
 									min={0}
 									max={Number(balance.normalized)}
@@ -182,14 +182,14 @@ function	SwapEthPage(): ReactElement {
 							</div>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
-						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
+					<div className={'nftreasury--grey-box mt-4 mb-6 p-4'}>
+						<p className={'mb-4 flex flex-col justify-between md:flex-row'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
 								{!quoteData || error ? '- USDC' : `~ ${buyAmountWithSlippage()} USDC`}
 							</span>
 						</p>
-						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
+						<p className={'mb-4 flex flex-col justify-between md:flex-row'}>
 							<span>{'You’ll keep'}</span>
 							<span className={'font-bold'}>
 								{format.bigNumberAsAmount((balance.raw).sub(ethToWrap), 18, 8, 'ETH')}
@@ -198,7 +198,7 @@ function	SwapEthPage(): ReactElement {
 						<EstimateGasRow
 							cowswapFees={quoteData ? format.toNormalizedValue(format.BN(quoteData.quote.feeAmount as string), 18) : 0} />
 					</div>
-					<div className={'hidden justify-start mt-auto md:flex'}>
+					<div className={'mt-auto hidden justify-start md:flex'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !quoteData?.quote}

@@ -9,16 +9,16 @@ function	DisclaimerPage(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'nftreasury--app-card'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Woohoo!'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>
 								{'You’re great and now you have a treasury!'}
 							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start mt-auto'}>
+					<div className={'mt-auto flex justify-start'}>
 						<Link href={'/treasury'}>
 							<div>
 								<WithShadow role={'button'}>

@@ -5,7 +5,7 @@ import	Link					from	'next/link';
 
 function	Index(): ReactElement {
 	return (
-		<section className={'flex items-center h-full'}>
+		<section className={'flex h-full items-center'}>
 			<div className={''}>
 				<div>
 					<h2>{'How Does It Work?'}</h2>
@@ -19,7 +19,7 @@ function	Index(): ReactElement {
 				<p className={'mt-8 w-full md:w-7/12'}>
 					{'Simple right?'}
 				</p>
-				<div className={'flex justify-start mt-20'}>
+				<div className={'mt-20 flex justify-start'}>
 					<Link href={'/connect-wallet'}>
 						<div>
 							<WithShadow role={'button'}>

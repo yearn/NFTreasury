@@ -49,14 +49,14 @@ function	WrapEth(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'nftreasury--app-card'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Wrap ETH'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>{'You have to sign one more transaction. That’s just how it works. Don’t ask...'}</p>
 						</div>
 					</div>
-					<div className={'flex justify-start mt-auto'}>
+					<div className={'mt-auto flex justify-start'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !provider || txStatusWrap.pending || !cowSwapQuote}
@@ -71,7 +71,7 @@ function	WrapEth(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden justify-center items-start min-w-[500px] h-[544px] md:flex'}>
+			<div className={'hidden h-[544px] min-w-[500px] items-start justify-center md:flex'}>
 				<Image
 					width={279}
 					height={322}

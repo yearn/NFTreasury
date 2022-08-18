@@ -5,7 +5,7 @@ import	Link					from	'next/link';
 
 function	Index(): ReactElement {
 	return (
-		<section className={'flex items-center w-full h-full'}>
+		<section className={'flex h-full w-full items-center'}>
 			<div className={'w-full'}>
 				<div className={'w-full'}>
 					<h2>{'We don’t have a discord'}</h2>
@@ -16,7 +16,7 @@ function	Index(): ReactElement {
 				<p className={'mt-8 w-full md:w-7/12'}>
 					{'NFTreasury is a simple yet powerful treasury management tool, powered by Yearn. We’ll give you a mix of stables and ETH for your short term project needs, and put your long term assets in a vault to earn yield until you need them. Ready to roll?'}
 				</p>
-				<div className={'flex justify-between mt-10 space-x-6 md:justify-start'}>
+				<div className={'mt-10 flex justify-between space-x-6 md:justify-start'}>
 					<div>
 						<Link href={'/connect-wallet'}>
 							<div>
