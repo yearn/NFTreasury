@@ -13,7 +13,7 @@ function	DisclaimerPage(): ReactElement {
 				<p key={'1'}>{'Users benefit from socializing gas costs and need not be experts in DeFi or the underlying protocols to utilize Yearn Vaults.'}</p>
 			]}
 		>
-			<div className={'flex justify-end mt-8 md:mt-0'}>
+			<div className={'mt-8 flex justify-end md:mt-0'}>
 				<Link href={'/what-are-the-risks'}>
 					<div>
 						<WithShadow role={'button'}>

@@ -149,20 +149,20 @@ function	SwapStep(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'nftreasury--app-card'}>
 					<div>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Final final step'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>{'Final final step!!'}</p>
 							<p>
 								{'It’s the same but this time you don’t have to pay gas! Sign a transaction and let '}
-								<a href={`https://explorer.cow.fi/address/${address}`} target={'_blank'} className={'underline cursor-pointer'} rel={'noreferrer'}>{'cowswap'}</a>
+								<a href={`https://explorer.cow.fi/address/${address}`} target={'_blank'} className={'cursor-pointer underline'} rel={'noreferrer'}>{'cowswap'}</a>
 								{' do the swap.'}
 							</p>
 						</div>
 					</div>
-					<div className={'p-4 mt-8 mb-2 nftreasury--grey-box'}>
-						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
+					<div className={'nftreasury--grey-box mt-8 mb-2 p-4'}>
+						<p className={'mb-4 flex flex-col justify-between md:flex-row'}>
 							<span>{'You’ll get'}</span>
 							<span className={'font-bold'}>
 								{!currentQuote ? '- USDC' : `~ ${buyAmountWithSlippage()} USDC`}
@@ -178,11 +178,11 @@ function	SwapStep(): ReactElement {
 						</div>
 					</div>
 
-					<div className={`p-4 mb-6 border-2 border-[#FF0000] transition-opacity ${txStatusSwap.error ? 'opacity-100' : 'opacity-0'}`}>
+					<div className={`mb-6 border-2 border-[#FF0000] p-4 transition-opacity ${txStatusSwap.error ? 'opacity-100' : 'opacity-0'}`}>
 						<p className={'text-xs font-bold text-[#FE0000]'}>{error}</p>
 					</div>
 
-					<div className={'flex justify-start mt-auto'}>
+					<div className={'mt-auto flex justify-start'}>
 						<WithShadow
 							role={'button'}
 							isDisabled={!isActive || !address || !provider || txStatusSwap.pending || !cowSwapQuote}
@@ -197,7 +197,7 @@ function	SwapStep(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden justify-center items-start min-w-[544px] h-[544px] md:flex'}>
+			<div className={'hidden h-[544px] min-w-[544px] items-start justify-center md:flex'}>
 				<Image
 					width={518}
 					height={535}

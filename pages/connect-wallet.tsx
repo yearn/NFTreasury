@@ -21,10 +21,10 @@ function	DisclaimerPage(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'nftreasury--app-card'}>
 					<div>
-						<div className={'flex flex-row justify-between pb-6 w-full'}>
+						<div className={'flex w-full flex-row justify-between pb-6'}>
 							<h2 className={'font-bold'}>{'Connect project'}</h2>
 						</div>
-						<div className={'space-y-6 w-10/12 text-justify'}>
+						<div className={'w-10/12 space-y-6 text-justify'}>
 							<p>
 								{'Connect your NFT project wallet that has money you want to invest.'}
 							</p>
@@ -33,7 +33,7 @@ function	DisclaimerPage(): ReactElement {
 							</p>
 						</div>
 					</div>
-					<div className={'flex justify-start mt-auto'}>
+					<div className={'mt-auto flex justify-start'}>
 						<div onClick={(): void => {
 							set_isShowingArrow(true);
 							openLoginModal();
@@ -47,7 +47,7 @@ function	DisclaimerPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden justify-center items-start min-w-[500px] h-[544px] md:flex'}>
+			<div className={'hidden h-[544px] min-w-[500px] items-start justify-center md:flex'}>
 				<Image width={254} height={315} quality={90} src={'/connect-wallet.svg'} className={`transition duration-1000 ease-in-out ${isShowingArrow ? 'opacity-100' : 'opacity-0'}`} />
 			</div>
 		</div>

@@ -127,7 +127,7 @@ function	DepositEthPage(): ReactElement {
 			<WithShadow role={'large'}>
 				<Card className={'nftreasury--app-card'}>
 					<div className={'w-full'}>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'You have'}</h2>
 							<h2 className={'font-bold'}>
 								{`${(balance.normalized).toFixed(8)} ETH`}
@@ -136,9 +136,9 @@ function	DepositEthPage(): ReactElement {
 						<div className={'w-full text-justify'}>
 							<p>{'How much ETH do you wanna keep in your wallet?'}</p>
 							<p>{'The rest will be sent to Yearn vault.'}</p>
-							<div className={'flex items-center mt-2 mb-4'}>
+							<div className={'mt-2 mb-4 flex items-center'}>
 								<input
-									className={'p-2 w-6/12 h-10 border-2 focus:!outline-none ring-0 focus:!ring-0 border-primary-500 focus:border-primary-500'}
+									className={'h-10 w-6/12 border-2 border-primary-500 p-2 ring-0 focus:border-primary-500 focus:!outline-none focus:!ring-0'}
 									type={'number'}
 									min={0}
 									max={Number(balance.normalized)}
@@ -172,14 +172,14 @@ function	DepositEthPage(): ReactElement {
 							<p>{'Next step we’ll swap some ETH to USDC.'}</p>
 						</div>
 					</div>
-					<div className={'p-4 mt-4 mb-6 nftreasury--grey-box'}>
-						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
+					<div className={'nftreasury--grey-box mt-4 mb-6 p-4'}>
+						<p className={'mb-4 flex flex-col justify-between md:flex-row'}>
 							<span>{'Deposit into Vault'}</span>
 							<span className={'font-bold'}>
 								{format.bigNumberAsAmount((balance.raw).sub(keptEth), 18, 8, 'ETH')}
 							</span>
 						</p>
-						<p className={'flex flex-col justify-between mb-4 md:flex-row'}>
+						<p className={'mb-4 flex flex-col justify-between md:flex-row'}>
 							<span>{'APY'}</span>
 							<span className={'font-bold'}>
 								{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)} %` : '-'}
@@ -187,7 +187,7 @@ function	DepositEthPage(): ReactElement {
 						</p>
 						<EstimateGasRow />
 					</div>
-					<div className={'flex justify-between mt-auto w-full md:justify-start md:space-x-6'}>
+					<div className={'mt-auto flex w-full justify-between md:justify-start md:space-x-6'}>
 						<div onClick={onZapEth}>
 							<WithShadow role={txStatusWrapDeposit.pending ? 'button-busy' : 'button'}>
 								<Button isBusy={txStatusWrapDeposit.pending} className={'w-[176px]'}>
@@ -205,7 +205,7 @@ function	DepositEthPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'hidden justify-center items-start min-w-[500px] h-[544px] md:flex'}>
+			<div className={'hidden h-[544px] min-w-[500px] items-start justify-center md:flex'}>
 				<Image
 					width={322}
 					height={258}

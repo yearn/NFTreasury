@@ -33,10 +33,10 @@ function Chart({data}: {data: TChartData[]}): ReactElement {
 
 	const	maxInData = Math.max(...data.map((d): number => d.accumulatedBalance));
 	return (
-		<div className={'flex flex-row space-x-2 w-full h-[192px]'}>
+		<div className={'flex h-[192px] w-full flex-row space-x-2'}>
 			<ResponsiveContainer width={'83%'} height={192}>
 				<LineChart
-					className={'overflow-hidden max-h-[192px] border-2 border-black'}
+					className={'max-h-[192px] overflow-hidden border-2 border-black'}
 					margin={{top: 8, right: 0, left: 0, bottom: 8}}
 					data={(
 						data
@@ -56,9 +56,9 @@ function Chart({data}: {data: TChartData[]}): ReactElement {
 					/>
 				</LineChart>
 			</ResponsiveContainer>
-			<div className={'flex flex-col justify-between h-full'}>
-				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{`${format.amount(Number(maxInData), 8, 8)} ETH`}</div>
-				<div className={'text-xs whitespace-nowrap text-neutral-400'}>{'0 ETH'}</div>
+			<div className={'flex h-full flex-col justify-between'}>
+				<div className={'whitespace-nowrap text-xs text-neutral-400'}>{`${format.amount(Number(maxInData), 8, 8)} ETH`}</div>
+				<div className={'whitespace-nowrap text-xs text-neutral-400'}>{'0 ETH'}</div>
 			</div>
 		</div>
 	);
@@ -91,21 +91,21 @@ function	TreasuryPage(): ReactElement {
 	}, [balanceData, balances]);
 
 	return (
-		<div className={'flex flex-col items-center w-full h-full md:flex-row justify-betwee'}>
+		<div className={'justify-betwee flex h-full w-full flex-col items-center md:flex-row'}>
 			<WithShadow role={'large'}>
-				<Card className={'flex flex-col w-full md:w-[752px] md:h-[488px]'}>
+				<Card className={'flex w-full flex-col md:h-[488px] md:w-[752px]'}>
 					<div className={'mb-8 md:w-[608px]'}>
-						<div className={'pb-6 w-full'}>
+						<div className={'w-full pb-6'}>
 							<h2 className={'font-bold'}>{'Your Treasury'}</h2>
 						</div>
-						<div className={'flex flex-wrap justify-between items-center'}>
-							<div className={'px-2 m-0 md:p-0'}>
+						<div className={'flex flex-wrap items-center justify-between'}>
+							<div className={'m-0 px-2 md:p-0'}>
 								<p>{'Holdings, ETH'}</p>
 								<p className={'font-bold'}>
 									{balances ? format.amount(balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0, 8, 8) : '-'}
 								</p>
 							</div>
-							<div className={'px-2 m-0 text-right sm:text-left md:p-0'}>
+							<div className={'m-0 px-2 text-right sm:text-left md:p-0'}>
 								<p>
 									{'Holdings, $'}
 								</p>
@@ -117,13 +117,13 @@ function	TreasuryPage(): ReactElement {
 									) : '-'}
 								</p>
 							</div>
-							<div className={'px-2 m-0 md:p-0'}>
+							<div className={'m-0 px-2 md:p-0'}>
 								<p>{'Earnings, ETH'}</p>
 								<p className={'font-bold'}>
 									{format.amount(earnings, 8, 8)}
 								</p>
 							</div>
-							<div className={'px-2 m-0 text-right sm:text-left md:p-0'}>
+							<div className={'m-0 px-2 text-right sm:text-left md:p-0'}>
 								<p>
 									{'Est. Yield, %'}
 								</p>
@@ -134,7 +134,7 @@ function	TreasuryPage(): ReactElement {
 						</div>
 					</div>
 					<Chart data={chartData || []}/>
-					<div className={'flex justify-start mt-8'}>
+					<div className={'mt-8 flex justify-start'}>
 						<Link href={'/deposit'}>
 							<div>
 								<WithShadow role={'button'}>
@@ -158,11 +158,11 @@ function	TreasuryPage(): ReactElement {
 					</div>
 				</Card>
 			</WithShadow>
-			<div className={'flex justify-end mt-8 w-full md:mt-0'}>
+			<div className={'mt-8 flex w-full justify-end md:mt-0'}>
 				<WithShadow role={'large'}>
-					<Card className={'flex flex-col justify-between w-full h-[340px] md:w-[400px] md:h-[488px]'}>
+					<Card className={'flex h-[340px] w-full flex-col justify-between md:h-[488px] md:w-[400px]'}>
 						<div className={'space-y-6'}>
-							<div className={'pb-6 w-full'}>
+							<div className={'w-full pb-6'}>
 								<h2 className={'font-bold'}>{'Your Wallet'}</h2>
 							</div>
 							<div>
@@ -178,7 +178,7 @@ function	TreasuryPage(): ReactElement {
 								</p>
 							</div>
 						</div>
-						<div className={'flex justify-start mb-0 md:mb-4'}>
+						<div className={'mb-0 flex justify-start md:mb-4'}>
 							<Link href={'/swap-eth'}>
 								<div>
 									<WithShadow role={'button'}>
