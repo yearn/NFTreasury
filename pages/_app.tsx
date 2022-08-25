@@ -61,6 +61,8 @@ function	MyApp(props: AppProps): ReactElement {
 					shouldUseTheme: false
 				},
 				web3: {
+					shouldUseWallets: true,
+					shouldUseStrictChainMode: false,
 					defaultChainID: 1,
 					supportedChainID: [1, 1337]
 				}
