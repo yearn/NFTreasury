@@ -4,11 +4,10 @@
 	"description": "A treasury management tool for NFT projects. Powered by Yearn.",
 	"iconPath": "./favicons/apple-icon.png",
 	"locale": "en-US",
-	"uri": "https://nft.ycorpo.com/",
-	"og": "https://nft.ycorpo.com/og.png",
+	"uri": "https://nftreasury.click/",
+	"og": "https://nftreasury.click/og.png",
 	"twitter": "@iearnfinance",
-	"github": "https://github.com/Majorfi/NFTreasury",
-
+	"github": "https://github.com/yearn/NFTreasury",
 	"icons": [
 		{
 			"src": "./favicons/android-icon-192x192.png",
