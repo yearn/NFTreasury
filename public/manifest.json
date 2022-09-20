@@ -1,7 +1,8 @@
 {
 	"name": "NFTreasury",
+	"short_name": "NFTreasury",
 	"description": "A treasury management tool for NFT projects. Powered by Yearn.",
-	"iconPath": "./favicons/apple-icon.png",
+	"iconPath": "./favicons/favicon.svg",
 	"locale": "en-US",
 	"uri": "https://nft.ycorpo.com/",
 	"og": "https://nft.ycorpo.com/og.png",
