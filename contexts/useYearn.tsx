@@ -16,7 +16,7 @@ type TDepositOrWithdraw = {
 type TDailyInfo = {
 	timestamp: string,
 	pricePerShare: BigNumber,
-	outputTokenPriceUSD: string
+	outputTokenPriceUSD: string,
 }
 type TBalanceData = {
 	outputTokenPriceUSD: number,
@@ -37,12 +37,12 @@ const	defaultProps: TYearnContext = {
 	earnings: 0
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const restFetcherV1 = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data.find((item: any): boolean => toAddress(item.address) === toAddress(process.env.ETH_VAULT_ADDRESS)));
+const restFetcherV1 = async (url: string): Promise<TYearnVault> => axios.get(url).then((res): TYearnVault => {
+	return res.data.find((item: TYearnVault): boolean => toAddress(item.address) === toAddress(process.env.ETH_VAULT_ADDRESS));
+});
 // const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const graphFetcher = async (url: string, query: string): Promise<any> => request(url, query);
+const graphFetcher = async (url: string, query: string): Promise<{deposits: TDepositOrWithdraw[], withdraws: TDepositOrWithdraw[], vaultDailySnapshots: TDailyInfo[]}> => request(url, query);
 
 const	YearnContext = createContext<TYearnContext>(defaultProps);
 export const YearnContextApp = ({children}: {children: React.ReactElement}): React.ReactElement => {
@@ -98,7 +98,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 		}`
 	] : null, graphFetcher);
 
-	const	balanceData = React.useMemo((): TBalanceData[] => {
+	const	balanceData = React.useMemo((): TBalanceData[] | undefined => {
 		const	depositsOrWithdraws = [
 			...(rawBalanceData?.deposits || []).map((deposit: TDepositOrWithdraw): TDepositOrWithdraw => ({...deposit, kind: 'deposit'})),
 			...(rawBalanceData?.withdraws || []).map((withdraw: TDepositOrWithdraw): TDepositOrWithdraw => ({...withdraw, kind: 'withdraw'}))
@@ -110,7 +110,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 			pricePerShare: format.BN(dailyInfo.pricePerShare),
 			normalizedPricePerShare: format.toNormalizedValue(format.BN(dailyInfo.pricePerShare), 18),
 			accumulatedBalance: depositsOrWithdraws
-				.filter(({timestamp}: {timestamp: number}): boolean => timestamp < Number(dailyInfo.timestamp))
+				.filter(({timestamp}): boolean => Number(timestamp) < Number(dailyInfo.timestamp))
 				.reduce((acc: number, depOrWith: TDepositOrWithdraw): number => (
 					depOrWith.kind === 'deposit' ?
 						acc + toNumber(depOrWith.amount)
@@ -119,7 +119,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 				* toNumber(dailyInfo.pricePerShare)
 				// * Number(lastEthPrice)
 		}));
-		return (memoizeMeBalanceData);
+		return memoizeMeBalanceData;
 	}, [dailyData?.vaultDailySnapshots, rawBalanceData]);
 
 
@@ -134,11 +134,11 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 		const	dailySnapshots = [];
 		const	revertedVaultDailySnapshots = dailyData?.vaultDailySnapshots?.reverse() || [];
 		for (const kind of depositsOrWithdraws) {
-			if (timeStampToIgnore.includes(kind.timestamp))
+			if (timeStampToIgnore.includes(Number(kind.timestamp)))
 				continue;
 			for (const dailyInfo of revertedVaultDailySnapshots) {
 				if (Number(kind.timestamp) > Number(dailyInfo.timestamp)) {
-					timeStampToIgnore.push(kind.timestamp);
+					timeStampToIgnore.push(Number(kind.timestamp));
 					dailySnapshots.push({
 						...dailyInfo,
 						amount: kind.amount,
@@ -149,12 +149,12 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 			}
 		}
 
-		const	accumulatedDeposits = dailySnapshots.reduce((acc: number, dailyInfo: any): number => {
+		const	accumulatedDeposits = dailySnapshots.reduce((acc: number, dailyInfo: TDepositOrWithdraw & TDailyInfo): number => {
 			if (dailyInfo.kind === 'withdraw')
 				return (acc - (toNumber(dailyInfo.amount) * toNumber(dailyInfo.pricePerShare)));
 			return (acc + (toNumber(dailyInfo.amount) * toNumber(dailyInfo.pricePerShare)));
 		}, 0);
-		const	accumulatedDepositsNow = dailySnapshots.reduce((acc: number, dailyInfo: any): number => {
+		const	accumulatedDepositsNow = dailySnapshots.reduce((acc: number, dailyInfo: TDepositOrWithdraw & TDailyInfo): number => {
 			if (dailyInfo.kind === 'withdraw')
 				return (acc - (toNumber(dailyInfo.amount) * toNumber(lastPPS)));
 			return (acc + (toNumber(dailyInfo.amount) * toNumber(lastPPS)));

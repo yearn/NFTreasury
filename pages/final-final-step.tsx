@@ -8,7 +8,7 @@ import	{useWeb3}									from	'@yearn-finance/web-lib';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{performBatchedUpdates, defaultTxStatus,
 	format}											from	'@yearn-finance/web-lib/utils';
-import	{domain, SigningScheme, signOrder}			from	'@gnosis.pm/gp-v2-contracts';
+import	{domain, SigningScheme, signOrder, Order}			from	'@gnosis.pm/gp-v2-contracts';
 import	WithShadow									from	'components/WithShadow';
 import	useCowSwap									from	'contexts/useCowSwap';
 import	useWallet									from	'contexts/useWallet';
@@ -56,7 +56,7 @@ function	SwapStep(): ReactElement {
 		}
 	}, [cowSwapQuote, updatedQuote]);
 
-	async function	signCowswapOrder(quote: any): Promise<string> {
+	async function	signCowswapOrder(quote: Order): Promise<string> {
 		if (shouldUsePresign) {
 			return address;
 		}

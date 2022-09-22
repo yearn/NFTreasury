@@ -3,12 +3,12 @@ import	type {TCowSwapQuote}								from	'types/types';
 
 export type	TCowSwapContext = {
 	cowSwapQuote: TCowSwapQuote | undefined,
-	set_cowSwapQuote: React.Dispatch<React.SetStateAction<any>>
+	set_cowSwapQuote: React.Dispatch<React.SetStateAction<TCowSwapQuote | undefined>>
 }
 
 const	defaultProps: TCowSwapContext = {
 	cowSwapQuote: undefined,
-	set_cowSwapQuote: (): any => undefined
+	set_cowSwapQuote: (): void => undefined
 };
 
 const	CowSwapContext = createContext<TCowSwapContext>(defaultProps);
