@@ -81,7 +81,7 @@ function	TreasuryPage(): ReactElement {
 				{
 					timestamp: (new Date().valueOf() / 1000).toString(),
 					pricePerShare: _chartData[_chartData.length - 1].pricePerShare,
-					outputTokenPriceUSD: _chartData[_chartData.length - 1].outputTokenPriceUSD,
+					tokenPriceUSDC: _chartData[_chartData.length - 1].tokenPriceUSDC,
 					normalizedPricePerShare: _chartData[_chartData.length - 1].normalizedPricePerShare,
 					accumulatedBalance: balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0
 				}

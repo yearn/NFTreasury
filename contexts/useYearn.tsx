@@ -10,16 +10,16 @@ import	type {TYearnVault}						from	'types/types';
 
 type TDepositOrWithdraw = {
 	timestamp: string,
-	amount: BigNumber,
+	tokenAmount: BigNumber,
 	kind: 'withdraw' | 'deposit'
 }
 type TDailyInfo = {
 	timestamp: string,
 	pricePerShare: BigNumber,
-	outputTokenPriceUSD: string,
+	tokenPriceUSDC: string
 }
 type TBalanceData = {
-	outputTokenPriceUSD: number,
+	tokenPriceUSDC: number,
 	pricePerShare: BigNumber,
 	normalizedPricePerShare: number,
 	accumulatedBalance: number,
@@ -62,20 +62,26 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 		'https://api.thegraph.com/subgraphs/name/rareweasel/yearn-vaults-v2-subgraph-mainnet',
 		`{
 			deposits(
-				orderBy: timestamp,
-				orderDirection: asc,
-				where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}
+				orderBy: timestamp
+				orderDirection: asc
+				where: {
+					account: "${address.toLowerCase()}"
+					vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"
+				}
 			) {
-			 timestamp
-			 amount
+				timestamp
+				tokenAmount
 			}
-			withdraws(
-				orderBy: timestamp,
-				orderDirection: asc,
-				where: {from: "${address.toLowerCase()}", vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"}
+			withdrawals(
+				orderBy: timestamp
+				orderDirection: asc
+				where: {
+					account: "${address.toLowerCase()}"
+					vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}"
+				}
 			) {
-			 timestamp
-			 amount
+				timestamp
+				tokenAmount
 			}
 		}`
 	] : null, graphFetcher);
@@ -83,17 +89,17 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	const	{data: dailyData} = useSWR((address && rawBalanceData?.deposits?.[0]) ? [
 		'https://api.thegraph.com/subgraphs/name/rareweasel/yearn-vaults-v2-subgraph-mainnet',
 		`{
-			vaultDailySnapshots(
-				orderBy: timestamp,
-				orderDirection: desc,
+			vaultDayDatas(
+				orderBy: timestamp
+				orderDirection: desc
 				where: {
-				vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}",
-				timestamp_gte: ${Number(rawBalanceData.deposits[0].timestamp) - 150000}
+					vault: "${process.env.ETH_VAULT_ADDRESS?.toLowerCase()}",
+					timestamp_gte: ${Number(rawBalanceData.deposits[0].timestamp) - 150000}
 				}
 			) {
 				timestamp
 				pricePerShare
-				outputTokenPriceUSD
+				tokenPriceUSDC
 			}
 		}`
 	] : null, graphFetcher);
@@ -106,15 +112,13 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 
 		const	memoizeMeBalanceData = dailyData?.vaultDailySnapshots?.map((dailyInfo: TDailyInfo): TBalanceData => ({
 			...dailyInfo,
-			outputTokenPriceUSD: Number(dailyInfo.outputTokenPriceUSD),
+			tokenPriceUSDC: Number(dailyInfo.tokenPriceUSDC),
 			pricePerShare: format.BN(dailyInfo.pricePerShare),
 			normalizedPricePerShare: format.toNormalizedValue(format.BN(dailyInfo.pricePerShare), 18),
 			accumulatedBalance: depositsOrWithdraws
-				.filter(({timestamp}): boolean => Number(timestamp) < Number(dailyInfo.timestamp))
-				.reduce((acc: number, depOrWith: TDepositOrWithdraw): number => (
-					depOrWith.kind === 'deposit' ?
-						acc + toNumber(depOrWith.amount)
-						: acc - toNumber(depOrWith.amount)
+				.filter(({timestamp}: {timestamp: number}): boolean => timestamp < Number(dailyInfo.timestamp))
+				.reduce((acc: number, {kind, tokenAmount}: TDepositOrWithdraw): number => (
+					kind === 'deposit' ? acc + toNumber(tokenAmount) : acc - toNumber(tokenAmount)
 				), 0)
 				* toNumber(dailyInfo.pricePerShare)
 				// * Number(lastEthPrice)
@@ -141,7 +145,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 					timeStampToIgnore.push(Number(kind.timestamp));
 					dailySnapshots.push({
 						...dailyInfo,
-						amount: kind.amount,
+						amount: kind.tokenAmount,
 						kind: kind.kind
 					});
 					break;
