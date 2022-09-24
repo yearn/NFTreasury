@@ -59,7 +59,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	**	Use the subgraph to get the user's treasury informations
 	***************************************************************************/
 	const	{data: rawBalanceData} = useSWR(address ? [
-		'https://api.thegraph.com/subgraphs/name/messari/yearn-v2-ethereum',
+		'https://api.thegraph.com/subgraphs/name/rareweasel/yearn-vaults-v2-subgraph-mainnet',
 		`{
 			deposits(
 				orderBy: timestamp,
@@ -81,7 +81,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	] : null, graphFetcher);
 
 	const	{data: dailyData} = useSWR((address && rawBalanceData?.deposits?.[0]) ? [
-		'https://api.thegraph.com/subgraphs/name/messari/yearn-v2-ethereum',
+		'https://api.thegraph.com/subgraphs/name/rareweasel/yearn-vaults-v2-subgraph-mainnet',
 		`{
 			vaultDailySnapshots(
 				orderBy: timestamp,
