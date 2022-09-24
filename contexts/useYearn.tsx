@@ -116,7 +116,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 			pricePerShare: format.BN(dailyInfo.pricePerShare),
 			normalizedPricePerShare: format.toNormalizedValue(format.BN(dailyInfo.pricePerShare), 18),
 			accumulatedBalance: depositsOrWithdraws
-				.filter(({timestamp}: {timestamp: number}): boolean => timestamp < Number(dailyInfo.timestamp))
+				.filter(({timestamp}: {timestamp: string}): boolean => Number(timestamp) < Number(dailyInfo.timestamp))
 				.reduce((acc: number, {kind, tokenAmount}: TDepositOrWithdraw): number => (
 					kind === 'deposit' ? acc + toNumber(tokenAmount) : acc - toNumber(tokenAmount)
 				), 0)
@@ -145,7 +145,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 					timeStampToIgnore.push(Number(kind.timestamp));
 					dailySnapshots.push({
 						...dailyInfo,
-						amount: kind.tokenAmount,
+						tokenAmount: kind.tokenAmount,
 						kind: kind.kind
 					});
 					break;
@@ -155,13 +155,13 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 
 		const	accumulatedDeposits = dailySnapshots.reduce((acc: number, dailyInfo: TDepositOrWithdraw & TDailyInfo): number => {
 			if (dailyInfo.kind === 'withdraw')
-				return (acc - (toNumber(dailyInfo.amount) * toNumber(dailyInfo.pricePerShare)));
-			return (acc + (toNumber(dailyInfo.amount) * toNumber(dailyInfo.pricePerShare)));
+				return (acc - (toNumber(dailyInfo.tokenAmount) * toNumber(dailyInfo.pricePerShare)));
+			return (acc + (toNumber(dailyInfo.tokenAmount) * toNumber(dailyInfo.pricePerShare)));
 		}, 0);
 		const	accumulatedDepositsNow = dailySnapshots.reduce((acc: number, dailyInfo: TDepositOrWithdraw & TDailyInfo): number => {
 			if (dailyInfo.kind === 'withdraw')
-				return (acc - (toNumber(dailyInfo.amount) * toNumber(lastPPS)));
-			return (acc + (toNumber(dailyInfo.amount) * toNumber(lastPPS)));
+				return (acc - (toNumber(dailyInfo.tokenAmount) * toNumber(lastPPS)));
+			return (acc + (toNumber(dailyInfo.tokenAmount) * toNumber(lastPPS)));
 		}, 0);
 		
 		
