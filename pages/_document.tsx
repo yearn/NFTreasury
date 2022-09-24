@@ -5,13 +5,12 @@ import Document, {Html, Head, Main,
 type TInitialProps = {
     html: string;
     head?: (JSX.Element | null)[] | undefined;
-    styles?: React.ReactElement[] | React.ReactFragment | undefined;
+    styles?: React.ReactElement[] | React.ReactFragment | JSX.Element | undefined;
 }
 
 class MyDocument extends Document {
 	static async getInitialProps(ctx: DocumentContext): Promise<TInitialProps> {
-		const initialProps = await Document.getInitialProps(ctx);
-		return {...initialProps} as any;
+		return Document.getInitialProps(ctx);
 	}
 
 	render(): ReactElement {
