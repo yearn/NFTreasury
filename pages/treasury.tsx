@@ -1,4 +1,4 @@
-import	React, {ReactElement}						from	'react';
+import	React, {ReactElement, useEffect, useState}						from	'react';
 import	Link										from	'next/link';
 import	{Card, Button}								from	'@yearn-finance/web-lib/components';
 import	{format}									from	'@yearn-finance/web-lib/utils';
@@ -65,6 +65,7 @@ function Chart({data}: {data: TChartData[]}): ReactElement {
 }
 
 function	TreasuryPage(): ReactElement {
+	const	[isReady, set_isReady] = useState(false);
 	const	{balances, prices} = useWallet();
 	const	{yvEthData, balanceData, earnings} = useYearn();
 
@@ -75,13 +76,14 @@ function	TreasuryPage(): ReactElement {
 		} else if (_chartData?.[0]?.accumulatedBalance === 0) {
 			_chartData = _chartData.slice(1);
 		}
+
 		if (_chartData.length > 0) {
 			return ([
 				..._chartData,
 				{
 					timestamp: (new Date().valueOf() / 1000).toString(),
 					pricePerShare: _chartData[_chartData.length - 1].pricePerShare,
-					outputTokenPriceUSD: _chartData[_chartData.length - 1].outputTokenPriceUSD,
+					tokenPriceUSDC: _chartData[_chartData.length - 1].tokenPriceUSDC,
 					normalizedPricePerShare: _chartData[_chartData.length - 1].normalizedPricePerShare,
 					accumulatedBalance: balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0
 				}
@@ -89,6 +91,8 @@ function	TreasuryPage(): ReactElement {
 		}
 		return (_chartData);
 	}, [balanceData, balances]);
+
+	useEffect((): void => set_isReady(true), []);
 
 	return (
 		<div className={'justify-betwee flex h-full w-full flex-col items-center md:flex-row'}>
@@ -102,7 +106,7 @@ function	TreasuryPage(): ReactElement {
 							<div className={'m-0 px-2 md:p-0'}>
 								<p>{'Holdings, ETH'}</p>
 								<p className={'font-bold'}>
-									{balances ? format.amount(balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0, 8, 8) : '-'}
+									{isReady && balances ? format.amount(balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0, 8, 8) : '-'}
 								</p>
 							</div>
 							<div className={'m-0 px-2 text-right sm:text-left md:p-0'}>
@@ -110,7 +114,7 @@ function	TreasuryPage(): ReactElement {
 									{'Holdings, $'}
 								</p>
 								<p className={'font-bold'}>
-									{balances ? format.amount(
+									{isReady && balances ? format.amount(
 										(balances[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0)
 										* (prices[process.env.ETH_VAULT_ADDRESS as string]?.normalized || 0),
 										8, 8
@@ -120,7 +124,7 @@ function	TreasuryPage(): ReactElement {
 							<div className={'m-0 px-2 md:p-0'}>
 								<p>{'Earnings, ETH'}</p>
 								<p className={'font-bold'}>
-									{format.amount(earnings, 8, 8)}
+									{earnings ? format.amount(earnings, 8, 8) : '-'}
 								</p>
 							</div>
 							<div className={'m-0 px-2 text-right sm:text-left md:p-0'}>
@@ -128,7 +132,7 @@ function	TreasuryPage(): ReactElement {
 									{'Est. Yield, %'}
 								</p>
 								<p className={'font-bold'}>
-									{yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)}` : '-'}
+									{isReady && yvEthData ? `${format.amount((yvEthData?.apy?.net_apy || 0) * 100, 2, 2)}` : '-'}
 								</p>
 							</div>
 						</div>
@@ -168,13 +172,13 @@ function	TreasuryPage(): ReactElement {
 							<div>
 								<p>{'ETH'}</p>
 								<p className={'font-bold'}>
-									{balances ? format.amount(balances[process.env.ETH_TOKEN_ADDRESS as string]?.normalized || 0, 8, 8) : '-'}
+									{isReady && balances ? format.amount(balances[process.env.ETH_TOKEN_ADDRESS as string]?.normalized || 0, 8, 8) : '-'}
 								</p>
 							</div>
 							<div>
 								<p>{'USDC'}</p>
 								<p className={'font-bold'}>
-									{balances ? format.amount(balances[process.env.USDC_TOKEN_ADDRESS as string]?.normalized || 0, 2, 6) : '-'}
+									{isReady && balances ? format.amount(balances[process.env.USDC_TOKEN_ADDRESS as string]?.normalized || 0, 2, 6) : '-'}
 								</p>
 							</div>
 						</div>

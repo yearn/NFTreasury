@@ -94,7 +94,7 @@ export type TCowSwapQuote = {
 export type TChartData = {
 	timestamp: string;
 	pricePerShare: BigNumber;
-	outputTokenPriceUSD: number;
+	tokenPriceUSDC: number;
 	normalizedPricePerShare: number;
 	accumulatedBalance: number;
 };
