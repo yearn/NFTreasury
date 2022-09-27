@@ -31,7 +31,7 @@ function	WithLayout(props: AppProps): ReactElement {
 		<div id={'app'} className={'mx-auto mb-0 flex max-w-6xl'}>
 			<div className={'flex min-h-[100vh] w-full flex-col'}>
 				<Header />
-				<AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
+				<AnimatePresence mode={'wait'} onExitComplete={handleExitComplete}>
 					<motion.div
 						key={router.asPath}
 						initial={'initial'}

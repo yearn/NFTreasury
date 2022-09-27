@@ -1,10 +1,10 @@
 import	React, {useContext, createContext}		from	'react';
-import	useSWR									from	'swr';
+import	useSWR, {SWRResponse}									from	'swr';
 import	{BigNumber}								from	'ethers';
 import	axios									from	'axios';
 import	{request}								from	'graphql-request';
 import	{useWeb3}								from	'@yearn-finance/web-lib/contexts';
-import	{format, toAddress}						from	'@yearn-finance/web-lib/utils';
+import	{format}								from	'@yearn-finance/web-lib/utils';
 import	{toNumber}								from	'utils';
 import	type {TYearnVault}						from	'types/types';
 
@@ -15,7 +15,7 @@ type TDepositOrWithdraw = {
 }
 type TDailyInfo = {
 	timestamp: string,
-	pricePerShare: BigNumber,
+	pricePerShare: string | BigNumber,
 	tokenPriceUSDC: string
 }
 type TBalanceData = {
@@ -24,6 +24,14 @@ type TBalanceData = {
 	normalizedPricePerShare: number,
 	accumulatedBalance: number,
 	timestamp: string
+}
+type TVautDayData = {
+	vaultDayDatas: TDailyInfo[]
+}
+type TBalanceRawData = {
+	deposits: TDepositOrWithdraw[],
+	withdraws: TDepositOrWithdraw[],
+	vaultDailySnapshots: TDailyInfo[]
 }
 
 export type	TYearnContext = {
@@ -37,12 +45,9 @@ const	defaultProps: TYearnContext = {
 	earnings: 0
 };
 
-const restFetcherV1 = async (url: string): Promise<TYearnVault> => axios.get(url).then((res): TYearnVault => {
-	return res.data.find((item: TYearnVault): boolean => toAddress(item.address) === toAddress(process.env.ETH_VAULT_ADDRESS));
-});
-// const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
+const restFetcher = async (url: string): Promise<any> => axios.get(url).then((res): any => res.data);
 
-const graphFetcher = async (url: string, query: string): Promise<{deposits: TDepositOrWithdraw[], withdraws: TDepositOrWithdraw[], vaultDailySnapshots: TDailyInfo[]}> => request(url, query);
+const graphFetcher = async (url: string, query: string): Promise<TBalanceRawData | TVautDayData> => request(url, query);
 
 const	YearnContext = createContext<TYearnContext>(defaultProps);
 export const YearnContextApp = ({children}: {children: React.ReactElement}): React.ReactElement => {
@@ -52,8 +57,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 	**	We will play with the yvETH vault. To correctly play with it, we need to
 	**	fetch the data from the API, especially to get the apy.net_apy
 	***************************************************************************/
-	const	{data: yvEthData} = useSWR('https://api.yearn.finance/v1/chains/1/vaults/all', restFetcherV1);
-	// const	{data: yvEthData} = useSWR(`https://api.ycorpo.com/1/vaults/${process.env.ETH_VAULT_ADDRESS}`, restFetcher);
+	const	{data: yvEthData} = useSWR(`https://ydaemon.yearn.finance/1/vaults/${process.env.ETH_VAULT_ADDRESS}`, restFetcher);
 
 	/* 🔵 - Yearn Finance ******************************************************
 	**	Use the subgraph to get the user's treasury informations
@@ -84,7 +88,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 				tokenAmount
 			}
 		}`
-	] : null, graphFetcher);
+	] : null, graphFetcher) as SWRResponse<TBalanceRawData>;
 
 	const	{data: dailyData} = useSWR((address && rawBalanceData?.deposits?.[0]) ? [
 		'https://api.thegraph.com/subgraphs/name/rareweasel/yearn-vaults-v2-subgraph-mainnet',
@@ -102,7 +106,9 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 				tokenPriceUSDC
 			}
 		}`
-	] : null, graphFetcher);
+	] : null, graphFetcher) as SWRResponse<TVautDayData>;
+
+	console.log(dailyData);
 
 	const	balanceData = React.useMemo((): TBalanceData[] | undefined => {
 		const	depositsOrWithdraws = [
@@ -110,7 +116,7 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 			...(rawBalanceData?.withdraws || []).map((withdraw: TDepositOrWithdraw): TDepositOrWithdraw => ({...withdraw, kind: 'withdraw'}))
 		];
 
-		const	memoizeMeBalanceData = dailyData?.vaultDailySnapshots?.map((dailyInfo: TDailyInfo): TBalanceData => ({
+		const	memoizeMeBalanceData = dailyData?.vaultDayDatas?.map((dailyInfo: TDailyInfo): TBalanceData => ({
 			...dailyInfo,
 			tokenPriceUSDC: Number(dailyInfo.tokenPriceUSDC),
 			pricePerShare: format.BN(dailyInfo.pricePerShare),
@@ -124,11 +130,11 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 				// * Number(lastEthPrice)
 		}));
 		return memoizeMeBalanceData;
-	}, [dailyData?.vaultDailySnapshots, rawBalanceData]);
+	}, [dailyData?.vaultDayDatas, rawBalanceData]);
 
 
 	const	earnings = React.useMemo((): number => {
-		const	lastPPS = (dailyData?.vaultDailySnapshots?.[dailyData?.vaultDailySnapshots?.length - 1]?.pricePerShare) || 0;
+		const	lastPPS = (dailyData?.vaultDayDatas?.[dailyData?.vaultDayDatas?.length - 1]?.pricePerShare) || 0;
 		const	depositsOrWithdraws = [
 			...(rawBalanceData?.deposits || []).map((deposit: TDepositOrWithdraw): TDepositOrWithdraw => ({...deposit, kind: 'deposit'})),
 			...(rawBalanceData?.withdraws || []).map((withdraw: TDepositOrWithdraw): TDepositOrWithdraw => ({...withdraw, kind: 'withdraw'}))
@@ -136,11 +142,11 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 
 		const	timeStampToIgnore: [number] = [0];
 		const	dailySnapshots = [];
-		const	revertedVaultDailySnapshots = dailyData?.vaultDailySnapshots?.reverse() || [];
+		const	revertedVaultDayDatas = dailyData?.vaultDayDatas?.reverse() || [];
 		for (const kind of depositsOrWithdraws) {
 			if (timeStampToIgnore.includes(Number(kind.timestamp)))
 				continue;
-			for (const dailyInfo of revertedVaultDailySnapshots) {
+			for (const dailyInfo of revertedVaultDayDatas) {
 				if (Number(kind.timestamp) > Number(dailyInfo.timestamp)) {
 					timeStampToIgnore.push(Number(kind.timestamp));
 					dailySnapshots.push({
@@ -164,9 +170,8 @@ export const YearnContextApp = ({children}: {children: React.ReactElement}): Rea
 			return (acc + (toNumber(dailyInfo.tokenAmount) * toNumber(lastPPS)));
 		}, 0);
 		
-		
 		return (accumulatedDepositsNow - accumulatedDeposits);
-	}, [dailyData?.vaultDailySnapshots, rawBalanceData]);
+	}, [dailyData?.vaultDayDatas, rawBalanceData]);
 
 
 	/* 🔵 - Yearn Finance ******************************************************
