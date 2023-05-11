@@ -15,6 +15,18 @@ module.exports = (phase) => withPWA({
 			'raw.githubusercontent.com'
 		]
 	},
+	async rewrites() {
+		return [
+			{
+				source: '/js/script.js',
+				destination: 'https://plausible.io/js/script.js'
+			},
+			{
+				source: '/api/event',
+				destination: 'https://plausible.io/api/event'
+			}
+		];
+	},
 	pwa: {
 		dest: 'public',
 		disable: process.env.NODE_ENV !== 'production'

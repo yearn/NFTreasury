@@ -38,6 +38,10 @@ function	Meta(): ReactElement {
 				<link rel={'apple-touch-icon'} sizes={'180x180'} href={'/favicons/apple-icon-180x180.png'} />
 				<link rel={'apple-touch-icon'} sizes={'167x167'} href={'/favicons/apple-icon-167x167.png'} />
 
+				<script
+					defer
+					data-domain={'nftreasury.click'}
+					src={'/js/script.js'} />
 
 				<meta name={'robots'} content={'index,nofollow'} />
 				<meta name={'googlebot'} content={'index,nofollow'} />
